@@ -21,6 +21,7 @@ sysinfo.txt
 *.pidb
 *.booproj
 .vsconfig
+.vs/
 
 # Rider
 .idea/
