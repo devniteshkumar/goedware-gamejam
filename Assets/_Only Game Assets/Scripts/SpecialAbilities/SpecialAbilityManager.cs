@@ -1,24 +1,103 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpecialAbilityManager : MonoBehaviour
 {
     public List<Resource> AllResources = new();
-    [Header("testing...")]
+
+
+    [Header("Properties")]
     public ResourceTypes from;
     public ResourceTypes to;
     public float amount;
+    public bool convert;
+
+    [Header("testing...")]
 
     [Header("References")]
     public AbilityConversionSO AbilityConversionSO;
+    public TMP_Dropdown from_Dropdown;
+    public TMP_Dropdown to_Dropdown;
 
+    private void Start()
+    {
+        InitializeFromDropdowns();
+        from_Dropdown.onValueChanged.AddListener(OnFromValueChanged);
+        to_Dropdown.onValueChanged.AddListener(OnToValueChanged);
+    }
+
+    private void InitializeFromDropdowns()
+    {
+        List<string> fromOptionLabels = new ();
+
+        foreach (Conversion conversion in AbilityConversionSO.Conversions)
+        {
+            string val = conversion.startingResource.resourceType.ToString();
+            if (!fromOptionLabels.Contains(val))
+                fromOptionLabels.Add(val);
+        }
+
+        from_Dropdown.ClearOptions();
+        from_Dropdown.AddOptions(fromOptionLabels);
+        from = (ResourceTypes)Enum.Parse(typeof(ResourceTypes), from_Dropdown.options[0].text);
+
+        InitializeToDropdown();
+    }
+
+    private void InitializeToDropdown()
+    {
+        List<string> toOptionLabels = new();
+
+        foreach (Conversion conversion in AbilityConversionSO.Conversions)
+        {
+            string val = conversion.convertedResource.resourceType.ToString();
+            if (from == conversion.startingResource.resourceType && !toOptionLabels.Contains(val))
+            {
+                toOptionLabels.Add(val);
+            }
+        }
+
+        to_Dropdown.ClearOptions();
+        to_Dropdown.AddOptions(toOptionLabels);
+        to = (ResourceTypes)Enum.Parse(typeof(ResourceTypes), to_Dropdown.options[0].text);
+    }
+
+
+    private void OnFromValueChanged(int value)
+    {
+        from = (ResourceTypes)Enum.Parse(typeof(ResourceTypes), from_Dropdown.options[value].text);
+        InitializeToDropdown();
+    }
+
+    private void OnToValueChanged(int value)
+    {
+        to = (ResourceTypes)Enum.Parse(typeof(ResourceTypes), to_Dropdown.options[value].text);
+    }
+
+    
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && ConvertSpecialAbility(from, amount, to))
+        if (Input.GetKeyUp(KeyCode.KeypadEnter) || convert)
+        {
+            convert = false;
+            if (ConvertSpecialAbility(from, amount, to))
+            {
+                GameManager.Instance.debugMessageTextToShow = "Converted";
+            }
+        }
+    }
+
+    public void DoConversion()
+    {
+        if (ConvertSpecialAbility(from, amount, to))
         {
             GameManager.Instance.debugMessageTextToShow = "Converted";
         }
     }
+
 
     public bool ConvertSpecialAbility(ResourceTypes from_resource, float amount, ResourceTypes to_resource)
     {
