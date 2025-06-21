@@ -17,6 +17,6 @@ public class Conversion
 [System.Serializable]
 public class ResourceAmount
 {
-    public ResourceTypes recsource;
+    public ResourceTypes resourceType;
     public float amount;
 }
