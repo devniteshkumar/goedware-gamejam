@@ -21,6 +21,7 @@ public class SpecialAbilityManager : MonoBehaviour
     public AbilityConversionSO AbilityConversionSO;
     public TMP_Dropdown from_Dropdown;
     public TMP_Dropdown to_Dropdown;
+    public Animator UIAnimator;
 
     private void Start()
     {
@@ -88,6 +89,16 @@ public class SpecialAbilityManager : MonoBehaviour
                 GameManager.Instance.debugMessageTextToShow = "Converted";
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            UIAnimator.SetBool("Load", true);
+        }
+    }
+
+    public void UnLoadUI()
+    {
+        UIAnimator.SetBool("Load", false);
     }
 
     public void DoConversion()
