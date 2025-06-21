@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SpecialAbilityManager : MonoBehaviour
 {
@@ -21,6 +20,7 @@ public class SpecialAbilityManager : MonoBehaviour
     public AbilityConversionSO AbilityConversionSO;
     public TMP_Dropdown from_Dropdown;
     public TMP_Dropdown to_Dropdown;
+    public TMP_InputField amountInput;
     public Animator UIAnimator;
 
     private void Start()
@@ -28,6 +28,12 @@ public class SpecialAbilityManager : MonoBehaviour
         InitializeFromDropdowns();
         from_Dropdown.onValueChanged.AddListener(OnFromValueChanged);
         to_Dropdown.onValueChanged.AddListener(OnToValueChanged);
+        amountInput.onEndEdit.AddListener(OnAmountEndEdit);
+    }
+
+    private void OnAmountEndEdit(string value)
+    {
+        amount = float.Parse(value);
     }
 
     private void InitializeFromDropdowns()
