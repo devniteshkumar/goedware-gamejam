@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7825244033540569369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4820284164927858381}
+  - component: {fileID: 2056551699900699302}
+  - component: {fileID: 1474517390497154252}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4820284164927858381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7825244033540569369}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2056551699900699302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7825244033540569369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f763c9912e640a949b0ebde99a116aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugMessageTextToShow: 
+  DebugMessageText: {fileID: 0}
+--- !u!114 &1474517390497154252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7825244033540569369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2748b778d8bb44c86bb954f6153835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllResources:
+  - resourceType: 0
+    amount: 100
+  - resourceType: 1
+    amount: 10
+  - resourceType: 2
+    amount: 10
+  - resourceType: 3
+    amount: 10
+  - resourceType: 4
+    amount: 100
+  - resourceType: 5
+    amount: 20
+  from: 0
+  to: 1
+  amount: 5
+  convert: 0
+  AbilityConversionSO: {fileID: 11400000, guid: cd2ff4c21e49f6d42be88cfb07fe1cb4, type: 2}
+  from_Dropdown: {fileID: 0}
+  to_Dropdown: {fileID: 0}
+  UIAnimator: {fileID: 0}

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +29,27 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+
+    private void Start()
+    {
+        //LoadSceneAdditiveIfNotLoaded("Nitesh");
+        //LoadSceneAdditiveIfNotLoaded("Vishal");
+    }
+
+    private void LoadSceneAdditiveIfNotLoaded(string sceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene loadedScene = SceneManager.GetSceneAt(i);
+            if (loadedScene.name == sceneName)
+            {
+                return;
+            }
+        }
+
+        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
     }
 
     private void Update()
