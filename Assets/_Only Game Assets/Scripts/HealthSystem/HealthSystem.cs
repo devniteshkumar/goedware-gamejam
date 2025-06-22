@@ -4,15 +4,25 @@ public class HealthSystem : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
-
+    public HealthUI healthUI;
     void Start()
     {
         currentHealth = maxHealth;
+        if (healthUI != null)
+        {
+            healthUI.SetMaxHealth(maxHealth);
+            healthUI.SetHealth(currentHealth); // to initialize UI
+        }
     }
 
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        currentHealth = Mathf.Max(currentHealth, 0); // prevent negative values
+
+        if (healthUI != null)
+            healthUI.SetHealth(currentHealth);
+
         if (currentHealth <= 0)
         {
             Die();
@@ -26,6 +36,9 @@ public class HealthSystem : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+
+        if (healthUI != null)
+            healthUI.SetHealth(currentHealth);
     }
 
     void Die()
