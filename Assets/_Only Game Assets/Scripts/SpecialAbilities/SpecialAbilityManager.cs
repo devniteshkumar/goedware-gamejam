@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -30,9 +31,12 @@ public class SpecialAbilityManager : MonoBehaviour
     private void Start()
     {
         InitializeFromDropdowns();
-        from_Dropdown.onValueChanged.AddListener(OnFromValueChanged);
-        to_Dropdown.onValueChanged.AddListener(OnToValueChanged);
-        amountInput.onEndEdit.AddListener(OnAmountEndEdit);
+        if (from_Dropdown != null && to_Dropdown != null && amountInput != null)
+        {
+            from_Dropdown.onValueChanged.AddListener(OnFromValueChanged);
+            to_Dropdown.onValueChanged.AddListener(OnToValueChanged);
+            amountInput.onEndEdit.AddListener(OnAmountEndEdit);
+        }
     }
 
     private void OnAmountEndEdit(string value)
@@ -129,13 +133,16 @@ public class SpecialAbilityManager : MonoBehaviour
 
     private void OnToggleUIPressed()
     {
-        UIAnimator.SetBool("Load", true);
+        UIAnimator.SetBool("Load", !UIAnimator.GetBool("Load"));
+        Time.timeScale = Time.timeScale == 1 ? 0.1f : 1f;
     }
 
     public void UnLoadUI()
     {
+        Time.timeScale = 1f;
         UIAnimator.SetBool("Load", false);
     }
+
 
     public void DoConversion()
     {
@@ -212,6 +219,7 @@ public enum ResourceTypes
     AttackingRadius,
     Health,
     TimeFreeze,
+    NoOfTeleports,
 }
 
 [System.Serializable]
