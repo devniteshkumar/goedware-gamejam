@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,16 +13,24 @@ public class SpecialAbilityManager : MonoBehaviour
     [Header("Properties")]
     public ResourceTypes from;
     public ResourceTypes to;
-    public float amount;
+    public float fromAmount;
+    public float toAmount;
     public bool convert;
+    public List<RectTransform> resourceContainers = new();
 
     [Header("testing...")]
 
-    [Header("References")]
-    public AbilityConversionSO AbilityConversionSO;
+    [Header("UI References")]
     public TMP_Dropdown from_Dropdown;
     public TMP_Dropdown to_Dropdown;
     public TMP_InputField amountInput;
+    public TMP_Text toAmountText;
+    public RectTransform parentOfResourceContainer;
+    public RectTransform resourceContainerPrefab;
+
+
+    [Header("References")]
+    public AbilityConversionSO AbilityConversionSO;
     public Animator UIAnimator;
     public InputActionAsset inputActions;
     private InputAction convertAction;
@@ -30,14 +39,50 @@ public class SpecialAbilityManager : MonoBehaviour
     private void Start()
     {
         InitializeFromDropdowns();
-        from_Dropdown.onValueChanged.AddListener(OnFromValueChanged);
-        to_Dropdown.onValueChanged.AddListener(OnToValueChanged);
-        amountInput.onEndEdit.AddListener(OnAmountEndEdit);
+        if (from_Dropdown != null && to_Dropdown != null && amountInput != null)
+        {
+            from_Dropdown.onValueChanged.AddListener(OnFromValueChanged);
+            to_Dropdown.onValueChanged.AddListener(OnToValueChanged);
+            amountInput.onEndEdit.AddListener(OnAmountEndEdit);
+        }
+        InitializeResourceContainers();
     }
+
+    private void InitializeResourceContainers()
+    {
+        foreach (Resource resource in AllResources)
+        {
+            RectTransform resourceContainer = Instantiate(resourceContainerPrefab, parentOfResourceContainer);
+            resourceContainer.gameObject.SetActive(true);
+            TMP_Text[] tMP_Texts = resourceContainer.GetComponentsInChildren<TMP_Text>();
+            tMP_Texts[0].text = resource.resourceType.ToString();
+            tMP_Texts[1].text = resource.amount.ToString();
+            resourceContainers.Add(resourceContainer);
+        }
+    }
+
+    public void SetResourceContainers()
+    {
+        foreach (RectTransform resourceContainer in resourceContainers)
+        {
+            TMP_Text[] tMP_Texts = resourceContainer.GetComponentsInChildren<TMP_Text>();
+            string resourceName = tMP_Texts[0].text;
+
+            if (Enum.TryParse(resourceName, out ResourceTypes resourceType))
+            {
+                Resource res = GetResource(resourceType);
+                if (res != null)
+                    tMP_Texts[1].text = res.amount.ToString();
+            }
+        }
+    }
+
 
     private void OnAmountEndEdit(string value)
     {
-        amount = float.Parse(value);
+        fromAmount = float.Parse(value);
+        toAmount = CalculateConvertedResource();
+        toAmountText.text = toAmount.ToString();
     }
 
     private void InitializeFromDropdowns()
@@ -70,10 +115,11 @@ public class SpecialAbilityManager : MonoBehaviour
                 toOptionLabels.Add(val);
             }
         }
-
         to_Dropdown.ClearOptions();
         to_Dropdown.AddOptions(toOptionLabels);
         to = (ResourceTypes)Enum.Parse(typeof(ResourceTypes), to_Dropdown.options[0].text);
+        toAmount = CalculateConvertedResource();
+        toAmountText.text = toAmount.ToString();
     }
 
 
@@ -86,6 +132,8 @@ public class SpecialAbilityManager : MonoBehaviour
     private void OnToValueChanged(int value)
     {
         to = (ResourceTypes)Enum.Parse(typeof(ResourceTypes), to_Dropdown.options[value].text);
+        toAmount = CalculateConvertedResource();
+        toAmountText.text = toAmount.ToString();
     }
 
 
@@ -121,25 +169,29 @@ public class SpecialAbilityManager : MonoBehaviour
 
     private void OnConvertPressed()
     {
-        if (ConvertSpecialAbility(from, amount, to))
+        if (ConvertSpecialAbility(from, fromAmount, to))
         {
             GameManager.Instance.debugMessageTextToShow = "Converted";
+            SetResourceContainers();
         }
     }
 
     private void OnToggleUIPressed()
     {
-        UIAnimator.SetBool("Load", true);
+        UIAnimator.SetBool("Load", !UIAnimator.GetBool("Load"));
+        Time.timeScale = Time.timeScale == 1 ? 0.1f : 1f;
     }
 
     public void UnLoadUI()
     {
+        Time.timeScale = 1f;
         UIAnimator.SetBool("Load", false);
     }
 
+
     public void DoConversion()
     {
-        if (ConvertSpecialAbility(from, amount, to))
+        if (ConvertSpecialAbility(from, fromAmount, to))
         {
             GameManager.Instance.debugMessageTextToShow = "Converted";
         }
@@ -185,7 +237,21 @@ public class SpecialAbilityManager : MonoBehaviour
         }
     }
 
+    public float CalculateConvertedResource()
+    {
+        foreach (Conversion conversion in AbilityConversionSO.Conversions)
+        {
+            if (conversion.startingResource.resourceType == from && conversion.convertedResource.resourceType == to)
+            {
+                float ratio = conversion.convertedResource.amount / conversion.startingResource.amount;
+                float result = fromAmount * ratio;
+                return result;
+            }
+        }
 
+        GameManager.Instance.debugMessageTextToShow = "Conversion is not defined!";
+        return 0;
+    }
 
     public Resource GetResource(ResourceTypes resourceType)
     {
@@ -212,6 +278,7 @@ public enum ResourceTypes
     AttackingRadius,
     Health,
     TimeFreeze,
+    NoOfTeleports,
 }
 
 [System.Serializable]
