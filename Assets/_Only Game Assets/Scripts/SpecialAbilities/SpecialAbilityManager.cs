@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SpecialAbilityManager : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class SpecialAbilityManager : MonoBehaviour
     public TMP_Dropdown to_Dropdown;
     public TMP_InputField amountInput;
     public Animator UIAnimator;
+    public InputActionAsset inputActions;
+    private InputAction convertAction;
+    private InputAction toggleUIAction;
 
     private void Start()
     {
@@ -38,7 +42,7 @@ public class SpecialAbilityManager : MonoBehaviour
 
     private void InitializeFromDropdowns()
     {
-        List<string> fromOptionLabels = new ();
+        List<string> fromOptionLabels = new();
 
         foreach (Conversion conversion in AbilityConversionSO.Conversions)
         {
@@ -84,22 +88,48 @@ public class SpecialAbilityManager : MonoBehaviour
         to = (ResourceTypes)Enum.Parse(typeof(ResourceTypes), to_Dropdown.options[value].text);
     }
 
-    
+
+    private void OnEnable()
+    {
+        var uiMap = inputActions.FindActionMap("Actions");
+
+        convertAction = uiMap.FindAction("Convert");
+        toggleUIAction = uiMap.FindAction("ToggleUI");
+
+        convertAction.performed += _ => OnConvertPressed();
+        toggleUIAction.performed += _ => OnToggleUIPressed();
+
+        convertAction.Enable();
+        toggleUIAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        convertAction.Disable();
+        toggleUIAction.Disable();
+    }
+
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.KeypadEnter) || convert)
+        // Optional — for manual inspector trigger
+        if (convert)
         {
             convert = false;
-            if (ConvertSpecialAbility(from, amount, to))
-            {
-                GameManager.Instance.debugMessageTextToShow = "Converted";
-            }
+            OnConvertPressed();
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.X))
+    private void OnConvertPressed()
+    {
+        if (ConvertSpecialAbility(from, amount, to))
         {
-            UIAnimator.SetBool("Load", true);
+            GameManager.Instance.debugMessageTextToShow = "Converted";
         }
+    }
+
+    private void OnToggleUIPressed()
+    {
+        UIAnimator.SetBool("Load", true);
     }
 
     public void UnLoadUI()
@@ -126,7 +156,7 @@ public class SpecialAbilityManager : MonoBehaviour
         }
 
         return Convert(resourceToChange);
-        
+
 
         bool Convert(Resource resource)
         {
