@@ -14,6 +14,7 @@ public class Wave
     public List<EnemyType> EnemyTypes;
     public List<Drop> dropsGivenAtEnd;
     public int noOfDropsToGiveFromList;
+    public int timeAfterNextWaveStart;
 }
 
 [System.Serializable]
@@ -21,6 +22,7 @@ public class EnemyType
 {
     public GameObject EnemyPrefab;
     public int amountToSpawn;
+    public float minDistanceFromPlayerToSpawn;
     [Tooltip("0 for all to be spawned at Start of Wave, 0.5 for all to be spawned at half time of Wave and 1 for all to be spawned at End")] public float spawnStartTime_0to1;
     [Tooltip("Time till all Enemies should be spawned")] public float spawnEndTime_0to1;
     public int spawnStartAngle;

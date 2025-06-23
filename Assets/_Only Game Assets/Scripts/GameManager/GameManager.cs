@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
 
     [Header("References")]
-    public TMP_Text DebugMessageText;
+    [SerializeField] TMP_Text DebugMessageText;
 
 
     public static GameManager Instance { get; private set; }
