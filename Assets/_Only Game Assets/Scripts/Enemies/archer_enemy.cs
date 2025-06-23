@@ -14,36 +14,37 @@ public class archer_enemy : MonoBehaviour
     Quaternion rotation;
     Vector2 movedir;
 
-    public int maxHealth = 100;
-    public int currentHealth;
+    public HealthSystem HealthSystem;
     public HealthUI healthUI;
-
+    enemy_healer enemy_healer ;
     [SerializeField] float range_of_player;
     [SerializeField] float speed;
     [SerializeField] float arrow_speed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [System.Obsolete]
     void Start()
     {
-        currentHealth = maxHealth;
-        if (healthUI != null)
-        {
-            healthUI.SetMaxHealth(maxHealth);
-            healthUI.SetHealth(currentHealth); // to initialize UI
-        }
+
         col = gameObject.GetComponent<BoxCollider2D>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
+        enemy_healer = FindObjectOfType<enemy_healer>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (HealthSystem.currentHealth != HealthSystem.maxHealth)
+        {
+            enemy_healer.enemy_to_heal.Push(gameObject) ;
+        }
+        
         if (Input.GetKeyDown(KeyCode.Q))
         {
             var healthSystem = gameObject.GetComponent<HealthSystem>();
             healthSystem.TakeDamage(20);
-              
+
         }
 
         RotateEnemy();
