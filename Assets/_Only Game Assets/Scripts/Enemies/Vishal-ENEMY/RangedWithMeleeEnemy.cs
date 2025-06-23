@@ -18,6 +18,7 @@ public class RangedWithMeleeEnemy : MonoBehaviour
     [Header("Missile Properties")]
     public GameObject missilePrefab;
     public float missileCooldown = 10f;
+    public float missileSpeed = 5;
     public float maxSize = 5;
     public float minSize = 1;
     public float sizeIncrementationRate = 0.5f;
@@ -70,26 +71,43 @@ public class RangedWithMeleeEnemy : MonoBehaviour
     void FireMissile(Vector2 direction)
     {
         GameObject missile = Instantiate(missilePrefab, transform.position, Quaternion.identity);
-        missiles.Add(new Missile(missile, (player.transform.position - transform.position)/2));
-        missile.GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * 5f;
+        if (missile == null)
+        {
+            Debug.LogError("Missile instantiation failed!");
+            return;
+        }
+
+        Vector2 midPoint = (player.position + transform.position) / 2;
+        missiles.Add(new Missile(missile, midPoint));
+
+        Rigidbody2D rb = missile.GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            Debug.LogError("Missile prefab missing Rigidbody2D!");
+            return;
+        }
+
+        rb.linearVelocity = direction.normalized * (-missileSpeed);
     }
+
 
     private void HandleMissileMovementAndDamage()
     {
-        foreach (var missile in missiles)
+        for (int i = missiles.Count - 1; i >= 0; i--)
         {
+            Missile missile = missiles[i];
             float dot = Vector2.Dot(missile.rb.linearVelocity, missile.center - (Vector2)missile.missile.transform.position);
             int result = dot < 0 ? -1 : (dot > 0 ? 1 : 0);
 
             missile.missile.transform.localScale += Vector3.one * sizeIncrementationRate * Time.deltaTime * result;
-            
-            if ((missile.missile.transform.position - player.transform.position).magnitude > missile.travelDistance)
+
+            if ((missile.missile.transform.position - transform.position).magnitude > missile.travelDistance)
             {
-                //TODO Explode
-                missiles.Remove(missile);
                 Destroy(missile.missile);
+                missiles.RemoveAt(i);
             }
         }
+
     }
 
     void HandleMinionSpawn()
@@ -115,50 +133,6 @@ public class RangedWithMeleeEnemy : MonoBehaviour
     }
 }
 
-public class Minion : MonoBehaviour
-{
-    public float speed = 5f;
-    public int damage = 10;
-    public int health = 1;
-    private Transform player;
-    private bool isFriendly = false;
-
-    void Start()
-    {
-        player = GameObject.FindWithTag("Player").transform;
-    }
-
-    void Update()
-    {
-        if (!player) return;
-
-        Vector2 dir = (player.position - transform.position).normalized;
-        transform.position += (Vector3)(dir * speed * Time.deltaTime);
-    }
-
-    public void BecomeFriendly()
-    {
-        isFriendly = true;
-        // Optional: change tag, color, behavior, etc.
-        gameObject.tag = "PlayerAlly";
-        GetComponent<SpriteRenderer>().color = Color.green;
-    }
-
-    public void TakeDamage(int amount)
-    {
-        health -= amount;
-        if (health <= 0) Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!isFriendly && other.CompareTag("Player"))
-        {
-            // Damage the player here
-            Destroy(gameObject);
-        }
-    }
-}
 
 public class Missile
 {

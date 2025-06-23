@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2682350cbe3de8a4ca6a86a1fbd2d688, type: 3}
   m_Name: TestWaves
   m_EditorClassIdentifier: 
-  waves: []
+  waves:
+  - WaveDuration: 60
+    EnemyTypes:
+    - EnemyPrefab: {fileID: 0}
+      amountToSpawn: 0
+      minDistanceFromPlayerToSpawn: 0
+      spawnStartTime_0to1: 0
+      spawnEndTime_0to1: 0
+      spawnStartAngle: 0
+      spawnEndAngle: 0
+    dropsGivenAtEnd: []
+    noOfDropsToGiveFromList: 0
+    timeAfterNextWaveStart: 0
