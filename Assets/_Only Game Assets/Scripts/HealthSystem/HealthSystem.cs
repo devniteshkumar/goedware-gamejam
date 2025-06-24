@@ -44,7 +44,7 @@ public class HealthSystem : MonoBehaviour
     void Die()
     {
         // Handle death logic here
-        Debug.Log("You died!");
+        GameManager.Instance.debugMessageTextToShow = "You Died!";
     }
 }
 

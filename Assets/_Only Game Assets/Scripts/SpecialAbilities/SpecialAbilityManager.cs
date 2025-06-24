@@ -38,14 +38,14 @@ public class SpecialAbilityManager : MonoBehaviour
 
     private void Start()
     {
-        InitializeFromDropdowns();
         if (from_Dropdown != null && to_Dropdown != null && amountInput != null)
         {
+            InitializeFromDropdowns();
             from_Dropdown.onValueChanged.AddListener(OnFromValueChanged);
             to_Dropdown.onValueChanged.AddListener(OnToValueChanged);
             amountInput.onEndEdit.AddListener(OnAmountEndEdit);
+            InitializeResourceContainers();
         }
-        InitializeResourceContainers();
     }
 
     private void InitializeResourceContainers()
@@ -139,23 +139,30 @@ public class SpecialAbilityManager : MonoBehaviour
 
     private void OnEnable()
     {
-        var uiMap = inputActions.FindActionMap("Actions");
+        if (inputActions != null)
+        {
+            var uiMap = inputActions.FindActionMap("Actions");
 
-        convertAction = uiMap.FindAction("Convert");
-        toggleUIAction = uiMap.FindAction("ToggleUI");
+            convertAction = uiMap.FindAction("Convert");
+            toggleUIAction = uiMap.FindAction("ToggleUI");
 
-        convertAction.performed += _ => OnConvertPressed();
-        toggleUIAction.performed += _ => OnToggleUIPressed();
+            convertAction.performed += _ => OnConvertPressed();
+            toggleUIAction.performed += _ => OnToggleUIPressed();
 
-        convertAction.Enable();
-        toggleUIAction.Enable();
+            convertAction.Enable();
+            toggleUIAction.Enable();
+        }
     }
 
     private void OnDisable()
     {
-        convertAction.Disable();
-        toggleUIAction.Disable();
+        if (convertAction.enabled && toggleUIAction.enabled)
+        {
+            convertAction.Disable();
+            toggleUIAction.Disable();
+        }
     }
+
 
     private void Update()
     {
