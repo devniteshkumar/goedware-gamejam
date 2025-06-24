@@ -1646,6 +1646,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ranged Melee Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6337952323835363133, guid: 5851fe4b1b490534ab500f22c77ca646, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2039,17 +2043,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6386437955335484984}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff3549ad44aebf54b9ebb99f83cca53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyWaveSO: {fileID: 11400000, guid: 86fc81fb212a01a489b260ef33ff878d, type: 2}
-  spawnCenter: {fileID: 0}
+  spawnCenter: {fileID: 230707060}
+  currentWave: -1
+  LevelDone: 0
+  pauseAll: 0
+  startWaveWaitingTime: 0
+  allEnemyPropertiesInWave: []
+  allEnemiesInWave: []
   totalWaveTime: 0
   time: 0
+  waveWaitingTime: 0
   waveTime: 0
-  currentWave: -1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

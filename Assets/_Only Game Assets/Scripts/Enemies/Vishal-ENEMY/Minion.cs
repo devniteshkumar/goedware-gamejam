@@ -63,12 +63,16 @@ public class Minion : MonoBehaviour
                 healthSystem.TakeDamage(damage);
                 damageTimer = damageInterval;
             }
+        }else if (isGood && !other.CompareTag("Enemy"))
+        {
+            BecomeGood();
         }
     }
 
     public void BecomeGood()
     {
         isGood = true;
+        gameObject.tag = "GoodMinion";
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         float closestDist = Mathf.Infinity;
@@ -87,6 +91,9 @@ public class Minion : MonoBehaviour
         if (closestEnemy != null)
         {
             target = closestEnemy;
+        }else
+        {
+            target = GameObject.FindWithTag("Player").transform;
         }
     }
 }

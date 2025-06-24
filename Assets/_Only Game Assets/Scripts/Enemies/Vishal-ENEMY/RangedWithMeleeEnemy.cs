@@ -40,6 +40,11 @@ public class RangedWithMeleeEnemy : MonoBehaviour
         spawnTimer = spawnCooldown;
     }
 
+    private void OnDisable()
+    {
+        OnDeath();
+    }
+
     void Update()
     {
         if (!player) return;
@@ -142,7 +147,10 @@ public class RangedWithMeleeEnemy : MonoBehaviour
 
     public void OnDeath()
     {
-        //make them green and go player side
+        foreach (var minion in activeMinions)
+        {
+            minion.GetComponent<Minion>().BecomeGood();
+        }
     }
 }
 
