@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +15,12 @@ public class RangedWithMeleeEnemy : MonoBehaviour
     public GameObject minionPrefab;
     public float spawnCooldown = 3f;
     public float spawnRadius = 2f;
-    
+    public int maxMinionCount = 5;
+    private List<GameObject> activeMinions = new();
+
     [Header("Missile Properties")]
     public GameObject missilePrefab;
+    public GameObject damageArea;
     public float missileCooldown = 10f;
     public float missileSpeed = 5;
     public float maxSize = 5;
@@ -105,9 +109,10 @@ public class RangedWithMeleeEnemy : MonoBehaviour
             {
                 Destroy(missile.missile);
                 missiles.RemoveAt(i);
+                GameObject obj = Instantiate(damageArea, missile.missile.transform.position, Quaternion.identity);
+                Destroy(obj, 2);
             }
         }
-
     }
 
     void HandleMinionSpawn()
@@ -122,9 +127,17 @@ public class RangedWithMeleeEnemy : MonoBehaviour
 
     void SpawnMinion()
     {
+        // Remove nulls from destroyed minions
+        activeMinions.RemoveAll(minion => minion == null);
+
+        if (activeMinions.Count >= maxMinionCount)
+            return;
+
         Vector2 dir = Random.insideUnitCircle.normalized;
         Vector3 pos = transform.position + (Vector3)dir * spawnRadius;
-        Instantiate(minionPrefab, pos, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+
+        GameObject minion = Instantiate(minionPrefab, pos, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+        activeMinions.Add(minion); 
     }
 
     public void OnDeath()
