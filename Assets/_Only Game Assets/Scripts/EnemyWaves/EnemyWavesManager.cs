@@ -8,14 +8,21 @@ public class EnemyWavesManager : MonoBehaviour
 
     [Header("Properties")]
     [SerializeField] private Transform spawnCenter;
+    public int currentWave = -1;
+    public bool LevelDone;
+    public bool pauseAll;
+    public bool startWaveWaitingTime;
+    
+    [Header("Data While Running")]
+    public List<EnemyProperties> allEnemyPropertiesInWave = new();
+    public List<GameObject> allEnemiesInWave = new();
+
+
+    [Header("Time")]
     public float totalWaveTime;
     public float time;
     public float waveWaitingTime;
-    public bool startWaveWaitingTime;
     public float waveTime;
-    public int currentWave = -1;
-    public List<EnemyProperties> allEnemyPropertiesInWave = new();
-    public bool LevelDone;
 
     private void Start()
     {
@@ -25,7 +32,13 @@ public class EnemyWavesManager : MonoBehaviour
 
     private void Update()
     {
-        if (LevelDone) return;
+        CheckIfEnemiesDied();
+        if (allEnemiesInWave.Count <= 0)
+        {
+            pauseAll = false;
+        }
+
+        if (LevelDone || pauseAll) return;
         if (time > totalWaveTime && !LevelDone)
         {
             GameManager.Instance.debugMessageTextToShow = "Level Complete!";
@@ -47,6 +60,17 @@ public class EnemyWavesManager : MonoBehaviour
 
         EnemySpawn();
     }
+    private void CheckIfEnemiesDied()
+    {
+        for (int i = allEnemiesInWave.Count - 1; i >= 0; i--)
+        {
+            if (allEnemiesInWave[i] == null)
+            {
+                allEnemiesInWave.RemoveAt(i);
+            }
+        }
+    }
+
 
     private void EnemySpawn()
     {
@@ -72,7 +96,7 @@ public class EnemyWavesManager : MonoBehaviour
                 if (waveTime >= enemyProperties.spawnTime * enemyProperties.amountSpawned + enemyProperties.spawnStartTime)
                 {
                     Vector2 spawnPos = GetSpawnPosition(enemyProperties.enemyType);
-                    Instantiate(enemyProperties.enemyType.EnemyPrefab, spawnPos, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+                    allEnemiesInWave.Add(Instantiate(enemyProperties.enemyType.EnemyPrefab, spawnPos, Quaternion.Euler(0, 0, Random.Range(0, 360))));
                     enemyProperties.amountSpawned++;
                 }
             }
@@ -118,15 +142,27 @@ public class EnemyWavesManager : MonoBehaviour
             {
                 if (currentWave != i && waveWaitingTime <= 0)
                 {
+                    CurrentWaveDone();
                     currentWave = i;
                     NewWaveSetup(i);
-                }else
+                }
+                else if (allEnemiesInWave.Count <= 0)
                 {
                     startWaveWaitingTime = true;
                 }
+                else
+                {
+                    pauseAll = true;
+                }
+
                 return;
             }
         }
+    }
+
+    private void CurrentWaveDone()
+    {
+
     }
 
     private void NewWaveSetup(int i)
@@ -143,6 +179,7 @@ public class EnemyWavesManager : MonoBehaviour
         GameManager.Instance.debugMessageTextToShow = "New Wave Spawning";
     }
 
+    [System.Serializable]
     public class EnemyProperties
     {
         public EnemyType enemyType;

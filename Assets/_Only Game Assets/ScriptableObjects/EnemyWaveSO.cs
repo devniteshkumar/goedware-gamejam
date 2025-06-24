@@ -12,8 +12,8 @@ public class Wave
 {
     public int WaveDuration;
     public List<EnemyType> EnemyTypes;
-    public List<Drop> dropsGivenAtEnd;
-    public int noOfDropsToGiveFromList;
+    public List<Resource> resourcesGivenAtEnd;
+    public int noOfResourcesToGiveFromList;
     public int timeAfterNextWaveStart;
 }
 
@@ -27,11 +27,4 @@ public class EnemyType
     [Tooltip("Time till all Enemies should be spawned")] public float spawnEndTime_0to1;
     public int spawnStartAngle;
     public int spawnEndAngle;
-}
-
-[System.Serializable]
-public class Drop
-{
-    public GameObject dropPrefab;
-    public int amount;
 }
