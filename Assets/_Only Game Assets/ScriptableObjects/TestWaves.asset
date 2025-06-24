@@ -13,15 +13,27 @@ MonoBehaviour:
   m_Name: TestWaves
   m_EditorClassIdentifier: 
   waves:
-  - WaveDuration: 60
+  - WaveDuration: 15
     EnemyTypes:
-    - EnemyPrefab: {fileID: 0}
-      amountToSpawn: 0
-      minDistanceFromPlayerToSpawn: 0
+    - EnemyPrefab: {fileID: 518061380363437049, guid: 34bd10d9afa44c14dba310f96b42a6f2, type: 3}
+      amountToSpawn: 20
+      minDistanceFromPlayerToSpawn: 5
       spawnStartTime_0to1: 0
-      spawnEndTime_0to1: 0
+      spawnEndTime_0to1: 1
       spawnStartAngle: 0
-      spawnEndAngle: 0
+      spawnEndAngle: 360
+    dropsGivenAtEnd: []
+    noOfDropsToGiveFromList: 0
+    timeAfterNextWaveStart: 10
+  - WaveDuration: 10
+    EnemyTypes:
+    - EnemyPrefab: {fileID: 6337952323835363133, guid: 5851fe4b1b490534ab500f22c77ca646, type: 3}
+      amountToSpawn: 5
+      minDistanceFromPlayerToSpawn: 15
+      spawnStartTime_0to1: 0.8
+      spawnEndTime_0to1: 1
+      spawnStartAngle: 0
+      spawnEndAngle: 30
     dropsGivenAtEnd: []
     noOfDropsToGiveFromList: 0
     timeAfterNextWaveStart: 0

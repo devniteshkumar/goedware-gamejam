@@ -10,9 +10,12 @@ public class EnemyWavesManager : MonoBehaviour
     [SerializeField] private Transform spawnCenter;
     public float totalWaveTime;
     public float time;
+    public float waveWaitingTime;
+    public bool startWaveWaitingTime;
     public float waveTime;
     public int currentWave = -1;
     public List<EnemyProperties> allEnemyPropertiesInWave = new();
+    public bool LevelDone;
 
     private void Start()
     {
@@ -22,10 +25,21 @@ public class EnemyWavesManager : MonoBehaviour
 
     private void Update()
     {
-        if (time > totalWaveTime)
+        if (LevelDone) return;
+        if (time > totalWaveTime && !LevelDone)
         {
             GameManager.Instance.debugMessageTextToShow = "Level Complete!";
+            LevelDone = true;
             return;
+        }
+
+        if (startWaveWaitingTime)
+        {
+            waveWaitingTime -= Time.deltaTime;
+            if (waveWaitingTime <= 0)
+            {
+                startWaveWaitingTime = false;
+            }
         }
 
         time += Time.deltaTime;
@@ -86,6 +100,7 @@ public class EnemyWavesManager : MonoBehaviour
         {
             Wave wave = EnemyWaveSO.waves[i];
             comparingTime += wave.WaveDuration;
+            comparingTime += wave.timeAfterNextWaveStart;
         }
         totalWaveTime = comparingTime;
     }
@@ -98,12 +113,16 @@ public class EnemyWavesManager : MonoBehaviour
         {
             Wave wave = EnemyWaveSO.waves[i];
             comparingTime += wave.WaveDuration;
+            comparingTime += wave.timeAfterNextWaveStart;
             if (comparingTime > time)
             {
-                if (currentWave != i)
+                if (currentWave != i && waveWaitingTime <= 0)
                 {
                     currentWave = i;
                     NewWaveSetup(i);
+                }else
+                {
+                    startWaveWaitingTime = true;
                 }
                 return;
             }
@@ -119,8 +138,8 @@ public class EnemyWavesManager : MonoBehaviour
             EnemyType enemyType = EnemyWaveSO.waves[i].EnemyTypes[j];
             float duration = EnemyWaveSO.waves[i].WaveDuration;
             allEnemyPropertiesInWave.Add(new EnemyProperties(enemyType, duration));
-
         }
+        waveWaitingTime = EnemyWaveSO.waves[currentWave].timeAfterNextWaveStart;
         GameManager.Instance.debugMessageTextToShow = "New Wave Spawning";
     }
 
