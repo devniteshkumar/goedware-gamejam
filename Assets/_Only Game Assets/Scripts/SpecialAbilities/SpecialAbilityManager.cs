@@ -30,6 +30,8 @@ public class SpecialAbilityManager : MonoBehaviour
 
 
     [Header("References")]
+    public PlayerMovement playerMovement;
+    public HealthSystem playerHealth;
     public AbilityConversionSO AbilityConversionSO;
     public Animator UIAnimator;
     public InputActionAsset inputActions;
@@ -42,6 +44,7 @@ public class SpecialAbilityManager : MonoBehaviour
 
     private void Start()
     {
+        AllResources.Clear();
         AllResources.Add(new Resource(ResourceTypes.Time, 120));
         AllResources.Add(new Resource(ResourceTypes.TimeFreeze, 0));
         AllResources.Add(new Resource(ResourceTypes.MovementSpeed, 10));
@@ -49,6 +52,11 @@ public class SpecialAbilityManager : MonoBehaviour
         AllResources.Add(new Resource(ResourceTypes.AttackDamage, 5));
         AllResources.Add(new Resource(ResourceTypes.AttackingRadius, 2));
         AllResources.Add(new Resource(ResourceTypes.Health, 100));
+        AllResources.Add(new Resource(ResourceTypes.GiveDamage, 0));
+
+
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
+        playerHealth = playerMovement.GetComponent<HealthSystem>();
 
 
         if (from_Dropdown != null && to_Dropdown != null && amountInput != null)
@@ -211,6 +219,18 @@ public class SpecialAbilityManager : MonoBehaviour
         {
             Time.timeScale = 1;
         }
+
+        if (GetResource(ResourceTypes.GiveDamage).amount > 0)
+        {
+            GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+            float damage = GetResource(ResourceTypes.GiveDamage).amount / allEnemies.Length;
+            foreach (var enemy in allEnemies)
+            {
+                enemy.GetComponent<HealthSystem>().TakeDamage(damage);
+            }
+        }
+
+        playerHealth.maxHealth = GetResource(ResourceTypes.Health).amount;
     }
 
     private void UsingSpecialAbility(int n)
@@ -237,8 +257,8 @@ public class SpecialAbilityManager : MonoBehaviour
                 break;
             case 4:
                 from = ResourceTypes.Health;
-                to = ResourceTypes.AttackDamage;  ////Change it////
-                fromAmount = 5;
+                to = ResourceTypes.GiveDamage;  
+                fromAmount = 20;
                 convert = true;
                 break;
         }
@@ -347,6 +367,7 @@ public enum ResourceTypes
     Health,
     TimeFreeze,
     NoOfTeleports,
+    GiveDamage,
 }
 
 [System.Serializable]

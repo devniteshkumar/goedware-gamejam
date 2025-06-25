@@ -15,6 +15,19 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (healthUI.health != currentHealth)
+        {
+            healthUI.SetHealth(currentHealth);
+        }
+        if (healthUI.maxHealth != maxHealth)
+        {
+            healthUI.SetMaxHealth(maxHealth);
+        }
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    }
+
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
