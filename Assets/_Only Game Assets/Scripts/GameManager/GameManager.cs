@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text DebugMessageText;
 
 
+    [Header("Game Values")]
+
+
     public static GameManager Instance { get; private set; }
 
     void Awake()
@@ -72,5 +75,7 @@ public class GameManager : MonoBehaviour
                 DebugMessageText.text = debugMessageTextToShow;
             }
         }
+
+
     }
 }

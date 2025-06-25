@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class SpecialAbilityManager : MonoBehaviour
 {
-    public List<Resource> AllResources = new();
+    public static List<Resource> AllResources = new();
 
 
     [Header("Properties")]
@@ -36,8 +36,21 @@ public class SpecialAbilityManager : MonoBehaviour
     private InputAction convertAction;
     private InputAction toggleUIAction;
 
+    [Header("Input Var")]
+    public int useSpecialAbility;
+
+
     private void Start()
     {
+        AllResources.Add(new Resource(ResourceTypes.Time, 120));
+        AllResources.Add(new Resource(ResourceTypes.TimeFreeze, 0));
+        AllResources.Add(new Resource(ResourceTypes.MovementSpeed, 10));
+        AllResources.Add(new Resource(ResourceTypes.NoOfTeleports, 0));
+        AllResources.Add(new Resource(ResourceTypes.AttackDamage, 5));
+        AllResources.Add(new Resource(ResourceTypes.AttackingRadius, 2));
+        AllResources.Add(new Resource(ResourceTypes.Health, 100));
+
+
         if (from_Dropdown != null && to_Dropdown != null && amountInput != null)
         {
             InitializeFromDropdowns();
@@ -172,6 +185,63 @@ public class SpecialAbilityManager : MonoBehaviour
             convert = false;
             OnConvertPressed();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            useSpecialAbility = 1;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            useSpecialAbility = 2;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            useSpecialAbility = 3;
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            useSpecialAbility = 4;
+
+        if (useSpecialAbility != 0)
+        {
+            UsingSpecialAbility(useSpecialAbility);
+            useSpecialAbility = 0;
+        }
+
+
+        GetResource(ResourceTypes.Time).amount -= Time.deltaTime;
+
+        if (GetResource(ResourceTypes.TimeFreeze).amount > 0)
+        {
+            Time.timeScale = 0.1f;
+            GetResource(ResourceTypes.TimeFreeze).amount -= Time.unscaledDeltaTime;
+        }else if (Time.timeScale != 1)
+        {
+            Time.timeScale = 1;
+        }
+    }
+
+    private void UsingSpecialAbility(int n)
+    {
+        switch (n)
+        {
+            case 1:
+                from = ResourceTypes.Time;
+                to = ResourceTypes.TimeFreeze;
+                fromAmount = 5;
+                convert = true;
+                break;
+            case 2:
+                from = ResourceTypes.AttackDamage;
+                to = ResourceTypes.AttackingRadius;
+                fromAmount = 5;
+                convert = true;
+                break;
+            case 3:
+                from = ResourceTypes.MovementSpeed;
+                to = ResourceTypes.NoOfTeleports;
+                fromAmount = 5;
+                convert = true;
+                break;
+            case 4:
+                from = ResourceTypes.Health;
+                to = ResourceTypes.AttackDamage;  ////Change it////
+                fromAmount = 5;
+                convert = true;
+                break;
+        }
     }
 
     private void OnConvertPressed()
@@ -182,6 +252,7 @@ public class SpecialAbilityManager : MonoBehaviour
             SetResourceContainers();
         }
     }
+
 
     private void OnToggleUIPressed()
     {
@@ -195,17 +266,7 @@ public class SpecialAbilityManager : MonoBehaviour
         UIAnimator.SetBool("Load", false);
     }
 
-
-    public void DoConversion()
-    {
-        if (ConvertSpecialAbility(from, fromAmount, to))
-        {
-            GameManager.Instance.debugMessageTextToShow = "Converted";
-        }
-    }
-
-
-    public bool ConvertSpecialAbility(ResourceTypes from_resource, float amount, ResourceTypes to_resource)
+    private bool ConvertSpecialAbility(ResourceTypes from_resource, float amount, ResourceTypes to_resource)
     {
         Resource resourceToChange = GetResource(from_resource);
         if (resourceToChange.amount < amount)
@@ -260,7 +321,7 @@ public class SpecialAbilityManager : MonoBehaviour
         return 0;
     }
 
-    public Resource GetResource(ResourceTypes resourceType)
+    public static Resource GetResource(ResourceTypes resourceType)
     {
         foreach (Resource r in AllResources)
         {

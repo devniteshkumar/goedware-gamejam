@@ -27,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
         moveAction.canceled += ctx => moveInput = Vector2.zero;
     }
 
+    private void Update()
+    {
+        moveSpeed = SpecialAbilityManager.GetResource(ResourceTypes.MovementSpeed).amount;
+    }
+
     private void OnDisable()
     {
         moveAction.Disable();
