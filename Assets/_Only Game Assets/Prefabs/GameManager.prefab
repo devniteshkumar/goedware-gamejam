@@ -72,6 +72,8 @@ MonoBehaviour:
   toAmountText: {fileID: 0}
   parentOfResourceContainer: {fileID: 0}
   resourceContainerPrefab: {fileID: 0}
+  playerMovement: {fileID: 0}
+  playerHealth: {fileID: 0}
   AbilityConversionSO: {fileID: 11400000, guid: cd2ff4c21e49f6d42be88cfb07fe1cb4, type: 2}
   UIAnimator: {fileID: 0}
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

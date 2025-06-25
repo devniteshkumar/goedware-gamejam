@@ -324,6 +324,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
+      propertyPath: spawnCenter
+      value: 
+      objectReference: {fileID: 1308959151}
     - target: {fileID: 2056551699900699302, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: DebugMessageText
       value: 
@@ -791,7 +795,7 @@ GameObject:
   - component: {fileID: 1308959155}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -961,7 +965,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.62, y: 0.66}
+    oldSize: {x: 2.56, y: 2.56}
     newSize: {x: 0.62, y: 0.66}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

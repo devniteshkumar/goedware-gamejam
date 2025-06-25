@@ -61,11 +61,6 @@ public class PlayerMovement : MonoBehaviour
         };
     }
 
-    private void Update()
-    {
-        moveSpeed = SpecialAbilityManager.GetResource(ResourceTypes.MovementSpeed).amount;
-    }
-
     private void OnDisable()
     {
         moveAction.Disable();
@@ -91,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
+        moveSpeed = SpecialAbilityManager.GetResource(ResourceTypes.MovementSpeed).amount;
         Vector2 velocity = rb.linearVelocity;
         SetAnimParameters(velocity);
     }
