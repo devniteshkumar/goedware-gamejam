@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void SetAnimParameters(Vector2 velocity)
     {
+        bool idle = (velocity.x == 0 && velocity.y == 0);
+        animator.SetBool("idle", idle);
         bool movingUp = velocity.y > 0;
         animator.SetBool("movingUp", movingUp);
         bool movingDown = velocity.y < 0;
