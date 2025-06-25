@@ -455,6 +455,8 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   attack: {fileID: 1548515710}
   moveSpeed: 5
+  attackCooldown: 0.15
+  attackCooldownTimer: 0.15
 --- !u!50 &230707064
 Rigidbody2D:
   serializedVersion: 5
@@ -1003,7 +1005,7 @@ GameObject:
   - component: {fileID: 935937707}
   - component: {fileID: 935937706}
   - component: {fileID: 935937708}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Attack Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1241,6 +1243,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 230707060}
     m_Modifications:
+    - target: {fileID: 34103364653905763, guid: 25d02cd383100de4bbd0c7877ecfe45c, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 111847004783072798, guid: 25d02cd383100de4bbd0c7877ecfe45c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1432,7 +1438,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1548515711}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
