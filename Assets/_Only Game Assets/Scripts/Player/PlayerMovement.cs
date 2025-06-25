@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lastVelocity;
     private Vector2 moveInput;
     private Animator animator;
+    public GameObject attack;
 
     public float moveSpeed = 5f;
     private Rigidbody2D rb;
@@ -92,8 +95,14 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Attack()
     {
-        // Add attack logic here
-        Debug.Log("Attack performed!");
+        attack.SetActive(true);
+        StartCoroutine(DisableAttack());
+    }
+
+    IEnumerator DisableAttack()
+    {
+        yield return new WaitForSeconds(0.1f);
+        attack.SetActive(false);
     }
 
     private void Defense()
