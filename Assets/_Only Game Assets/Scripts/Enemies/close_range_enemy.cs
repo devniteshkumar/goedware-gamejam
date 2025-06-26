@@ -73,13 +73,12 @@ public class close_range_enemy : MonoBehaviour
         animator.SetFloat("move_x", movedir.x);
         animator.SetFloat("move_y", movedir.y);
     }
-    
-    // void RotateEnemy()
-    // {
-    //     movedir = (player.transform.position - transform.position).normalized;
-    //     rotation = Quaternion.LookRotation(Vector3.forward, movedir);
-    //     transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 200 * Time.deltaTime);
-    // }
+    void RotateEnemy()
+    {
+        movedir = (player.transform.position - transform.position).normalized;
+        rotation = Quaternion.LookRotation(Vector3.forward, movedir);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 200 * Time.deltaTime);
+    }
 
     IEnumerator attack()
     {
