@@ -22,7 +22,6 @@ public class close_range_enemy : MonoBehaviour
 
     void Start()
     {
-        
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         enemy_healer = FindObjectOfType<enemy_healer>();
