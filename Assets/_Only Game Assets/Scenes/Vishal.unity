@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb6aa52d710d640478f280d2f5982cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dead: 0
   maxHealth: 100
   currentHealth: 0
   healthUI: {fileID: 1476676522}
@@ -2066,7 +2067,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 565960718}
   - {fileID: 6386437955335484983}
-  - {fileID: 2132833384}
   - {fileID: 1637168409}
   - {fileID: 1887100491368870662}
   - {fileID: 230707060}
+  - {fileID: 2132833384}

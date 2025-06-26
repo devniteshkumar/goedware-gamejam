@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
+    public bool dead = false;
     public float maxHealth = 100;
     public float currentHealth;
     public HealthUI healthUI;

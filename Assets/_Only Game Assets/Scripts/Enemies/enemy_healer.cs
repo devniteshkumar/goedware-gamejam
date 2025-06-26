@@ -40,7 +40,7 @@ public class enemy_healer : MonoBehaviour
         }
         else
         {
-            if (current_enemy.GetComponent<HealthSystem>().currentHealth != current_enemy.GetComponent<HealthSystem>().maxHealth)
+            if (current_enemy.GetComponent<HealthSystem>().currentHealth != current_enemy.GetComponent<HealthSystem>().maxHealth && !current_enemy.GetComponent<HealthSystem>().dead )
             {
                 RotateEnemy(current_enemy);
                 // Debug.Log("healing");
