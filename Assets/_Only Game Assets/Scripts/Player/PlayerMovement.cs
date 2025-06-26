@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject attack;
 
     public float moveSpeed = 5f;
+    public float attackCooldown = 0.15f;
+    public float attackCooldownTimer = 0;
     private Rigidbody2D rb;
     private bool moving, attacking, defense;
 
@@ -22,6 +24,45 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
+
+    private void OnMove(InputAction.CallbackContext ctx)
+    {
+        moveInput = ctx.ReadValue<Vector2>();
+        moving = true;
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext ctx)
+    {
+        moveInput = Vector2.zero;
+        moving = false;
+    }
+
+    private void OnAttack(InputAction.CallbackContext ctx)
+    {
+        if (attackCooldownTimer <= 0)
+        {
+            Attack();
+            attacking = true;
+            attackCooldownTimer = attackCooldown;
+        }
+    }
+
+    private void OnAttackCanceled(InputAction.CallbackContext ctx)
+    {
+        attacking = false;
+    }
+
+    private void OnDefense(InputAction.CallbackContext ctx)
+    {
+        Defense();
+        defense = true;
+    }
+
+    private void OnDefenseCanceled(InputAction.CallbackContext ctx)
+    {
+        defense = false;
+    }
+
 
     private void OnEnable()
     {
@@ -32,43 +73,35 @@ public class PlayerMovement : MonoBehaviour
 
         moveAction.Enable();
         attackAction.Enable();
+        defenseAction.Enable();
 
-        moveAction.performed += ctx =>
-        {
-            moveInput = ctx.ReadValue<Vector2>();
-            moving = true;
-        };
-        moveAction.canceled += ctx =>
-        {
-            moveInput = Vector2.zero;
-            moving = false;
-        };
+        moveAction.performed += OnMove;
+        moveAction.canceled += OnMoveCanceled;
 
-        attackAction.performed += ctx =>
-        {
-            Attack();
-            attacking = true;
-        };
-        attackAction.canceled += ctx =>
-        {
-            attacking = false;
-        };
-        defenseAction.performed += ctx =>
-        {
-            Defense();
-            defense = true;
-        };
-        defenseAction.canceled += ctx =>
-        {
-            defense = false;
-        };
+        attackAction.performed += OnAttack;
+        attackAction.canceled += OnAttackCanceled;
+
+        defenseAction.performed += OnDefense;
+        defenseAction.canceled += OnDefenseCanceled;
     }
+
 
     private void OnDisable()
     {
+        moveAction.performed -= OnMove;
+        moveAction.canceled -= OnMoveCanceled;
+
+        attackAction.performed -= OnAttack;
+        attackAction.canceled -= OnAttackCanceled;
+
+        defenseAction.performed -= OnDefense;
+        defenseAction.canceled -= OnDefenseCanceled;
+
         moveAction.Disable();
         attackAction.Disable();
+        defenseAction.Disable();
     }
+
 
     private void FixedUpdate()
     {
@@ -92,17 +125,26 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = SpecialAbilityManager.GetResource(ResourceTypes.MovementSpeed).amount;
         Vector2 velocity = rb.linearVelocity;
         SetAnimParameters(velocity);
+        attackCooldownTimer -= Time.deltaTime;
     }
+
+    private Coroutine disableCoroutine;
+
     private void Attack()
     {
         attack.SetActive(true);
-        StartCoroutine(DisableAttack());
+
+        if (disableCoroutine != null)
+            StopCoroutine(disableCoroutine); // Prevent overlap
+
+        disableCoroutine = StartCoroutine(DisableAttack());
     }
 
-    IEnumerator DisableAttack()
+    private IEnumerator DisableAttack()
     {
         yield return new WaitForSeconds(0.1f);
         attack.SetActive(false);
+        disableCoroutine = null;
     }
 
     private void Defense()
