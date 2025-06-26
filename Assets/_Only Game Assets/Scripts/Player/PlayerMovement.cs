@@ -12,10 +12,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Animator animator;
     public GameObject attack;
+    public GameObject parry;
 
     public float moveSpeed = 5f;
     public float attackCooldown = 0.15f;
+    public float defenseCooldown = 0.5f;
     public float attackCooldownTimer = 0;
+    public float defenseCooldownTimer = 0;
     private Rigidbody2D rb;
     private bool moving, attacking, defense;
 
@@ -54,8 +57,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDefense(InputAction.CallbackContext ctx)
     {
-        Defense();
-        defense = true;
+        if (defenseCooldownTimer <= 0)
+        {
+            Defense();
+            defense = true;
+            defenseCooldownTimer = defenseCooldown;
+        }
     }
 
     private void OnDefenseCanceled(InputAction.CallbackContext ctx)
@@ -105,7 +112,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = moveInput * moveSpeed;
+        float timeScale = Time.timeScale > 0 ? Time.timeScale : 1f;
+        rb.linearVelocity = moveInput * moveSpeed / timeScale;
     }
     public void SetAnimParameters(Vector2 velocity)
     {
@@ -125,31 +133,63 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = SpecialAbilityManager.GetResource(ResourceTypes.MovementSpeed).amount;
         Vector2 velocity = rb.linearVelocity;
         SetAnimParameters(velocity);
-        attackCooldownTimer -= Time.deltaTime;
+        attackCooldownTimer -= Time.unscaledDeltaTime;
+        defenseCooldownTimer -= Time.unscaledDeltaTime;
+        SetAttackAndParryRot(velocity);
     }
 
-    private Coroutine disableCoroutine;
+    private void SetAttackAndParryRot(Vector2 vel)
+    {
+        if (vel.x > 0)
+        {
+            attack.transform.eulerAngles = new(0, 0, 0);
+            parry.transform.eulerAngles = new(0, 0, 0);
+        }
+        if (vel.x < 0)
+        {
+            attack.transform.eulerAngles = new(0, 0, 180);
+            parry.transform.eulerAngles = new(0, 0, 180);
+        }
+        if (vel.y < 0)
+        {
+            attack.transform.eulerAngles = new(0, 0, -90);
+            parry.transform.eulerAngles = new(0, 0, -90);
+        }
+        if (vel.y > 0)
+        {
+            attack.transform.eulerAngles = new(0, 0, 90);
+            parry.transform.eulerAngles = new(0, 0, 90);
+        }
+    }
+
+    private Coroutine disableAttackCoroutine;
 
     private void Attack()
     {
         attack.SetActive(true);
 
-        if (disableCoroutine != null)
-            StopCoroutine(disableCoroutine); // Prevent overlap
+        if (disableAttackCoroutine != null)
+            StopCoroutine(disableAttackCoroutine); // Prevent overlap
 
-        disableCoroutine = StartCoroutine(DisableAttack());
+        disableAttackCoroutine = StartCoroutine(DisableIt(attack, 0.1f));
     }
 
-    private IEnumerator DisableAttack()
+    private IEnumerator DisableIt(GameObject obj, float time)
     {
-        yield return new WaitForSeconds(0.1f);
-        attack.SetActive(false);
-        disableCoroutine = null;
+        yield return new WaitForSecondsRealtime(time);
+        obj.SetActive(false);
     }
 
+    private Coroutine disableParryCoroutine;
     private void Defense()
     {
-        // Add defense logic here
-        Debug.Log("Defense performed!");
+        parry.SetActive(true);
+
+        if (disableParryCoroutine != null)
+        {
+            StopCoroutine(disableParryCoroutine);
+        }
+
+        disableParryCoroutine = StartCoroutine(DisableIt(parry, 0.5f));
     }
 }
