@@ -26,6 +26,11 @@ public class HealthSystem : MonoBehaviour
             healthUI.SetMaxHealth(maxHealth);
         }
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        if (currentHealth <= 0 && (gameObject.tag == "Enemy" || gameObject.tag == "Minion"))
+        {
+            Destroy(gameObject, 0.4f);
+        }
     }
 
     public void TakeDamage(float amount)
