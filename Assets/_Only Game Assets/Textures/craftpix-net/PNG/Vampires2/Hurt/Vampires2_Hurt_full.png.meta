@@ -82,7 +82,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -96,7 +96,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -174,10 +174,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 208
-        width: 29
-        height: 33
+        x: 0
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,10 +196,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_1
       rect:
         serializedVersion: 2
-        x: 81
-        y: 208
-        width: 29
-        height: 31
+        x: 64
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_2
       rect:
         serializedVersion: 2
-        x: 142
-        y: 208
-        width: 35
-        height: 30
+        x: 128
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -240,10 +240,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_3
       rect:
         serializedVersion: 2
-        x: 209
-        y: 208
-        width: 29
-        height: 31
+        x: 192
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -262,10 +262,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_4
       rect:
         serializedVersion: 2
-        x: 17
-        y: 144
-        width: 29
-        height: 33
+        x: 0
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -284,10 +284,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_5
       rect:
         serializedVersion: 2
-        x: 81
-        y: 144
-        width: 29
-        height: 31
+        x: 64
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -306,10 +306,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_6
       rect:
         serializedVersion: 2
-        x: 142
-        y: 144
-        width: 35
-        height: 30
+        x: 128
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,10 +328,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_7
       rect:
         serializedVersion: 2
-        x: 209
-        y: 144
-        width: 29
-        height: 31
+        x: 192
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -350,10 +350,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_8
       rect:
         serializedVersion: 2
-        x: 20
-        y: 80
-        width: 21
-        height: 33
+        x: 0
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -372,10 +372,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_9
       rect:
         serializedVersion: 2
-        x: 84
-        y: 80
-        width: 24
-        height: 31
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -394,10 +394,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_10
       rect:
         serializedVersion: 2
-        x: 148
-        y: 80
-        width: 27
-        height: 30
+        x: 128
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -416,10 +416,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_11
       rect:
         serializedVersion: 2
-        x: 212
-        y: 80
-        width: 24
-        height: 31
+        x: 192
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -438,10 +438,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_12
       rect:
         serializedVersion: 2
-        x: 22
-        y: 16
-        width: 21
-        height: 33
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -460,10 +460,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_13
       rect:
         serializedVersion: 2
-        x: 83
-        y: 16
-        width: 24
-        height: 31
+        x: 64
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -482,10 +482,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_14
       rect:
         serializedVersion: 2
-        x: 144
-        y: 16
-        width: 27
-        height: 30
+        x: 128
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -504,10 +504,10 @@ TextureImporter:
       name: Vampires2_Hurt_full_15
       rect:
         serializedVersion: 2
-        x: 211
-        y: 16
-        width: 24
-        height: 31
+        x: 192
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -526,7 +526,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6bf6bc34956ae8041a7f801de6280c5b
     internalID: 0
     vertices: []
     indices: 

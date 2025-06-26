@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5312432035192082340}
   - component: {fileID: 1273069566829638873}
   - component: {fileID: 1197876585269442736}
+  - component: {fileID: 7639174132735116137}
   m_Layer: 0
   m_Name: Ranged Melee Enemy
   m_TagString: Enemy
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -2314506720581648914, guid: 848406bed5556ca4986eac40191c10fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb6aa52d710d640478f280d2f5982cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dead: 0
   maxHealth: 20
   currentHealth: 0
   healthUI: {fileID: 8888560947979475026}
@@ -174,6 +176,28 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!95 &7639174132735116137
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6337952323835363133}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 83a38ae47e44cb74296c73929246cdaf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &6445638448379910751
 PrefabInstance:
   m_ObjectHideFlags: 0
