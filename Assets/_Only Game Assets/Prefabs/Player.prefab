@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6535371779407477319}
   - component: {fileID: 5167709958827077909}
   - component: {fileID: 2785591366266052038}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Attack Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7946029743607550468}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
