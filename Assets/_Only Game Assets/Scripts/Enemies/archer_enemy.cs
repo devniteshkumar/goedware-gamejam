@@ -38,7 +38,7 @@ public class archer_enemy : MonoBehaviour
     {
         if (HealthSystem.currentHealth != HealthSystem.maxHealth)
         {
-            enemy_healer.enemy_to_heal.Push(gameObject);
+            enemy_healer.enemiesToHeal.Add(gameObject);
         }
 
         if (HealthSystem.currentHealth < 2 && !HealthSystem.dead)

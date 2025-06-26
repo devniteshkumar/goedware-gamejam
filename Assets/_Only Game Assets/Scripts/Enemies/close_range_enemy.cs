@@ -46,7 +46,7 @@ public class close_range_enemy : MonoBehaviour
 
         if (HealthSystem.currentHealth != HealthSystem.maxHealth)
         {
-            enemy_healer.enemy_to_heal.Push(gameObject);
+            enemy_healer.enemiesToHeal.Add(gameObject);
         }
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
