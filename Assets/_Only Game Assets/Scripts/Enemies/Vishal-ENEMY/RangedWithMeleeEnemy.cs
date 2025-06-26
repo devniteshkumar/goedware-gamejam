@@ -6,6 +6,8 @@ public class RangedWithMeleeEnemy : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
+    public Transform healer;
+    public HealthSystem healthSystem;
 
     [Header("Enemy Properties")]
     public float moveSpeed = 3f;
@@ -28,16 +30,19 @@ public class RangedWithMeleeEnemy : MonoBehaviour
     public float sizeIncrementationRate = 0.5f;
 
     [Header("Properties")]
-    private float missileTimer;
-    private float spawnTimer;
-    private bool isRunning;
-    private List<Missile> missiles = new();
+    public float missileTimer;
+    public float spawnTimer;
+    public bool isRunning;
+    public bool runTowardsHealer;
+    public List<Missile> missiles = new();
 
     void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
+        healer = GameObject.FindWithTag("Healer")?.transform;
         missileTimer = missileCooldown;
         spawnTimer = spawnCooldown;
+        healthSystem = GetComponent<HealthSystem>();
     }
 
     private void OnDisable()
@@ -51,6 +56,14 @@ public class RangedWithMeleeEnemy : MonoBehaviour
 
         float distance = Vector2.Distance(transform.position, player.position);
         Vector2 dir = (transform.position - player.position).normalized;
+        Vector2 healDir = Vector2.zero;
+        if (healer != null)
+        {
+            healDir = (healer.position - transform.position).normalized;
+        }else
+        {
+            healer = GameObject.FindWithTag("Healer")?.transform;
+        }
 
         if (distance < minDistanceWithPlayer)
         {
@@ -61,10 +74,17 @@ public class RangedWithMeleeEnemy : MonoBehaviour
         {
             isRunning = false;
         }
+        if (healthSystem.currentHealth < healthSystem.maxHealth / 2 && healer != null)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)healDir, moveSpeed * Time.deltaTime);  //Champt GPT
+            runTowardsHealer = true;
+            isRunning = true;
+        }
 
         HandleMissileAttack(dir);
         HandleMinionSpawn();
         HandleMissileMovementAndDamage();
+
     }
 
     void HandleMissileAttack(Vector2 dir)

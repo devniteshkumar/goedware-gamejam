@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4820284164927858381}
   - component: {fileID: 2056551699900699302}
   - component: {fileID: 1474517390497154252}
+  - component: {fileID: 816240079974114150}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -59,24 +60,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2748b778d8bb44c86bb954f6153835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllResources:
-  - resourceType: 0
-    amount: 100
-  - resourceType: 1
-    amount: 10
-  - resourceType: 2
-    amount: 10
-  - resourceType: 3
-    amount: 10
-  - resourceType: 4
-    amount: 100
-  - resourceType: 5
-    amount: 20
   from: 0
   to: 1
-  amount: 5
+  fromAmount: 0
+  toAmount: 0
   convert: 0
-  AbilityConversionSO: {fileID: 11400000, guid: cd2ff4c21e49f6d42be88cfb07fe1cb4, type: 2}
+  resourceContainers: []
   from_Dropdown: {fileID: 0}
   to_Dropdown: {fileID: 0}
+  amountInput: {fileID: 0}
+  toAmountText: {fileID: 0}
+  parentOfResourceContainer: {fileID: 0}
+  resourceContainerPrefab: {fileID: 0}
+  playerMovement: {fileID: 0}
+  playerHealth: {fileID: 0}
+  AbilityConversionSO: {fileID: 11400000, guid: cd2ff4c21e49f6d42be88cfb07fe1cb4, type: 2}
   UIAnimator: {fileID: 0}
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  useSpecialAbility: 0
+--- !u!114 &816240079974114150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7825244033540569369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff3549ad44aebf54b9ebb99f83cca53b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyWaveSO: {fileID: 11400000, guid: 86fc81fb212a01a489b260ef33ff878d, type: 2}
+  spawnCenter: {fileID: 0}
+  currentWave: -1
+  LevelDone: 0
+  pauseAll: 0
+  startWaveWaitingTime: 0
+  allEnemyPropertiesInWave: []
+  allEnemiesInWave: []
+  totalWaveTime: 0
+  time: 0
+  waveWaitingTime: 0
+  waveTime: 0

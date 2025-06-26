@@ -50,7 +50,7 @@ public class enemy_healer : MonoBehaviour
                 current_enemy = null;
         }
     }
-        void RotateEnemy(GameObject enemy)
+    void RotateEnemy(GameObject enemy)
     {
         movedir = enemy.transform.position - transform.position;
         movedir.Normalize();
