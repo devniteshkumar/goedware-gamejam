@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 public class SceneController : MonoBehaviour
 {
-    public static SceneController instance;
+    public Button[] LevelButtons;
     public Animator FadeAnimator;
-    public float TransitionTime;    
-    public void LoadScene(string name,Animator animator){
-        StartCoroutine(SceneTransition(name,animator));
+    public float TransitionTime;  
+    public void LoadScene(string name, Animator animator)
+    {
+        StartCoroutine(SceneTransition(name, animator));
     }
     public void Quit(){
         Application.Quit();
