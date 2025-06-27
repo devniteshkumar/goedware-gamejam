@@ -161,7 +161,7 @@ public class RangedWithMeleeEnemy : MonoBehaviour
         Vector2 dir = Random.insideUnitCircle.normalized;
         Vector3 pos = transform.position + (Vector3)dir * spawnRadius;
 
-        GameObject minion = Instantiate(minionPrefab, pos, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+        GameObject minion = Instantiate(minionPrefab, pos, Quaternion.identity);
         activeMinions.Add(minion); 
     }
 

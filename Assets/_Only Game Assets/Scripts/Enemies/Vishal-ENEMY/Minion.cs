@@ -4,7 +4,6 @@ public class Minion : MonoBehaviour
 {
     public float speed = 5f;
     public float damage = 0.5f;
-    public float rotationSpeed = 360f;
     public float attackRange = 1.5f;
     public float damageInterval = 1f; // DPS interval
 
@@ -16,7 +15,6 @@ public class Minion : MonoBehaviour
     {
         target = GameObject.FindWithTag("Player").transform;
         speed += Random.Range(-1f, 1f);
-        rotationSpeed += Random.Range(-100, 100);
     }
 
     void Update()
@@ -27,17 +25,11 @@ public class Minion : MonoBehaviour
         float distance = directionToTarget.magnitude;
         directionToTarget.Normalize();
 
-        float targetAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
         if (distance > attackRange)
         {
-            Vector3 forward = transform.right;
-            transform.position += forward * speed * Time.deltaTime;
+            transform.position += (Vector3)(directionToTarget * speed * Time.deltaTime);
         }
 
-        // Reduce timer over time
         if (damageTimer > 0f)
             damageTimer -= Time.deltaTime;
     }
@@ -63,7 +55,8 @@ public class Minion : MonoBehaviour
                 healthSystem.TakeDamage(damage);
                 damageTimer = damageInterval;
             }
-        }else if (isGood && !other.CompareTag("Enemy"))
+        }
+        else if (isGood && !other.CompareTag("Enemy"))
         {
             BecomeGood();
         }
@@ -88,13 +81,6 @@ public class Minion : MonoBehaviour
             }
         }
 
-        if (closestEnemy != null)
-        {
-            target = closestEnemy;
-        }else
-        {
-            target = GameObject.FindWithTag("Player").transform;
-        }
+        target = closestEnemy != null ? closestEnemy : GameObject.FindWithTag("Player").transform;
     }
 }
-
