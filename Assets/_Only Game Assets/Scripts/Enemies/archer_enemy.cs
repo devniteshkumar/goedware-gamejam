@@ -34,6 +34,8 @@ public class archer_enemy : MonoBehaviour
     }
 
     // Update is called once per frame
+    [System.Obsolete]
+
     void Update()
     {
         if (HealthSystem.currentHealth != HealthSystem.maxHealth)
@@ -46,6 +48,7 @@ public class archer_enemy : MonoBehaviour
             HealthSystem.dead = true;
             StartCoroutine(death());
         }
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             var healthSystem = gameObject.GetComponent<HealthSystem>();
@@ -54,13 +57,16 @@ public class archer_enemy : MonoBehaviour
         }
 
         RotateEnemy();
-        //remvoing movement for archer
 
-        // if (Vector2.Distance(transform.position, player.transform.position) > range_of_player)
-        // {
-        //     MoveEnemy();
 
-        // }
+        if (shoot_arrow)
+        {
+            if (Vector2.Distance(transform.position, player.transform.position) > range_of_player)
+                StartCoroutine(fire(3));
+            else
+                StartCoroutine(fire(6));
+
+        }
 
     }
     void MoveEnemy()
@@ -73,40 +79,36 @@ public class archer_enemy : MonoBehaviour
         movedir = player.transform.position - transform.position;
         movedir.Normalize();
         rotation = Quaternion.LookRotation(Vector3.forward, movedir);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 200 * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 100 * Time.deltaTime);
         animator.SetFloat("move_x", movedir.x);
         animator.SetFloat("move_y", movedir.y);
-        if (transform.rotation == rotation && shoot_arrow)
+    }
+
+    [System.Obsolete]
+        IEnumerator fire(float time)
         {
-            if (Vector2.Distance(transform.position, player.transform.position) > range_of_player)
-                StartCoroutine(fire(3));
-            else
-                StartCoroutine(fire(6));
+            shoot_arrow = false; // <-- move this up immediately to prevent multiple fires
 
+            animator.SetBool("shoot", true);
+            yield return null; // allow Animator to update state
+
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            float animDuration = stateInfo.length;
+
+            yield return new WaitForSeconds(animDuration);
+
+            GameObject bullet = Instantiate(arrow, transform.position, transform.rotation);
+            bullet.GetComponent<Rigidbody2D>().velocity = transform.up * arrow_speed;
+            bullet.transform.Rotate(0, 0, 90);
+
+            animator.SetBool("shoot", false);
+
+            yield return new WaitForSeconds(time);
+            shoot_arrow = true;
+
+            Destroy(bullet); // optional: maybe move this after a longer time if needed
         }
-    }
 
-    IEnumerator fire(float time)
-    {
-
-
-        shoot_arrow = false;
-        animator.SetBool("shoot", true);
-
-
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        float animDuration = stateInfo.length;
-
-        yield return new WaitForSeconds(animDuration + 0.2f);
-        GameObject bullet = Instantiate(arrow, gameObject.transform.position, gameObject.transform.rotation);
-        bullet.GetComponent<Rigidbody2D>().linearVelocity = transform.up * arrow_speed;
-        bullet.transform.Rotate(new Vector3(0, 0, 90));
-        animator.SetBool("shoot", false);
-        yield return new WaitForSeconds(time);
-
-        shoot_arrow = true;
-        Destroy(bullet);
-    }
     IEnumerator death()
     {
         animator.SetBool("dead", true);
