@@ -169,7 +169,7 @@ public class RangedWithMeleeEnemy : MonoBehaviour
     {
         foreach (var minion in activeMinions)
         {
-            minion.GetComponent<Minion>().BecomeGood();
+            minion?.GetComponent<Minion>().BecomeGood();
         }
     }
 }

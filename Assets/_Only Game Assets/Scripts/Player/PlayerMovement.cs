@@ -135,6 +135,7 @@ public class PlayerMovement : MonoBehaviour
         SetAnimParameters(velocity);
         attackCooldownTimer -= Time.unscaledDeltaTime;
         defenseCooldownTimer -= Time.unscaledDeltaTime;
+        attack.transform.localScale = Vector3.one * SpecialAbilityManager.GetResource(ResourceTypes.AttackingRadius).amount;
         SetAttackAndParryRot(velocity);
     }
 

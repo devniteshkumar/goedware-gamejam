@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5297548687785544307}
   - component: {fileID: 4728056231393707393}
   - component: {fileID: 6954587618390752837}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Minion
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -343,6 +343,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7773001111127005378}
     m_Modifications:
+    - target: {fileID: 3363130616628015937, guid: 3e0b9d292f6527944a1500112e9e7a66, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3411557997368070716, guid: 3e0b9d292f6527944a1500112e9e7a66, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

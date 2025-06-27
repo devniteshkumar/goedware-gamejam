@@ -50,7 +50,7 @@ public class SpecialAbilityManager : MonoBehaviour
         AllResources.Add(new Resource(ResourceTypes.MovementSpeed, 10));
         AllResources.Add(new Resource(ResourceTypes.NoOfTeleports, 0));
         AllResources.Add(new Resource(ResourceTypes.AttackDamage, 5));
-        AllResources.Add(new Resource(ResourceTypes.AttackingRadius, 2));
+        AllResources.Add(new Resource(ResourceTypes.AttackingRadius, 0.5f));
         AllResources.Add(new Resource(ResourceTypes.Health, 100));
         AllResources.Add(new Resource(ResourceTypes.GiveDamage, 0));
 
@@ -246,7 +246,7 @@ public class SpecialAbilityManager : MonoBehaviour
             case 2:
                 from = ResourceTypes.AttackDamage;
                 to = ResourceTypes.AttackingRadius;
-                fromAmount = 5;
+                fromAmount = 1;
                 convert = true;
                 break;
             case 3:
@@ -258,7 +258,7 @@ public class SpecialAbilityManager : MonoBehaviour
             case 4:
                 from = ResourceTypes.Health;
                 to = ResourceTypes.GiveDamage;  
-                fromAmount = 20;
+                fromAmount = 4;
                 convert = true;
                 break;
         }

@@ -30,7 +30,7 @@ MonoBehaviour:
       amount: 5
     convertedResource:
       resourceType: 3
-      amount: 0.5
+      amount: 1
   - startingResource:
       resourceType: 4
       amount: 20
