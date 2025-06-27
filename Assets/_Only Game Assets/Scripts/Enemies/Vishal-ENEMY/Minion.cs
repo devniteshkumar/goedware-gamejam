@@ -10,6 +10,16 @@ public class Minion : MonoBehaviour
     private Transform target;
     private bool isGood = false;
     private float damageTimer = 0f;
+    private Animator animator;
+
+    private Vector3 lastPosition;
+    private Vector3 lastVelocity;
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
 
     void Start()
     {
@@ -32,6 +42,11 @@ public class Minion : MonoBehaviour
 
         if (damageTimer > 0f)
             damageTimer -= Time.deltaTime;
+
+        // Animate
+        Vector3 velocity = (transform.position - lastPosition) / Time.deltaTime;
+        lastPosition = transform.position;
+        PassAnimVars(velocity);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -45,6 +60,7 @@ public class Minion : MonoBehaviour
             {
                 healthSystem.TakeDamage(damage);
                 damageTimer = damageInterval;
+                animator.SetTrigger("attack");
             }
         }
         else if (isGood && other.CompareTag("Enemy"))
@@ -54,6 +70,7 @@ public class Minion : MonoBehaviour
             {
                 healthSystem.TakeDamage(damage);
                 damageTimer = damageInterval;
+                animator.SetTrigger("attack"); 
             }
         }
         else if (isGood && !other.CompareTag("Enemy"))
@@ -83,4 +100,21 @@ public class Minion : MonoBehaviour
 
         target = closestEnemy != null ? closestEnemy : GameObject.FindWithTag("Player").transform;
     }
+
+    private void PassAnimVars(Vector3 velocity)
+    {
+        bool isMoving = velocity.sqrMagnitude > 0.001f;
+
+        if (isMoving)
+            lastVelocity = velocity; // Only update when there's real movement
+
+        Vector3 animVelocity = isMoving ? velocity : lastVelocity;
+
+        animator.SetBool("moving", isMoving);
+        animator.SetFloat("AnimMoveX", animVelocity.x);
+        animator.SetFloat("AnimMoveY", animVelocity.y);
+    }
 }
+
+
+
