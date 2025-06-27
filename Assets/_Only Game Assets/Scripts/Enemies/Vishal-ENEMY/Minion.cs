@@ -114,6 +114,16 @@ public class Minion : MonoBehaviour
         animator.SetFloat("AnimMoveX", animVelocity.x);
         animator.SetFloat("AnimMoveY", animVelocity.y);
     }
+
+    public void OnDamaged()
+    {
+        animator.SetTrigger("hurt");
+    }
+    
+    public void OnDeath()
+    {
+        animator.SetTrigger("dead");
+    }
 }
 
 

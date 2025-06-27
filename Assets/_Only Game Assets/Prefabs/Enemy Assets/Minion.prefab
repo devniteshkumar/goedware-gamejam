@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -5597638481102771188}
   - component: {fileID: -5297548687785544307}
   - component: {fileID: 4728056231393707393}
+  - component: {fileID: 6954587618390752837}
   m_Layer: 6
   m_Name: Minion
   m_TagString: Enemy
@@ -107,7 +108,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.24
   damage: 0.5
-  rotationSpeed: 252.8
   attackRange: 1
   damageInterval: 1
 --- !u!114 &-5597638481102771188
@@ -152,7 +152,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &4728056231393707393
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -189,6 +189,28 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!95 &6954587618390752837
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5740665623937155572}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3e417a3a1e8470546bf9b617bb3cfd1e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9032789631365463051
 GameObject:
   m_ObjectHideFlags: 0

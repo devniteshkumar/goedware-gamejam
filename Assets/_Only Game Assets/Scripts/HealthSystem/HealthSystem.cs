@@ -30,7 +30,8 @@ public class HealthSystem : MonoBehaviour
 
         if (currentHealth <= 0 && (gameObject.tag == "Enemy" || gameObject.tag == "Minion"))
         {
-            Destroy(gameObject, 0.4f);
+            SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
+            Destroy(gameObject, 1.4f);
         }
     }
 
@@ -46,6 +47,8 @@ public class HealthSystem : MonoBehaviour
         {
             Die();
         }
+
+        SendMessage("OnDamaged", SendMessageOptions.DontRequireReceiver);
     }
 
     public void Heal(float amount)
@@ -63,7 +66,8 @@ public class HealthSystem : MonoBehaviour
     void Die()
     {
         // Handle death logic here
-        GameManager.Instance.debugMessageTextToShow = "You Died!";
+        if (gameObject.CompareTag("Player"))
+            GameManager.Instance.debugMessageTextToShow = "You Died!";
     }
 }
 
