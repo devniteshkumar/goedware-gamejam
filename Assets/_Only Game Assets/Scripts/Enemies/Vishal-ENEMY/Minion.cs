@@ -83,7 +83,8 @@ public class Minion : MonoBehaviour
     {
         isGood = true;
         gameObject.tag = "GoodMinion";
-
+        gameObject.layer = LayerMask.NameToLayer("Player");
+        
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         float closestDist = Mathf.Infinity;
         Transform closestEnemy = null;

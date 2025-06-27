@@ -22,7 +22,7 @@ public class arrow : MonoBehaviour
             collision.gameObject.GetComponent<HealthSystem>().TakeDamage(10);
             Destroy(gameObject);
         }
-        else if (((1 << collision.gameObject.layer) & player_side_mask) == 0)
+        else if (((1 << collision.gameObject.layer) & player_side_mask) == 0 && !collision.gameObject.CompareTag("archer"))
         {
             Destroy(gameObject);
         }
