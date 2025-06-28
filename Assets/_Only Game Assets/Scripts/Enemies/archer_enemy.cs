@@ -14,7 +14,10 @@ public class archer_enemy : MonoBehaviour
 
     Quaternion rotation;
     Vector2 movedir;
+    public Transform attack_point;
+    public float attack_distance_from_center;
 
+    public flash flash;
     public HealthSystem HealthSystem;
     public HealthUI healthUI;
     enemy_healer enemy_healer;
@@ -53,19 +56,15 @@ public class archer_enemy : MonoBehaviour
         {
             var healthSystem = gameObject.GetComponent<HealthSystem>();
             healthSystem.TakeDamage(20);
-
+            flash.Flash();
         }
 
         RotateEnemy();
 
 
-        if (shoot_arrow)
+        if (shoot_arrow && transform.rotation == rotation)
         {
-            if (Vector2.Distance(transform.position, player.transform.position) > range_of_player)
-                StartCoroutine(fire(3));
-            else
-                StartCoroutine(fire(6));
-
+            StartCoroutine(fire(3));
         }
 
     }
@@ -82,32 +81,44 @@ public class archer_enemy : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 100 * Time.deltaTime);
         animator.SetFloat("move_x", movedir.x);
         animator.SetFloat("move_y", movedir.y);
+        
+        // if (movedir.x > 0.7f)
+        //     attack_point.localPosition = new Vector3(attack_distance_from_center, 0, 0);
+        // else if (movedir.x < -0.7f)
+        //     attack_point.localPosition = new Vector3(-attack_distance_from_center, 0, 0);
+        // else if (movedir.y < -0.7f)
+        //     attack_point.localPosition = new Vector3(0, -attack_distance_from_center, 0);
+        // else
+        //     attack_point.localPosition = new Vector3(0, attack_distance_from_center, 0);
     }
 
     [System.Obsolete]
-        IEnumerator fire(float time)
-        {
-            shoot_arrow = false; // <-- move this up immediately to prevent multiple fires
+    IEnumerator fire(float time)
+    {
+        shoot_arrow = false;
 
-            animator.SetBool("shoot", true);
-            yield return null; // allow Animator to update state
+        animator.SetBool("shoot", true);
 
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            float animDuration = stateInfo.length;
+        // ✅ Give Animator time to enter "arrow_down"
+        yield return new WaitForSeconds(0.05f);
 
-            yield return new WaitForSeconds(animDuration);
+        // ✅ Safely get animation length
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        float animDuration = stateInfo.length > 0 ? stateInfo.length : 0.5f;
 
-            GameObject bullet = Instantiate(arrow, transform.position, transform.rotation);
-            bullet.GetComponent<Rigidbody2D>().velocity = transform.up * arrow_speed;
-            bullet.transform.Rotate(0, 0, 90);
+        yield return new WaitForSeconds(animDuration * 0.6f); // fire mid-animation
 
-            animator.SetBool("shoot", false);
+        GameObject bullet = Instantiate(arrow, attack_point.position, transform.rotation);
+        bullet.GetComponent<Rigidbody2D>().velocity = transform.up * arrow_speed;
+        bullet.transform.Rotate(0, 0, 90);
 
-            yield return new WaitForSeconds(time);
-            shoot_arrow = true;
+        animator.SetBool("shoot", false);
 
-            Destroy(bullet); // optional: maybe move this after a longer time if needed
-        }
+        yield return new WaitForSeconds(time);
+        shoot_arrow = true;
+
+        Destroy(bullet);
+    }
 
     IEnumerator death()
     {

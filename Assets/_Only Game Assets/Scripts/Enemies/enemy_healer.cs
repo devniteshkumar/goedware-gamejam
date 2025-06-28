@@ -6,6 +6,7 @@ using Unity.Mathematics;
 
 public class enemy_healer : MonoBehaviour
 {
+    public flash flash;
     public Animator animator;
     public static List<GameObject> enemiesToHeal = new List<GameObject>(); // Shared globally
     public HealthSystem HealthSystem;
@@ -25,6 +26,7 @@ public class enemy_healer : MonoBehaviour
         {
             var healthSystem = gameObject.GetComponent<HealthSystem>();
             healthSystem.TakeDamage(20);
+            flash.Flash();
 
         }
 
