@@ -123,6 +123,7 @@ public class Minion : MonoBehaviour
     
     public void OnDeath()
     {
+        target = null;
         animator.SetTrigger("dead");
     }
 }

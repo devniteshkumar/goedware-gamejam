@@ -31,7 +31,7 @@ public class HealthSystem : MonoBehaviour
         if (currentHealth <= 0 && (gameObject.tag == "Enemy" || gameObject.tag == "Minion"))
         {
             SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
-            Destroy(gameObject, 1.4f);
+            Destroy(gameObject, 2f);
         }
     }
 

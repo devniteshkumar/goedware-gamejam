@@ -1,10 +1,15 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyWavesManager : MonoBehaviour
 {
     [Header("References")]
     public EnemyWaveSO EnemyWaveSO;
+    public TMP_Text totalWTText;
+    public TMP_Text WTText;
+    public TMP_Text waveNoText;
+    public TMP_Text waitingTimeText;
 
     [Header("Properties")]
     [SerializeField] private Transform spawnCenter;
@@ -19,7 +24,7 @@ public class EnemyWavesManager : MonoBehaviour
 
 
     [Header("Time")]
-    public float totalWaveTime;
+    public float totalWaveTime_Conatant;
     public float time;
     public float waveWaitingTime;
     public float waveTime;
@@ -39,7 +44,7 @@ public class EnemyWavesManager : MonoBehaviour
         }
 
         if (LevelDone || pauseAll) return;
-        if (time > totalWaveTime && !LevelDone)
+        if (time > totalWaveTime_Conatant && !LevelDone)
         {
             GameManager.Instance.debugMessageTextToShow = "Level Complete!";
             LevelDone = true;
@@ -59,6 +64,13 @@ public class EnemyWavesManager : MonoBehaviour
         waveTime += Time.deltaTime;
 
         EnemySpawn();
+        totalWTText.text = time.ToString();
+        WTText.text = waveTime.ToString();
+        waveNoText.text = $"Wave: {currentWave}";
+        if (startWaveWaitingTime)
+            waitingTimeText.text = $"Waiting for Next Wave: {waveWaitingTime}";
+        else
+            waitingTimeText.text = "";
     }
     private void CheckIfEnemiesDied()
     {
@@ -96,7 +108,7 @@ public class EnemyWavesManager : MonoBehaviour
                 if (waveTime >= enemyProperties.spawnTime * enemyProperties.amountSpawned + enemyProperties.spawnStartTime)
                 {
                     Vector2 spawnPos = GetSpawnPosition(enemyProperties.enemyType);
-                    allEnemiesInWave.Add(Instantiate(enemyProperties.enemyType.EnemyPrefab, spawnPos, Quaternion.Euler(0, 0, Random.Range(0, 360))));
+                    allEnemiesInWave.Add(Instantiate(enemyProperties.enemyType.EnemyPrefab, spawnPos, Quaternion.identity));
                     enemyProperties.amountSpawned++;
                 }
             }
@@ -126,7 +138,7 @@ public class EnemyWavesManager : MonoBehaviour
             comparingTime += wave.WaveDuration;
             comparingTime += wave.timeAfterNextWaveStart;
         }
-        totalWaveTime = comparingTime;
+        totalWaveTime_Conatant = comparingTime;
     }
 
 
@@ -140,17 +152,17 @@ public class EnemyWavesManager : MonoBehaviour
             comparingTime += wave.timeAfterNextWaveStart;
             if (comparingTime > time)
             {
-                if (currentWave != i && waveWaitingTime <= 0)
+                if (currentWave + 1 == i && waveWaitingTime <= 0)
                 {
                     CurrentWaveDone();
                     currentWave = i;
                     NewWaveSetup(i);
                 }
-                else if (allEnemiesInWave.Count <= 0)
+                if (currentWave == i && allEnemiesInWave.Count <= 0 && waveTime >= EnemyWaveSO.waves[i].WaveDuration)
                 {
                     startWaveWaitingTime = true;
                 }
-                else
+                else if (currentWave == i && allEnemiesInWave.Count > 0 && waveTime >= EnemyWaveSO.waves[i].WaveDuration)
                 {
                     pauseAll = true;
                 }
@@ -167,7 +179,6 @@ public class EnemyWavesManager : MonoBehaviour
 
     private void NewWaveSetup(int i)
     {
-        waveTime = 0;
         allEnemyPropertiesInWave.Clear();
         for (int j = 0; j < EnemyWaveSO.waves[i].EnemyTypes.Count; j++)
         {
@@ -176,6 +187,8 @@ public class EnemyWavesManager : MonoBehaviour
             allEnemyPropertiesInWave.Add(new EnemyProperties(enemyType, duration));
         }
         waveWaitingTime = EnemyWaveSO.waves[currentWave].timeAfterNextWaveStart;
+        startWaveWaitingTime = false;
+        waveTime = 0;
         GameManager.Instance.debugMessageTextToShow = "New Wave Spawning";
     }
 
