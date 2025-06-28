@@ -36,6 +36,16 @@ public class RangedWithMeleeEnemy : MonoBehaviour
     public bool runTowardsHealer;
     public List<Missile> missiles = new();
 
+    // Animation
+    private Animator animator;
+    private Vector3 lastPosition;
+    private Vector3 lastVelocity;
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
@@ -43,6 +53,7 @@ public class RangedWithMeleeEnemy : MonoBehaviour
         missileTimer = missileCooldown;
         spawnTimer = spawnCooldown;
         healthSystem = GetComponent<HealthSystem>();
+        lastPosition = transform.position;
     }
 
     private void OnDisable()
@@ -85,6 +96,10 @@ public class RangedWithMeleeEnemy : MonoBehaviour
         HandleMinionSpawn();
         HandleMissileMovementAndDamage();
 
+        // Animate
+        Vector3 velocity = (transform.position - lastPosition) / Time.deltaTime;
+        lastPosition = transform.position;
+        PassAnimVars(velocity);
     }
 
     void HandleMissileAttack(Vector2 dir)
@@ -164,6 +179,10 @@ public class RangedWithMeleeEnemy : MonoBehaviour
         GameObject minion = Instantiate(minionPrefab, pos, Quaternion.identity);
         activeMinions.Add(minion); 
     }
+    public void OnDamaged()
+    {
+        animator.SetTrigger("hurt");
+    }
 
     public void OnDeath()
     {
@@ -171,6 +190,21 @@ public class RangedWithMeleeEnemy : MonoBehaviour
         {
             minion?.GetComponent<Minion>().BecomeGood();
         }
+        animator.SetTrigger("dead");
+    }
+
+    private void PassAnimVars(Vector3 velocity)
+    {
+        bool isMoving = velocity.sqrMagnitude > 0.001f;
+
+        if (isMoving)
+            lastVelocity = velocity;
+
+        Vector3 animVelocity = isMoving ? velocity : lastVelocity;
+
+        animator.SetBool("moving", isMoving);
+        animator.SetFloat("AnimMoveX", animVelocity.x);
+        animator.SetFloat("AnimMoveY", animVelocity.y);
     }
 }
 
