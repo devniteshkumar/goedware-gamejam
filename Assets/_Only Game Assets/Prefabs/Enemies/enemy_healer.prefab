@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3236657595650801522}
   - component: {fileID: 8083498222172738338}
   - component: {fileID: 6235514417099265553}
+  - component: {fileID: 2556784458271269620}
   m_Layer: 0
   m_Name: enemy_healer
   m_TagString: Untagged
@@ -120,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9168fe66ad25d4282060debe5f9de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flash: {fileID: 2556784458271269620}
   animator: {fileID: 8083498222172738338}
   HealthSystem: {fileID: 7203402284764757819}
 --- !u!95 &8083498222172738338
@@ -190,6 +192,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.3125, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &2556784458271269620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796668905302648084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1e35d7371764d4ea167d5679adea97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 4d664079421901044972bcb49840f4de, type: 2}
+  duration: 0.15
 --- !u!1 &1176449168597372567
 GameObject:
   m_ObjectHideFlags: 0

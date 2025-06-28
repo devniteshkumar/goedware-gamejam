@@ -17,6 +17,7 @@ public class archer_enemy : MonoBehaviour
     public Transform attack_point;
     public float attack_distance_from_center;
 
+    public flash flash;
     public HealthSystem HealthSystem;
     public HealthUI healthUI;
     enemy_healer enemy_healer;
@@ -55,7 +56,7 @@ public class archer_enemy : MonoBehaviour
         {
             var healthSystem = gameObject.GetComponent<HealthSystem>();
             healthSystem.TakeDamage(20);
-
+            flash.Flash();
         }
 
         RotateEnemy();

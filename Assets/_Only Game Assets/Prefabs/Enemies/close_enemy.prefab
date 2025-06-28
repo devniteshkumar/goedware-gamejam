@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3777268344235741016}
   - component: {fileID: 1413777042894615497}
   - component: {fileID: 5084855939232443647}
+  - component: {fileID: 8086514071091823003}
   m_Layer: 0
   m_Name: close_enemy
   m_TagString: Untagged
@@ -121,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ac62447312a5548902de8bb2bbd56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flash: {fileID: 8086514071091823003}
   attack_point: {fileID: 3470629736355954293}
   attack_raidus: 1.2
   attack_distance_from_center: 0.6
@@ -128,7 +130,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   animator: {fileID: 1413777042894615497}
-  player: {fileID: 0}
+  target: {fileID: 0}
   healthUI: {fileID: 65428390977463376}
   HealthSystem: {fileID: 6490767621046064870}
   range_of_player: 2
@@ -201,6 +203,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.4231386, y: 2.1503224}
   m_EdgeRadius: 0
+--- !u!114 &8086514071091823003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777479488141616853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1e35d7371764d4ea167d5679adea97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 4d664079421901044972bcb49840f4de, type: 2}
+  duration: 0.25
 --- !u!1 &1865643420798268500
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,24 +1,24 @@
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Unity.Mathematics;
 
 public class close_range_enemy : MonoBehaviour
 {
-    quaternion rotation;
+    public flash flash;
 
     public Transform attack_point;
     public float attack_raidus;
-
     public float attack_distance_from_center;
     public LayerMask player_side_mask;
     public Animator animator;
-    public GameObject player;
 
     private Rigidbody2D rb;
     private Vector2 movedir;
 
+    public GameObject target;
+
     bool isAttacking = true;
+    private Coroutine attackCoroutine;
 
     public HealthUI healthUI;
     public HealthSystem HealthSystem;
@@ -27,25 +27,34 @@ public class close_range_enemy : MonoBehaviour
     [SerializeField] float range_of_player = 1.5f;
     [SerializeField] float speed = 2f;
 
-    [System.Obsolete]
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
         enemy_healer = FindObjectOfType<enemy_healer>();
-
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("=== TESTING TARGETS ===");
 
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject[] minions = GameObject.FindGameObjectsWithTag("goodminion");
+
+            Debug.Log("Player found: " + (player != null));
+            Debug.Log("Minions found: " + minions.Length);
+
+            foreach (GameObject m in minions)
+            {
+                Debug.Log("Minion: " + m.name);
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             HealthSystem.TakeDamage(20);
-
+            flash.Flash();
         }
-
 
         if (HealthSystem.currentHealth < 2 && !HealthSystem.dead)
         {
@@ -55,25 +64,70 @@ public class close_range_enemy : MonoBehaviour
 
         if (HealthSystem.currentHealth != HealthSystem.maxHealth)
         {
-            enemy_healer.enemiesToHeal.Add(gameObject);
+            if (!enemy_healer.enemiesToHeal.Contains(gameObject))
+            {
+                enemy_healer.enemiesToHeal.Add(gameObject);
+            }
         }
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        if (HealthSystem.dead) return;
 
-        if (distanceToPlayer > range_of_player && !HealthSystem.dead)
+        FindNearestTarget();
+        if (target == null) return;
+
+        float distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
+
+        if (distanceToTarget > range_of_player)
         {
             MoveEnemy();
         }
-        else if(isAttacking)
+        else if (isAttacking && attackCoroutine == null)
         {
-            StartCoroutine(attack());
+            attackCoroutine = StartCoroutine(attack());
         }
+    }
+
+    void FindNearestTarget()
+    {
+        GameObject[] allTargets = GameObject.FindGameObjectsWithTag("GoodMinion");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        float closestDist = Mathf.Infinity;
+        GameObject closest = null;
+
+        if (player != null)
+        {
+            float playerDist = Vector2.Distance(transform.position, player.transform.position);
+            if (playerDist < closestDist)
+            {
+                closest = player;
+                closestDist = playerDist;
+            }
+        }
+
+        foreach (GameObject minion in allTargets)
+        {
+            if (minion == null) continue;
+            float minionDist = Vector2.Distance(transform.position, minion.transform.position);
+            if (minionDist < closestDist)
+            {
+                closest = minion;
+                closestDist = minionDist;
+            }
+        }
+
+        if (closest != target)
+        {
+            Debug.Log("Target changed to: " + closest.name);
+        }
+
+        target = closest;
     }
 
     void MoveEnemy()
     {
         Vector2 currentPosition = transform.position;
-        Vector2 targetPosition = player.transform.position;
+        Vector2 targetPosition = target.transform.position;
         movedir = (targetPosition - currentPosition).normalized;
 
         transform.position = Vector2.MoveTowards(currentPosition, targetPosition, speed * Time.deltaTime);
@@ -87,51 +141,57 @@ public class close_range_enemy : MonoBehaviour
         else
             attack_point.localPosition = new Vector3(0, attack_distance_from_center, 0);
 
-
-        // Update animator with move direction
         animator.SetFloat("move_x", movedir.x);
         animator.SetFloat("move_y", movedir.y);
     }
-    // void RotateEnemy()
-    // {
-    //     movedir = (player.transform.position - transform.position).normalized;
-    //     rotation = Quaternion.LookRotation(Vector3.forward, movedir);
-    //     transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 200 * Time.deltaTime);
-    // }
 
     IEnumerator attack()
     {
         isAttacking = false;
-        animator.SetBool("attack", true);
-        yield return null;
 
-        Collider2D[] player_side = Physics2D.OverlapCircleAll(attack_point.position, attack_raidus, player_side_mask);
-        foreach (Collider2D player_side_single in player_side)
+        float initialDistance = Vector2.Distance(transform.position, target.transform.position);
+        if (initialDistance > range_of_player)
         {
-            player_side_single.GetComponent<HealthSystem>().TakeDamage(10);
-            Debug.Log(player_side_single.name);
+            attackCoroutine = null;
+            isAttacking = true;
+            yield break;
         }
 
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        float animDuration = stateInfo.length;
+        animator.SetBool("attack", true);
 
-        yield return new WaitForSeconds(animDuration + 0.3f);
+        yield return new WaitForSeconds(0.3f);
+
+        if (Vector2.Distance(transform.position, target.transform.position) <= range_of_player)
+        {
+            Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attack_point.position, attack_raidus, player_side_mask);
+            foreach (Collider2D col in hitTargets)
+            {
+                HealthSystem h = col.GetComponent<HealthSystem>();
+                if (h != null)
+                {
+                    h.TakeDamage(10);
+                    Debug.Log("Attacked: " + col.name);
+                }
+            }
+        }
+
+        yield return new WaitForSeconds(0.5f);
         animator.SetBool("attack", false);
-        isAttacking = true;
+        yield return new WaitForSeconds(3f);
 
+        isAttacking = true;
+        attackCoroutine = null;
     }
 
     IEnumerator death()
     {
         animator.SetBool("dead", true);
-
         yield return null;
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         float animDuration = stateInfo.length;
 
         yield return new WaitForSeconds(animDuration + 0.1f);
-
         Destroy(gameObject);
     }
 
@@ -139,11 +199,6 @@ public class close_range_enemy : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Vector3 position = attack_point == null ? Vector3.zero : attack_point.position;
-        Gizmos.DrawWireSphere(position, attack_raidus);       
-   }
+        Gizmos.DrawWireSphere(position, attack_raidus);
+    }
 }
-
-
-
-
-
