@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 public class SceneController : MonoBehaviour
 {
+    public static int CurrentLevel;
     public Button[] LevelButtons;
     public Animator FadeAnimator;
     public float TransitionTime;  
@@ -21,8 +22,17 @@ public class SceneController : MonoBehaviour
     {
         LoadScene("Level"+Level.ToString(),FadeAnimator);
     }
-    public void MainMenu(){
-        LoadScene("Main Menu",FadeAnimator);
+    public void Retry()
+    {
+        LoadScene("Level"+CurrentLevel.ToString(),FadeAnimator);
+    }
+    public void NextLevel()
+    {   
+        LoadScene("Level"+(CurrentLevel+1).ToString(),FadeAnimator);
+    }
+    public void MainMenu()
+    {
+        LoadScene("Main Menu", FadeAnimator);
     }
     public void Complete(){
         LoadScene("Game Complete",FadeAnimator);
