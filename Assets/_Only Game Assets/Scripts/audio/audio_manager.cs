@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class audio_manager : MonoBehaviour
 {
-    
+    public static audio_manager Instance { get; private set; }
+
     [SerializeField] AudioSource background_music;
     [SerializeField] AudioSource sound_effects;
 
@@ -10,26 +11,30 @@ public class audio_manager : MonoBehaviour
     public AudioClip background;
     public AudioClip death;
     public AudioClip enemy_hit;
-    public AudioClip enemy_death_incase_found_smtg;
-    public AudioClip sword_sound;
-
-    public AudioClip smtg;
-
     public AudioClip player_hit;
     public AudioClip convert;
 
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        background_music.clip = background;
-        background_music.Play();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    public void sound_effect(AudioClip clip)
+    void Start()
     {
-        sound_effects.PlayOneShot(clip);
+        //background_music.clip = background;
+        //background_music.Play();
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        //sound_effects.PlayOneShot(clip);
     }
 }

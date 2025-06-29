@@ -265,9 +265,9 @@ MonoBehaviour:
   flash: {fileID: 5192735454872871725}
   HealthSystem: {fileID: 9144408214633919316}
   healthUI: {fileID: 3622999686269712944}
-  range_of_player: 7
-  min_distance_player: 5
-  speed: 1
+  range_of_player: 12
+  min_distance_player: 4
+  speed: 2
   arrow_speed: 7
 --- !u!114 &9144408214633919316
 MonoBehaviour:

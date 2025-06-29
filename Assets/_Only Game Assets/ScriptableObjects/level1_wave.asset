@@ -17,11 +17,16 @@ MonoBehaviour:
     EnemyTypes:
     - EnemyPrefab: {fileID: 1777479488141616853, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
       amountToSpawn: 2
+<<<<<<< HEAD
       minDistanceFromPlayerToSpawn: 3
+=======
+      minDistanceFromPlayerToSpawn: 5
+>>>>>>> master
       spawnStartTime_0to1: 0
       spawnEndTime_0to1: 0.1
       spawnStartAngle: 0
       spawnEndAngle: 360
+<<<<<<< HEAD
     resourcesGivenAtEnd:
     - resourceType: 2
       amount: 15
@@ -29,15 +34,25 @@ MonoBehaviour:
       amount: 5
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
+=======
+    resourcesGivenAtEnd: []
+    noOfResourcesToGiveFromList: 0
+    timeAfterNextWaveStart: 0
+>>>>>>> master
   - WaveDuration: 20
     EnemyTypes:
     - EnemyPrefab: {fileID: 1777479488141616853, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
       amountToSpawn: 5
+<<<<<<< HEAD
       minDistanceFromPlayerToSpawn: 3
+=======
+      minDistanceFromPlayerToSpawn: 5
+>>>>>>> master
       spawnStartTime_0to1: 0
       spawnEndTime_0to1: 0.3
       spawnStartAngle: 0
       spawnEndAngle: 360
+<<<<<<< HEAD
     resourcesGivenAtEnd:
     - resourceType: 2
       amount: 15
@@ -73,10 +88,40 @@ MonoBehaviour:
     - EnemyPrefab: {fileID: 2792255431923626921, guid: 51dbb525d38db5f4ea6764f141dc18ff, type: 3}
       amountToSpawn: 4
       minDistanceFromPlayerToSpawn: 8
+=======
+    resourcesGivenAtEnd: []
+    noOfResourcesToGiveFromList: 0
+    timeAfterNextWaveStart: 0
+  - WaveDuration: 20
+    EnemyTypes:
+    - EnemyPrefab: {fileID: 2792255431923626921, guid: 51dbb525d38db5f4ea6764f141dc18ff, type: 3}
+      amountToSpawn: 5
+      minDistanceFromPlayerToSpawn: 7
+      spawnStartTime_0to1: 0
+      spawnEndTime_0to1: 0.4
+      spawnStartAngle: 0
+      spawnEndAngle: 360
+    resourcesGivenAtEnd: []
+    noOfResourcesToGiveFromList: 0
+    timeAfterNextWaveStart: 0
+  - WaveDuration: 30
+    EnemyTypes:
+    - EnemyPrefab: {fileID: 1777479488141616853, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
+      amountToSpawn: 3
+      minDistanceFromPlayerToSpawn: 4
+      spawnStartTime_0to1: 0
+      spawnEndTime_0to1: 0.1
+      spawnStartAngle: 0
+      spawnEndAngle: 180
+    - EnemyPrefab: {fileID: 2792255431923626921, guid: 51dbb525d38db5f4ea6764f141dc18ff, type: 3}
+      amountToSpawn: 3
+      minDistanceFromPlayerToSpawn: 7
+>>>>>>> master
       spawnStartTime_0to1: 0.1
       spawnEndTime_0to1: 0.3
       spawnStartAngle: 0
       spawnEndAngle: 180
+<<<<<<< HEAD
     resourcesGivenAtEnd:
     - resourceType: 2
       amount: 15
@@ -84,3 +129,8 @@ MonoBehaviour:
       amount: 5
     noOfResourcesToGiveFromList: 0
     timeAfterNextWaveStart: 3
+=======
+    resourcesGivenAtEnd: []
+    noOfResourcesToGiveFromList: 0
+    timeAfterNextWaveStart: 0
+>>>>>>> master
