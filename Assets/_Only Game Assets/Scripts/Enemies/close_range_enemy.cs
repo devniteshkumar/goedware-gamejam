@@ -133,6 +133,14 @@ public class close_range_enemy : MonoBehaviour
 
         transform.position = Vector2.MoveTowards(currentPosition, targetPosition, speed * Time.deltaTime);
 
+        UpdateAttackPoint();
+        animator.SetFloat("move_x", movedir.x);
+        animator.SetFloat("move_y", movedir.y);
+    }
+
+
+    void UpdateAttackPoint()
+    {
         if (movedir.x > 0.7f)
             attack_point.localPosition = new Vector3(attack_distance_from_center, 0, 0);
         else if (movedir.x < -0.7f)
@@ -141,15 +149,11 @@ public class close_range_enemy : MonoBehaviour
             attack_point.localPosition = new Vector3(0, -attack_distance_from_center, 0);
         else
             attack_point.localPosition = new Vector3(0, attack_distance_from_center, 0);
-
-        animator.SetFloat("move_x", movedir.x);
-        animator.SetFloat("move_y", movedir.y);
     }
-
     IEnumerator attack()
     {
         isAttacking = false;
-
+        yield return new WaitForSeconds(0.3f);
         float initialDistance = Vector2.Distance(transform.position, target.transform.position);
         if (initialDistance > range_of_player)
         {

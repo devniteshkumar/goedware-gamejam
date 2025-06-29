@@ -328,7 +328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7825244033540569369, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -352,7 +352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &524775069
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -583,8 +583,20 @@ PrefabInstance:
       value: close_enemy (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1777479488141616853, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1777479488141616853, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865643420798268500, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650861018733785841, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2894387217940488383, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -634,10 +646,30 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 28651194}
+    - target: {fileID: 4496237301624016363, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4943883118960500991, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051597913325629492, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5615542191505994970, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 129540196}
+    - target: {fileID: 6940719223691697773, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517692856534543449, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -982,7 +1014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8596936374097498099, guid: 51dbb525d38db5f4ea6764f141dc18ff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8596936374097498099, guid: 51dbb525d38db5f4ea6764f141dc18ff, type: 3}
       propertyPath: m_LocalPosition.y

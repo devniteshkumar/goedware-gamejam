@@ -14,10 +14,9 @@ GameObject:
   - component: {fileID: 3777268344235741016}
   - component: {fileID: 1413777042894615497}
   - component: {fileID: 5084855939232443647}
-  - component: {fileID: 8086514071091823003}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: close_enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ac62447312a5548902de8bb2bbd56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flash: {fileID: 8086514071091823003}
+  flash: {fileID: 0}
   attack_point: {fileID: 3470629736355954293}
   attack_raidus: 1.2
   attack_distance_from_center: 0.6
@@ -203,20 +202,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.4231386, y: 2.1503224}
   m_EdgeRadius: 0
---- !u!114 &8086514071091823003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1777479488141616853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f1e35d7371764d4ea167d5679adea97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 2100000, guid: 4d664079421901044972bcb49840f4de, type: 2}
-  duration: 0.25
 --- !u!1 &1865643420798268500
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3470629736355954293}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: attack_pos
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
@@ -259,7 +244,7 @@ GameObject:
   - component: {fileID: 6394157849990537582}
   - component: {fileID: 2115090449555714060}
   - component: {fileID: 6700301805965600956}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +320,7 @@ GameObject:
   - component: {fileID: 7173212768895338886}
   - component: {fileID: 4429255446751509422}
   - component: {fileID: 3705414702777988794}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Dependent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +395,7 @@ GameObject:
   - component: {fileID: 2834475797109728702}
   - component: {fileID: 5116313356522156806}
   - component: {fileID: 6448552150647986789}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Reference
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +470,7 @@ GameObject:
   - component: {fileID: 4371511504693236558}
   - component: {fileID: 5822791468205543778}
   - component: {fileID: 3389420808360104298}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -565,7 +550,7 @@ GameObject:
   - component: {fileID: 895458411586819356}
   - component: {fileID: 5356384592277883198}
   - component: {fileID: 65428390977463376}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Health(Non Player) Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +670,7 @@ GameObject:
   - component: {fileID: 6304200094881666227}
   - component: {fileID: 4060984916107665815}
   - component: {fileID: 8951147796955579365}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Independent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
