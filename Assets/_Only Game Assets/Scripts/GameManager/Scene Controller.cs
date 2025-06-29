@@ -6,13 +6,18 @@ using UnityEngine.Rendering;
 using Unity.VisualScripting;
 public class SceneController : MonoBehaviour
 {
-    public static int CurrentLevel;
-    public static int UnlockedLevel;
+    [SerializeField]public static SceneController instance;
+    public static int CurrentLevel=1;
+    public static int UnlockedLevel=1;
     public Button[] LevelButtons;
     public Animator FadeAnimator;
     public float TransitionTime;
     public GameObject WinScreen;
     public GameObject LoseScreen;
+    void Awake()
+    {
+        instance = this;
+    }
     public void LoadScene(string name, Animator animator)
     {
         StartCoroutine(SceneTransition(name, animator));
@@ -25,6 +30,8 @@ public class SceneController : MonoBehaviour
     }
     public void StartLevel(int Level)
     {
+        CurrentLevel = Level;
+        Time.timeScale = 1f;
         LoadScene("Palaksh",FadeAnimator);
     }
     public void Retry()
@@ -33,8 +40,6 @@ public class SceneController : MonoBehaviour
     }
     public void NextLevel()
     {
-        CurrentLevel++;
-        UnlockedLevel = Mathf.Max(UnlockedLevel, CurrentLevel);
         StartLevel(CurrentLevel);
     }
     public void MainMenu()
@@ -42,6 +47,7 @@ public class SceneController : MonoBehaviour
         LoadScene("Main Menu", FadeAnimator);
     }
     public void Complete(){
+        UnlockedLevel = Mathf.Max(UnlockedLevel, CurrentLevel+1);
         WinScreen.SetActive(true);
     }
     public void Lose(){

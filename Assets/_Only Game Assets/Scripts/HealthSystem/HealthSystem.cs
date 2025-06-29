@@ -68,6 +68,7 @@ public class HealthSystem : MonoBehaviour
         // Handle death logic here
         if (gameObject.CompareTag("Player"))
             GameManager.Instance.debugMessageTextToShow = "You Died!";
+            SceneController.instance.Lose();
     }
 }
 

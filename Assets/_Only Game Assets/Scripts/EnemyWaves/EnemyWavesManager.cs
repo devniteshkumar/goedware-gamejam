@@ -119,6 +119,7 @@ public class EnemyWavesManager : MonoBehaviour
             float angle = Random.Range(enemyType.spawnStartAngle, enemyType.spawnEndAngle);
             float radius = enemyType.minDistanceFromPlayerToSpawn + Random.Range(-2, 4);
 
+            spawnCenter = GameObject.FindGameObjectWithTag("Player").transform;
             Vector2 spawnOffset = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
             Vector2 center = spawnCenter.transform.position; 
 
