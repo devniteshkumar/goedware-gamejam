@@ -61,23 +61,27 @@ public class archer_enemy : MonoBehaviour
             flash.Flash();
         }
 
-        float distance = Vector3.Distance(player.transform.position, transform.position);
 
-        if (distance < min_distance_player)
+        if (player)
         {
-            MoveAwayEnemy();
-        }
-        else if (distance > range_of_player)
-        {
-            MoveEnemy();
-        }
+            float distance = Vector3.Distance(player.transform.position, transform.position);
 
-        else
-        {
-            RotateEnemy();
-            if (shoot_arrow)
+            if (distance < min_distance_player)
             {
-                StartCoroutine(fire(3));
+                MoveAwayEnemy();
+            }
+            else if (distance > range_of_player)
+            {
+                MoveEnemy();
+            }
+
+            else
+            {
+                RotateEnemy();
+                if (shoot_arrow)
+                {
+                    StartCoroutine(fire(3));
+                }
             }
         }
     }
