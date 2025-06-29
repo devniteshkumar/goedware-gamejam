@@ -7,6 +7,7 @@ public class HealthSystem : MonoBehaviour
     public float maxHealth = 100;
     public float currentHealth;
     public HealthUI healthUI;
+    private flash flash;
     void Start()
     {
         currentHealth = maxHealth;
@@ -15,6 +16,7 @@ public class HealthSystem : MonoBehaviour
             healthUI.SetMaxHealth(maxHealth);
             healthUI.SetHealth(currentHealth); // to initialize UI
         }
+        flash = GetComponent<flash>();
     }
 
     private void Update()
@@ -57,6 +59,10 @@ public class HealthSystem : MonoBehaviour
         else
         {
             audio_manager.Instance.PlaySound(audio_manager.Instance.enemy_hit);
+        }
+        if (flash != null)
+        {
+            flash.Flash();
         }
     }
 

@@ -91,6 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyWaveSO: {fileID: 11400000, guid: 86fc81fb212a01a489b260ef33ff878d, type: 2}
+  totalWTText: {fileID: 0}
+  WTText: {fileID: 0}
+  waveNoText: {fileID: 0}
+  waitingTimeText: {fileID: 0}
   spawnCenter: {fileID: 0}
   currentWave: -1
   LevelDone: 0
@@ -98,7 +102,7 @@ MonoBehaviour:
   startWaveWaitingTime: 0
   allEnemyPropertiesInWave: []
   allEnemiesInWave: []
-  totalWaveTime: 0
+  totalWaveTime_Conatant: 0
   time: 0
   waveWaitingTime: 0
   waveTime: 0
