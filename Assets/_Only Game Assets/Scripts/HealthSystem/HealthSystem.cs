@@ -28,7 +28,7 @@ public class HealthSystem : MonoBehaviour
         }
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        if (currentHealth <= 0 && (gameObject.tag == "Enemy" || gameObject.tag == "Minion"))
+        if (currentHealth <= 0 && (gameObject.tag == "Enemy" || gameObject.tag == "Minion" || gameObject.tag == "GoodMinion"))
         {
             SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
             Destroy(gameObject, 2f);
