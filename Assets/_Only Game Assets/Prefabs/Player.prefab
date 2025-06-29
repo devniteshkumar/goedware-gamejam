@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 3671202946332086655}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.410001, z: 0}
+  m_LocalPosition: {x: 3.5, y: -0, z: 0}
   m_LocalScale: {x: 0.20000002, y: 0.20000002, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -291,14 +291,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5441691536212666533}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7279070987279144153}
   m_Father: {fileID: 7176000295924290662}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &5882655322589804256
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,9 +410,10 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   attack: {fileID: 8818465396603687903}
   parry: {fileID: 3696177572741963309}
+  teleportParent: {fileID: 5441691536212666533}
   teleportLayer:
     serializedVersion: 2
-    m_Bits: 375
+    m_Bits: 1
   moveSpeed: 5
   attackCooldown: 0.15
   defenseCooldown: 1
