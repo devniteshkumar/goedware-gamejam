@@ -22,6 +22,20 @@ MonoBehaviour:
       spawnEndTime_0to1: 1
       spawnStartAngle: 0
       spawnEndAngle: 360
+    - EnemyPrefab: {fileID: 2792255431923626921, guid: 51dbb525d38db5f4ea6764f141dc18ff, type: 3}
+      amountToSpawn: 5
+      minDistanceFromPlayerToSpawn: 10
+      spawnStartTime_0to1: 0
+      spawnEndTime_0to1: 1
+      spawnStartAngle: 0
+      spawnEndAngle: 360
+    - EnemyPrefab: {fileID: 6337952323835363133, guid: 5851fe4b1b490534ab500f22c77ca646, type: 3}
+      amountToSpawn: 5
+      minDistanceFromPlayerToSpawn: 10
+      spawnStartTime_0to1: 0
+      spawnEndTime_0to1: 1
+      spawnStartAngle: 0
+      spawnEndAngle: 360
     resourcesGivenAtEnd: []
     noOfResourcesToGiveFromList: 0
     timeAfterNextWaveStart: 10

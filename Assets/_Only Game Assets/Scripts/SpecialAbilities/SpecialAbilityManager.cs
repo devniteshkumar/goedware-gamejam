@@ -228,6 +228,7 @@ public class SpecialAbilityManager : MonoBehaviour
             {
                 enemy.GetComponent<HealthSystem>().TakeDamage(damage);
             }
+            GetResource(ResourceTypes.GiveDamage).amount = 0;
         }
 
         playerHealth.maxHealth = GetResource(ResourceTypes.Health).amount;
