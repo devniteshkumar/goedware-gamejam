@@ -27,6 +27,7 @@ public class SpecialAbilityManager : MonoBehaviour
     public TMP_Text toAmountText;
     public RectTransform parentOfResourceContainer;
     public RectTransform resourceContainerPrefab;
+    public TMP_Text timeRemainiingText;
 
 
     [Header("References")]
@@ -41,8 +42,7 @@ public class SpecialAbilityManager : MonoBehaviour
     [Header("Input Var")]
     public int useSpecialAbility;
 
-
-    private void Start()
+    private void Awake()
     {
         AllResources.Clear();
         AllResources.Add(new Resource(ResourceTypes.Time, 120));
@@ -53,8 +53,10 @@ public class SpecialAbilityManager : MonoBehaviour
         AllResources.Add(new Resource(ResourceTypes.AttackingRadius, 0.5f));
         AllResources.Add(new Resource(ResourceTypes.Health, 0));
         AllResources.Add(new Resource(ResourceTypes.GiveDamage, 0));
+    }
 
-
+    private void Start()
+    {
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         playerHealth = playerMovement.GetComponent<HealthSystem>();
 
@@ -184,9 +186,14 @@ public class SpecialAbilityManager : MonoBehaviour
         }
     }
 
+    public void SyncHealth()
+    {
+        playerHealth.currentHealth = GetResource(ResourceTypes.Health).amount;
+    }
 
     private void Update()
     {
+        timeRemainiingText.text = $"Time Remaining: {GetResource(ResourceTypes.Time).amount}";
         // Optional — for manual inspector trigger
         if (convert)
         {
