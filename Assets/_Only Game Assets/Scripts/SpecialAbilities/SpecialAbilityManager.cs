@@ -51,7 +51,7 @@ public class SpecialAbilityManager : MonoBehaviour
         AllResources.Add(new Resource(ResourceTypes.NoOfTeleports, 0));
         AllResources.Add(new Resource(ResourceTypes.AttackDamage, 5));
         AllResources.Add(new Resource(ResourceTypes.AttackingRadius, 0.5f));
-        AllResources.Add(new Resource(ResourceTypes.Health, 100));
+        AllResources.Add(new Resource(ResourceTypes.Health, 0));
         AllResources.Add(new Resource(ResourceTypes.GiveDamage, 0));
 
 
@@ -167,8 +167,8 @@ public class SpecialAbilityManager : MonoBehaviour
             convertAction = uiMap.FindAction("Convert");
             toggleUIAction = uiMap.FindAction("ToggleUI");
 
-            convertAction.performed += _ => OnConvertPressed();
-            toggleUIAction.performed += _ => OnToggleUIPressed();
+            //convertAction.performed += _ => OnConvertPressed();
+            //toggleUIAction.performed += _ => OnToggleUIPressed();
 
             convertAction.Enable();
             toggleUIAction.Enable();
@@ -192,6 +192,7 @@ public class SpecialAbilityManager : MonoBehaviour
         {
             convert = false;
             OnConvertPressed();
+            playerHealth.currentHealth = GetResource(ResourceTypes.Health).amount;
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -244,7 +245,6 @@ public class SpecialAbilityManager : MonoBehaviour
             GetResource(ResourceTypes.GiveDamage).amount = 0;
         }
 
-        playerHealth.maxHealth = GetResource(ResourceTypes.Health).amount;
     }
 
     private void UsingSpecialAbility(int n)

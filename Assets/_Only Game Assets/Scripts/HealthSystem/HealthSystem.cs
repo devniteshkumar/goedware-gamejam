@@ -36,6 +36,11 @@ public class HealthSystem : MonoBehaviour
             SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
             Destroy(gameObject, 2f);
         }
+
+        if (gameObject.CompareTag("Player"))
+        {
+            SpecialAbilityManager.GetResource(ResourceTypes.Health).amount = currentHealth;
+        }
     }
 
     public void TakeDamage(float amount)
