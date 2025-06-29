@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.RenderGraphModule;
 
 public class archer_enemy : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class archer_enemy : MonoBehaviour
     public HealthUI healthUI;
     enemy_healer enemy_healer;
     [SerializeField] float range_of_player;
+    [SerializeField] float min_distance_player;
     [SerializeField] float speed;
     [SerializeField] float arrow_speed;
 
@@ -41,7 +43,7 @@ public class archer_enemy : MonoBehaviour
 
     void Update()
     {
-        if (HealthSystem.currentHealth != HealthSystem.maxHealth)
+        if (HealthSystem.currentHealth != HealthSystem.maxHealth && !enemy_healer.enemiesToHeal.Contains(gameObject))
         {
             enemy_healer.enemiesToHeal.Add(gameObject);
         }
@@ -50,27 +52,56 @@ public class archer_enemy : MonoBehaviour
         {
             HealthSystem.dead = true;
             StartCoroutine(death());
+            return;
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            var healthSystem = gameObject.GetComponent<HealthSystem>();
-            healthSystem.TakeDamage(20);
+            HealthSystem.TakeDamage(20);
             flash.Flash();
         }
 
-        RotateEnemy();
+        float distance = Vector3.Distance(player.transform.position, transform.position);
 
-
-        if (shoot_arrow && transform.rotation == rotation)
+        if (distance < min_distance_player)
         {
-            StartCoroutine(fire(3));
+            MoveAwayEnemy();
+        }
+        else if (distance > range_of_player)
+        {
+            MoveEnemy();
         }
 
+        else
+        {
+            RotateEnemy();
+            if (shoot_arrow)
+            {
+                StartCoroutine(fire(3));
+            }
+        }
     }
+    void MoveAwayEnemy()
+    {
+        movedir = (transform.position - player.transform.position).normalized;
+
+        animator.SetFloat("move_x", movedir.x);
+        animator.SetFloat("move_y", movedir.y);
+
+        transform.position += (Vector3)(movedir * speed * Time.deltaTime);
+
+        UpdateAttackPoint();
+    }
+
+
     void MoveEnemy()
     {
+        movedir = player.transform.position - transform.position;
+        movedir.Normalize();
+        animator.SetFloat("move_x", movedir.x);
+        animator.SetFloat("move_y", movedir.y);
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        UpdateAttackPoint();
     }
 
     void RotateEnemy()
@@ -78,39 +109,50 @@ public class archer_enemy : MonoBehaviour
         movedir = player.transform.position - transform.position;
         movedir.Normalize();
         rotation = Quaternion.LookRotation(Vector3.forward, movedir);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 100 * Time.deltaTime);
         animator.SetFloat("move_x", movedir.x);
         animator.SetFloat("move_y", movedir.y);
-        
-        // if (movedir.x > 0.7f)
-        //     attack_point.localPosition = new Vector3(attack_distance_from_center, 0, 0);
-        // else if (movedir.x < -0.7f)
-        //     attack_point.localPosition = new Vector3(-attack_distance_from_center, 0, 0);
-        // else if (movedir.y < -0.7f)
-        //     attack_point.localPosition = new Vector3(0, -attack_distance_from_center, 0);
-        // else
-        //     attack_point.localPosition = new Vector3(0, attack_distance_from_center, 0);
+        UpdateAttackPoint();
     }
 
-    [System.Obsolete]
+    
+    void UpdateAttackPoint()
+    {
+        if (movedir.x > 0.7f)
+            attack_point.localPosition = new Vector3(attack_distance_from_center, 0, 0);
+        else if (movedir.x < -0.7f)
+            attack_point.localPosition = new Vector3(-attack_distance_from_center, 0, 0);
+        else if (movedir.y < -0.7f)
+            attack_point.localPosition = new Vector3(0, -attack_distance_from_center, 0);
+        else
+            attack_point.localPosition = new Vector3(0, attack_distance_from_center, 0);
+    }
+
     IEnumerator fire(float time)
     {
         shoot_arrow = false;
 
         animator.SetBool("shoot", true);
 
-        // ✅ Give Animator time to enter "arrow_down"
         yield return new WaitForSeconds(0.05f);
 
-        // ✅ Safely get animation length
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         float animDuration = stateInfo.length > 0 ? stateInfo.length : 0.5f;
 
         yield return new WaitForSeconds(animDuration * 0.6f); // fire mid-animation
 
-        GameObject bullet = Instantiate(arrow, attack_point.position, transform.rotation);
-        bullet.GetComponent<Rigidbody2D>().velocity = transform.up * arrow_speed;
-        bullet.transform.Rotate(0, 0, 90);
+        // Calculate direction to player
+        Vector2 direction = (player.transform.position - attack_point.position).normalized;
+
+        GameObject bullet = Instantiate(arrow, attack_point.position, Quaternion.identity);
+
+        if (bullet.TryGetComponent(out Rigidbody2D bulletRb))
+        {
+            bulletRb.linearVelocity = direction * arrow_speed;
+        }
+
+        // Optional: rotate the arrow to face direction
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        bullet.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
         animator.SetBool("shoot", false);
 
@@ -119,7 +161,6 @@ public class archer_enemy : MonoBehaviour
 
         Destroy(bullet);
     }
-
     IEnumerator death()
     {
         animator.SetBool("dead", true);

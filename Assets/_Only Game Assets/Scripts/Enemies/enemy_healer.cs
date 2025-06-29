@@ -7,6 +7,10 @@ using Unity.Mathematics;
 public class enemy_healer : MonoBehaviour
 {
     public flash flash;
+
+    [SerializeField]float heal_radius;
+    [SerializeField]float healer_speed;
+    [SerializeField]float heal_per_sec;
     public Animator animator;
     public static List<GameObject> enemiesToHeal = new List<GameObject>(); // Shared globally
     public HealthSystem HealthSystem;
@@ -19,7 +23,7 @@ public class enemy_healer : MonoBehaviour
         if (HealthSystem.currentHealth < 2 && !HealthSystem.dead)
         {
             HealthSystem.dead = true;
-            StartCoroutine(PlayDeathAnimation(transform)); // 👈 Add this line
+            StartCoroutine(PlayDeathAnimation(transform)); 
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -38,11 +42,23 @@ public class enemy_healer : MonoBehaviour
         else
         {
             HealthSystem healthSystem = current_enemy.GetComponent<HealthSystem>();
+            movedir = current_enemy.transform.position - transform.position;
+            movedir.Normalize();
             if (healthSystem.currentHealth < healthSystem.maxHealth && !healthSystem.dead)
             {
-                animator.SetBool("heal", true);
-                RotateEnemy(current_enemy);
-                healthSystem.Heal(10 * Time.deltaTime);
+
+                if (Vector3.Distance(current_enemy.transform.position, transform.position) > heal_radius)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, current_enemy.transform.position, healer_speed * Time.deltaTime);
+                    animator.SetFloat("move_x", movedir.x);
+                    animator.SetFloat("move_y", movedir.y);
+                }
+                else
+                {
+                    animator.SetBool("heal", true);
+                    healthSystem.Heal(heal_per_sec * Time.deltaTime);
+                }
+
             }
             else
             {
@@ -70,8 +86,7 @@ public class enemy_healer : MonoBehaviour
 
     void RotateEnemy(GameObject enemy)
     {
-        movedir = enemy.transform.position - transform.position;
-        movedir.Normalize();
+
         rotation = Quaternion.LookRotation(Vector3.forward, movedir);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 50 * Time.deltaTime);
     }

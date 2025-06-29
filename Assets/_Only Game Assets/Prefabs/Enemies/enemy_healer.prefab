@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8083498222172738338}
   - component: {fileID: 6235514417099265553}
   - component: {fileID: 2556784458271269620}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: enemy_healer
   m_TagString: Healer
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8, y: 4, z: 0}
-  m_LocalScale: {x: -1, y: -1, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6437508577046731273}
@@ -122,6 +122,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flash: {fileID: 2556784458271269620}
+  heal_radius: 8
+  healer_speed: 2
+  heal_per_sec: 3
   animator: {fileID: 8083498222172738338}
   HealthSystem: {fileID: 7203402284764757819}
 --- !u!95 &8083498222172738338
@@ -217,7 +220,7 @@ GameObject:
   - component: {fileID: 8329884088330013654}
   - component: {fileID: 1427480735533161838}
   - component: {fileID: 986985177991902221}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Reference
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +295,7 @@ GameObject:
   - component: {fileID: 7522453133721222438}
   - component: {fileID: 288529670908755722}
   - component: {fileID: 8918817821293756162}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +375,7 @@ GameObject:
   - component: {fileID: 6386926052668128116}
   - component: {fileID: 2205099852007040854}
   - component: {fileID: 6064051886868384312}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Health(Non Player) Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +495,7 @@ GameObject:
   - component: {fileID: 266452745724885723}
   - component: {fileID: 7823915331267399679}
   - component: {fileID: 2951960806456225165}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Independent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +570,7 @@ GameObject:
   - component: {fileID: 3982302247834986478}
   - component: {fileID: 7617915276103407046}
   - component: {fileID: 7468061937925576914}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Dependent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,7 +645,7 @@ GameObject:
   - component: {fileID: 897123862306230022}
   - component: {fileID: 5302401728500129380}
   - component: {fileID: 591068003492218580}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
