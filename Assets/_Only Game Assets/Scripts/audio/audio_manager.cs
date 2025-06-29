@@ -29,8 +29,8 @@ public class audio_manager : MonoBehaviour
 
     void Start()
     {
-        background_music.clip = background;
-        background_music.Play();
+        //background_music.clip = background;
+        //background_music.Play();
     }
 
     public void PlaySound(AudioClip clip)
