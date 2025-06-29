@@ -17,7 +17,7 @@ public class arrow : MonoBehaviour
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (((1 << collision.gameObject.layer) & player_side_mask) != 0)
+        if (((1 << collision.gameObject.layer) & player_side_mask) != 0 || collision.gameObject.CompareTag("goodminion"))
         {
             collision.gameObject.GetComponent<HealthSystem>().TakeDamage(10);
             Destroy(gameObject);

@@ -15674,7 +15674,7 @@ PrefabInstance:
     - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: EnemyWaveSO
       value: 
-      objectReference: {fileID: 11400000, guid: 51c7451a37b41354ca2c3536a97a4863, type: 2}
+      objectReference: {fileID: 11400000, guid: b5835bf8e847ecf448c062001c6b638d, type: 2}
     - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: spawnCenter
       value: 
@@ -16245,6 +16245,7 @@ GameObject:
   - component: {fileID: 981414500}
   - component: {fileID: 981414499}
   - component: {fileID: 981414502}
+  - component: {fileID: 981414503}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -16370,6 +16371,20 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &981414503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981414498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d680815aeb81654e85b354377e4a186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1116959181}
+  SmoothSpeed: 10
 --- !u!1 &1002880575
 GameObject:
   m_ObjectHideFlags: 0
@@ -29447,6 +29462,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4178325333605007823, guid: b681086f293be56489c0f6919136b138, type: 3}
+      propertyPath: maxHealth
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 5882655322589804256, guid: b681086f293be56489c0f6919136b138, type: 3}
       propertyPath: m_Name
       value: Player
