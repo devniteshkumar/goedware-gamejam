@@ -5,6 +5,7 @@ using UnityEngine;
 public class RangedWithMeleeEnemy : MonoBehaviour
 {
     [Header("References")]
+    
     public Transform player;
     public Transform healer;
     public HealthSystem healthSystem;
@@ -85,8 +86,12 @@ public class RangedWithMeleeEnemy : MonoBehaviour
         {
             isRunning = false;
         }
-        if (healthSystem.currentHealth < healthSystem.maxHealth / 2 && healer != null)
+        if (healthSystem.currentHealth != healthSystem.maxHealth)
         {
+            if (!enemy_healer.enemiesToHeal.Contains(gameObject))
+            {
+                enemy_healer.enemiesToHeal.Add(gameObject);
+            }
             transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)healDir, moveSpeed * Time.deltaTime);  //Champt GPT
             runTowardsHealer = true;
             isRunning = true;
