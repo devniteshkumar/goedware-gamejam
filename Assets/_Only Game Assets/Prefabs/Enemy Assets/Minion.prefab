@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -5297548687785544307}
   - component: {fileID: 4728056231393707393}
   - component: {fileID: 6954587618390752837}
+  - component: {fileID: 2966089778538102546}
   m_Layer: 8
   m_Name: Minion
   m_TagString: Enemy
@@ -211,6 +212,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2966089778538102546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5740665623937155572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1e35d7371764d4ea167d5679adea97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 4d664079421901044972bcb49840f4de, type: 2}
+  duration: 0.25
 --- !u!1 &9032789631365463051
 GameObject:
   m_ObjectHideFlags: 0

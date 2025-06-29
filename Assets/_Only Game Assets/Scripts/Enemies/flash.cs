@@ -4,47 +4,47 @@ using System.Collections;
 public class flash : MonoBehaviour
 {
 
-        [SerializeField] private Material flashMaterial;
-        [SerializeField] private float duration;
-
-        
-        private SpriteRenderer spriteRenderer;
-        
-        private Material originalMaterial;
-
-        private Coroutine flashRoutine;
+    [SerializeField] private Material flashMaterial;
+    [SerializeField] private float duration;
 
 
+    private SpriteRenderer spriteRenderer;
 
-        void Start()
+    private Material originalMaterial;
+
+    private Coroutine flashRoutine;
+
+
+
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        originalMaterial = spriteRenderer.material;
+    }
+
+
+
+    public void Flash()
+    {
+        if (flashRoutine != null)
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-
-            originalMaterial = spriteRenderer.material;
+            StopCoroutine(flashRoutine);
         }
 
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
 
+    private IEnumerator FlashRoutine()
+    {
+        spriteRenderer.material = flashMaterial;
 
-        public void Flash()
-        {
-            if (flashRoutine != null)
-            {
-                StopCoroutine(flashRoutine);
-            }
+        yield return new WaitForSeconds(duration);
 
-            flashRoutine = StartCoroutine(FlashRoutine());
-        }
+        spriteRenderer.material = originalMaterial;
 
-        private IEnumerator FlashRoutine()
-        {
-            spriteRenderer.material = flashMaterial;
-
-            yield return new WaitForSeconds(duration);
-
-            spriteRenderer.material = originalMaterial;
-
-            flashRoutine = null;
-        }
+        flashRoutine = null;
+    }
 
 }
 
