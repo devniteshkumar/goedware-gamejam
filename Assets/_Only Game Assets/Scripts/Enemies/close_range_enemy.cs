@@ -182,7 +182,7 @@ public class close_range_enemy : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("attack", false);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.5f);
 
         isAttacking = true;
         attackCoroutine = null;

@@ -47,7 +47,26 @@ MonoBehaviour:
   - WaveDuration: 40
     EnemyTypes:
     - EnemyPrefab: {fileID: 1777479488141616853, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
-      amountToSpawn: 6
+      amountToSpawn: 0
+      minDistanceFromPlayerToSpawn: 6
+      spawnStartTime_0to1: 0
+      spawnEndTime_0to1: 0.1
+      spawnStartAngle: 0
+      spawnEndAngle: 360
+    - EnemyPrefab: {fileID: 6337952323835363133, guid: 5851fe4b1b490534ab500f22c77ca646, type: 3}
+      amountToSpawn: 5
+      minDistanceFromPlayerToSpawn: 20
+      spawnStartTime_0to1: 0
+      spawnEndTime_0to1: 0.1
+      spawnStartAngle: 0
+      spawnEndAngle: 360
+    resourcesGivenAtEnd: []
+    noOfResourcesToGiveFromList: 0
+    timeAfterNextWaveStart: 3
+  - WaveDuration: 50
+    EnemyTypes:
+    - EnemyPrefab: {fileID: 1777479488141616853, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
+      amountToSpawn: 10
       minDistanceFromPlayerToSpawn: 6
       spawnStartTime_0to1: 0.2
       spawnEndTime_0to1: 0.4

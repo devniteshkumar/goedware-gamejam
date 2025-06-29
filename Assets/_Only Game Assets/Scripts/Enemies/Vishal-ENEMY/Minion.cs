@@ -3,7 +3,7 @@ using UnityEngine;
 public class Minion : MonoBehaviour
 {
     public float speed = 5f;
-    public float damage = 0.5f;
+    public float damage = 1f;
     public float attackRange = 1.5f;
     public float damageInterval = 1f; // DPS interval
 
@@ -31,7 +31,7 @@ public class Minion : MonoBehaviour
     {
         if (!target) return;
 
-        Vector2 directionToTarget = (target.position - transform.position);
+        Vector2 directionToTarget = target.position - transform.position;
         float distance = directionToTarget.magnitude;
         directionToTarget.Normalize();
 

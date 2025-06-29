@@ -15674,7 +15674,7 @@ PrefabInstance:
     - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: EnemyWaveSO
       value: 
-      objectReference: {fileID: 11400000, guid: b5835bf8e847ecf448c062001c6b638d, type: 2}
+      objectReference: {fileID: 11400000, guid: c56df49fbcf7cc64a9c831005057d46b, type: 2}
     - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: spawnCenter
       value: 
