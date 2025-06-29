@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float attackCooldownTimer = 0;
     public float defenseCooldownTimer = 0;
     private Rigidbody2D rb;
+    public Transform TeleportPoint;
     private bool moving, attacking, defense;
 
     private void Awake()
@@ -137,6 +138,26 @@ public class PlayerMovement : MonoBehaviour
         defenseCooldownTimer -= Time.unscaledDeltaTime;
         attack.transform.localScale = Vector3.one * SpecialAbilityManager.GetResource(ResourceTypes.AttackingRadius).amount;
         SetAttackAndParryRot(velocity);
+        if (SpecialAbilityManager.GetResource(ResourceTypes.NoOfTeleports).amount > 0)
+        {
+            SpecialAbilityManager.GetResource(ResourceTypes.NoOfTeleports).amount--;
+            Teleport();
+        }
+    }
+
+    private void Teleport()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, TeleportPoint.position - transform.position, (TeleportPoint.position - transform.position).magnitude);
+
+        if (hit.collider != null)
+        {
+            transform.position = hit.point;
+            Debug.Log("Teleported to: " + hit.point);
+        }
+        else
+        {
+            transform.position = TeleportPoint.position;
+        }
     }
 
     private void SetAttackAndParryRot(Vector2 vel)
