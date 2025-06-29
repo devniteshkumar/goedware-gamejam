@@ -27,6 +27,7 @@ public class close_range_enemy : MonoBehaviour
     [SerializeField] float range_of_player = 1.5f;
     [SerializeField] float speed = 2f;
 
+    [System.Obsolete]
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
