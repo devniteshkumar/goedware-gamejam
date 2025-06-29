@@ -194,13 +194,25 @@ public class SpecialAbilityManager : MonoBehaviour
             OnConvertPressed();
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
             useSpecialAbility = 1;
+            audio_manager.Instance.PlaySound(audio_manager.Instance.convert);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
             useSpecialAbility = 2;
+            audio_manager.Instance.PlaySound(audio_manager.Instance.convert);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
             useSpecialAbility = 3;
+            audio_manager.Instance.PlaySound(audio_manager.Instance.convert);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
             useSpecialAbility = 4;
+            audio_manager.Instance.PlaySound(audio_manager.Instance.convert);
+        }
 
         if (useSpecialAbility != 0)
         {
@@ -215,7 +227,8 @@ public class SpecialAbilityManager : MonoBehaviour
         {
             Time.timeScale = 0.1f;
             GetResource(ResourceTypes.TimeFreeze).amount -= Time.unscaledDeltaTime;
-        }else if (Time.timeScale != 1)
+        }
+        else if (Time.timeScale != 1)
         {
             Time.timeScale = 1;
         }
@@ -258,7 +271,7 @@ public class SpecialAbilityManager : MonoBehaviour
                 break;
             case 4:
                 from = ResourceTypes.Health;
-                to = ResourceTypes.GiveDamage;  
+                to = ResourceTypes.GiveDamage;
                 fromAmount = 4;
                 convert = true;
                 break;
