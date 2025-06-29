@@ -138,7 +138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4301560004280678375}
-  - component: {fileID: 248569551508863649}
+  - component: {fileID: 2211784239227072475}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: audio
@@ -163,7 +163,7 @@ Transform:
   - {fileID: 7791629409171312090}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &248569551508863649
+--- !u!114 &2211784239227072475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,19 +172,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1230108951869516015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bcd0b1ab423f364986fc0a9410dab32, type: 3}
+  m_Script: {fileID: 11500000, guid: d8fd910414abab041b6866b0f917c3c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   background_music: {fileID: 1954545215853756307}
   sound_effects: {fileID: 6381860335531887041}
-  level_start_countdown: {fileID: 0}
-  background: {fileID: 8300000, guid: a285c9f67bac3b44b9f808b1e9b01801, type: 3}
-  death: {fileID: 0}
-  enemy_hit: {fileID: 8300000, guid: 4641984a866366f4baa05f981998b724, type: 3}
+  level_start_countdown: {fileID: 8300000, guid: 58d4f5b35fd5e7249badc72d8725b874, type: 3}
+  background: {fileID: 8300000, guid: 8b071e58f8094df45b145662ead8509c, type: 3}
+  death: {fileID: 8300000, guid: 21c57b58c5950a64ea1f26ae05c50212, type: 3}
+  enemy_hit: {fileID: 8300000, guid: 1f374bf9381e41b409537922b9070094, type: 3}
   enemy_death_incase_found_smtg: {fileID: 0}
-  sword_sound: {fileID: 8300000, guid: b99679d15e38a794b9cfffb65d358640, type: 3}
-  player_hit: {fileID: 8300000, guid: 856043a26d542634d865d0a2966efe8a, type: 3}
-  convert: {fileID: 0}
+  sword_sound: {fileID: 0}
+  smtg: {fileID: 0}
+  player_hit: {fileID: 8300000, guid: fb9bc93095da8d645a9bb399f8a2fb39, type: 3}
+  convert: {fileID: 8300000, guid: 15759906cc742f74f92b9e514284aed9, type: 3}
 --- !u!1 &7590897331203880933
 GameObject:
   m_ObjectHideFlags: 0

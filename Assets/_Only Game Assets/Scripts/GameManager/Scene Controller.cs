@@ -2,12 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Rendering;
+using Unity.VisualScripting;
 public class SceneController : MonoBehaviour
 {
     public static int CurrentLevel;
+    public static int UnlockedLevel;
     public Button[] LevelButtons;
     public Animator FadeAnimator;
-    public float TransitionTime;  
+    public float TransitionTime;
+    public GameObject WinScreen;
+    public GameObject LoseScreen;
     public void LoadScene(string name, Animator animator)
     {
         StartCoroutine(SceneTransition(name, animator));
@@ -20,25 +25,27 @@ public class SceneController : MonoBehaviour
     }
     public void StartLevel(int Level)
     {
-        LoadScene("Level"+Level.ToString(),FadeAnimator);
+        LoadScene("Palaksh",FadeAnimator);
     }
     public void Retry()
     {
-        LoadScene("Level"+CurrentLevel.ToString(),FadeAnimator);
+        StartLevel(CurrentLevel);
     }
     public void NextLevel()
-    {   
-        LoadScene("Level"+(CurrentLevel+1).ToString(),FadeAnimator);
+    {
+        CurrentLevel++;
+        UnlockedLevel = Mathf.Max(UnlockedLevel, CurrentLevel);
+        StartLevel(CurrentLevel);
     }
     public void MainMenu()
     {
         LoadScene("Main Menu", FadeAnimator);
     }
     public void Complete(){
-        LoadScene("Game Complete",FadeAnimator);
+        WinScreen.SetActive(true);
     }
     public void Lose(){
-        LoadScene("Lose Screen",FadeAnimator);
+        LoseScreen.SetActive(true);
     }
     IEnumerator SceneTransition(string name,Animator Transition){
         Transition.enabled=true;

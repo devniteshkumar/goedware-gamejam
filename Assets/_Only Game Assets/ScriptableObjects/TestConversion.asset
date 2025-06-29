@@ -36,4 +36,4 @@ MonoBehaviour:
       amount: 20
     convertedResource:
       resourceType: 7
-      amount: 80
+      amount: 200
