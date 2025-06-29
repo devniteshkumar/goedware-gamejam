@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ea3977169a5ee1c468179b62f1e51fce
+guid: 298f54eda3bf2d945998546d60a1095c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -95,5 +95,5 @@ AssetOrigin:
   productId: 198453
   packageName: 2D UI Buttons Free Package for unity developer by Javedkhanme
   packageVersion: 1.1
-  assetPath: Assets/_Only Game Assets/Sprites/UI_sprites/ExitButton.png
+  assetPath: Assets/TechnoGami/2d UI button/AllSection/Section01/OptionButton.png
   uploadId: 441210

@@ -46,9 +46,14 @@ public class SceneController : MonoBehaviour
     {
         LoadScene("Main Menu", FadeAnimator);
     }
-    public IEnumerator Complete(){
+    public void Instructions()
+    {
+        LoadScene("Instructions",FadeAnimator);
+    }
+    public IEnumerator Complete()
+    {
         yield return new WaitForSeconds(2f);
-        UnlockedLevel = Mathf.Max(UnlockedLevel, CurrentLevel+1);
+        UnlockedLevel = Mathf.Max(UnlockedLevel, CurrentLevel + 1);
         WinScreen.SetActive(true);
     }
     public IEnumerator Lose(){
