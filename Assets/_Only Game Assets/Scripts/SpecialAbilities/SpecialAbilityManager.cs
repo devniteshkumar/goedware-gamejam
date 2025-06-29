@@ -236,10 +236,15 @@ public class SpecialAbilityManager : MonoBehaviour
             Time.timeScale = 0.1f;
             GetResource(ResourceTypes.TimeFreeze).amount -= Time.unscaledDeltaTime;
         }
-        else if (Time.timeScale != 1)
+        else if (Time.timeScale != 1 && !GameManager.Instance.pause)
         {
             Time.timeScale = 1;
         }
+        else if (GameManager.Instance.pause)
+        { 
+            Time.timeScale = 0;
+        }
+
 
         if (GetResource(ResourceTypes.GiveDamage).amount > 0)
         {

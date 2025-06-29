@@ -102,13 +102,13 @@ public class EnemyWavesManager : MonoBehaviour
     private void SetResourcePanel()
     {
         given = 0;
-        Time.timeScale = 0;
+        GameManager.Instance.pause = true;
         List<Resource> totalResources = EnemyWaveSO.waves[currentWave].resourcesGivenAtEnd;
         int totalNoofResources = totalResources.Count;
         toGive = EnemyWaveSO.waves[currentWave].noOfResourcesToGiveFromList;
 
         animator.SetBool("load", true);
-        amountToChooseText.text = $"Choose {toGive} Resources";
+        amountToChooseText.text = $"Choose {toGive} Resources For Next Wave";
 
         for (int i = 0; i < totalNoofResources; i++)
         {
@@ -146,7 +146,7 @@ public class EnemyWavesManager : MonoBehaviour
         }
         resourceButtonObjs.Clear();
         animator.SetBool("load", false);
-        Time.timeScale = 1;
+        GameManager.Instance.pause = false;
     }
 
     private void EnemySpawn()
