@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     public GameObject attack;
     public GameObject parry;
+    public GameObject teleportParent;
+    public LayerMask teleportLayer;
 
     public float moveSpeed = 5f;
     public float attackCooldown = 0.15f;
@@ -147,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Teleport()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, TeleportPoint.position - transform.position, (TeleportPoint.position - transform.position).magnitude);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, TeleportPoint.position - transform.position, (TeleportPoint.position - transform.position).magnitude, teleportLayer);
 
         if (hit.collider != null)
         {
@@ -166,21 +168,25 @@ public class PlayerMovement : MonoBehaviour
         {
             attack.transform.eulerAngles = new(0, 0, 0);
             parry.transform.eulerAngles = new(0, 0, 0);
+            teleportParent.transform.eulerAngles = new(0, 0, 0);
         }
         if (vel.x < 0)
         {
             attack.transform.eulerAngles = new(0, 0, 180);
             parry.transform.eulerAngles = new(0, 0, 180);
+            teleportParent.transform.eulerAngles = new(0, 0, 180);
         }
         if (vel.y < 0)
         {
             attack.transform.eulerAngles = new(0, 0, -90);
             parry.transform.eulerAngles = new(0, 0, -90);
+            teleportParent.transform.eulerAngles = new(0, 0, -90);
         }
         if (vel.y > 0)
         {
             attack.transform.eulerAngles = new(0, 0, 90);
             parry.transform.eulerAngles = new(0, 0, 90);
+            teleportParent.transform.eulerAngles = new(0, 0, 90);
         }
     }
 
