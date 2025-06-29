@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Game Values")]
+    public List<string> levels = new();
+    public int currentScene = 0;
 
 
     public static GameManager Instance { get; private set; }

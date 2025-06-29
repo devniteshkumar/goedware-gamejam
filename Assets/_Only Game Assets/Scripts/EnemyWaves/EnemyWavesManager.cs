@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EnemyWavesManager : MonoBehaviour
 {
@@ -10,6 +12,17 @@ public class EnemyWavesManager : MonoBehaviour
     public TMP_Text WTText;
     public TMP_Text waveNoText;
     public TMP_Text waitingTimeText;
+    public SpecialAbilityManager specialAbilityManager;
+
+    [Header("Give Resource at End")]
+    public TMP_Text amountToChooseText;
+    public GameObject prefabContainer;
+    public GameObject giveResourceButtonPrefab; 
+    public Animator animator;
+    public List<Resource> buttonResources = new();
+    public List<GameObject> resourceButtonObjs = new();
+    public int given;
+    public int toGive;
 
     [Header("Properties")]
     [SerializeField] private Transform spawnCenter;
@@ -33,6 +46,7 @@ public class EnemyWavesManager : MonoBehaviour
     {
         FindTotalWaveTime();
         FindCorrectWaveNumber();
+        specialAbilityManager = FindAnyObjectByType<SpecialAbilityManager>();
     }
 
     private void Update()
@@ -44,8 +58,9 @@ public class EnemyWavesManager : MonoBehaviour
         }
 
         if (LevelDone || pauseAll) return;
-        if (time > totalWaveTime_Conatant && !LevelDone)
+        if (time > totalWaveTime_Conatant && !LevelDone && allEnemiesInWave.Count <= 0)
         {
+            SceneManager.LoadScene(GameManager.Instance.levels[++GameManager.Instance.currentScene]);
             GameManager.Instance.debugMessageTextToShow = "Level Complete!";
             LevelDone = true;
             return;
@@ -83,6 +98,56 @@ public class EnemyWavesManager : MonoBehaviour
         }
     }
 
+
+    private void SetResourcePanel()
+    {
+        given = 0;
+        Time.timeScale = 0;
+        List<Resource> totalResources = EnemyWaveSO.waves[currentWave].resourcesGivenAtEnd;
+        int totalNoofResources = totalResources.Count;
+        toGive = EnemyWaveSO.waves[currentWave].noOfResourcesToGiveFromList;
+
+        animator.SetBool("load", true);
+        amountToChooseText.text = $"Choose {toGive} Resources";
+
+        for (int i = 0; i < totalNoofResources; i++)
+        {
+            resourceButtonObjs.Add(Instantiate(giveResourceButtonPrefab, prefabContainer.transform));
+            resourceButtonObjs[i].gameObject.SetActive(true);
+            buttonResources.Add(totalResources[i]);
+            TMP_Text resourceAmountText = resourceButtonObjs[i].GetComponentInChildren<TMP_Text>();
+            resourceAmountText.text = $"{buttonResources[i].resourceType} : {buttonResources[i].amount}";
+            Resource resource = buttonResources[i];
+            resourceButtonObjs[i].GetComponentInChildren<Button>().onClick.AddListener(() => { GiveResource(resource); });
+        }
+    }
+
+    public void GiveResource(Resource resource)
+    {
+        if (given >= toGive) return;
+
+        SpecialAbilityManager.GetResource(resource.resourceType).amount += resource.amount;
+        specialAbilityManager.SyncHealth();
+
+
+        given++;
+        if (given == toGive)
+        {
+            ResetGiveResourcePanel();
+        }
+    }
+
+    private void ResetGiveResourcePanel()
+    {
+        buttonResources.Clear();
+        foreach (var item in resourceButtonObjs)
+        {
+            Destroy(item);
+        }
+        resourceButtonObjs.Clear();
+        animator.SetBool("load", false);
+        Time.timeScale = 1;
+    }
 
     private void EnemySpawn()
     {
@@ -140,6 +205,7 @@ public class EnemyWavesManager : MonoBehaviour
             comparingTime += wave.timeAfterNextWaveStart;
         }
         totalWaveTime_Conatant = comparingTime;
+        SpecialAbilityManager.GetResource(ResourceTypes.Time).amount += comparingTime;
     }
 
 
@@ -153,7 +219,12 @@ public class EnemyWavesManager : MonoBehaviour
             comparingTime += wave.timeAfterNextWaveStart;
             if (comparingTime > time)
             {
-                if (currentWave + 1 == i && waveWaitingTime <= 0)
+                if (currentWave == i && allEnemiesInWave.Count > 0 && waveTime >= EnemyWaveSO.waves[i].WaveDuration)
+                {
+                    pauseAll = true;
+                }
+                
+                if (currentWave + 1 == i && waveWaitingTime <= 0 && !pauseAll)
                 {
                     CurrentWaveDone();
                     currentWave = i;
@@ -163,10 +234,6 @@ public class EnemyWavesManager : MonoBehaviour
                 {
                     startWaveWaitingTime = true;
                 }
-                else if (currentWave == i && allEnemiesInWave.Count > 0 && waveTime >= EnemyWaveSO.waves[i].WaveDuration)
-                {
-                    pauseAll = true;
-                }
 
                 return;
             }
@@ -175,8 +242,15 @@ public class EnemyWavesManager : MonoBehaviour
 
     private void CurrentWaveDone()
     {
+        if (currentWave == -1)
+        {
+            return;
+        }
+
+        SetResourcePanel();
 
     }
+
 
     private void NewWaveSetup(int i)
     {

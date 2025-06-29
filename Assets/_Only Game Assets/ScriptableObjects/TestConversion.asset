@@ -20,16 +20,16 @@ MonoBehaviour:
       resourceType: 5
       amount: 2
   - startingResource:
-      resourceType: 1
-      amount: 5
-    convertedResource:
-      resourceType: 6
-      amount: 1
-  - startingResource:
       resourceType: 2
       amount: 5
     convertedResource:
       resourceType: 3
+      amount: 1
+  - startingResource:
+      resourceType: 1
+      amount: 1
+    convertedResource:
+      resourceType: 6
       amount: 1
   - startingResource:
       resourceType: 4

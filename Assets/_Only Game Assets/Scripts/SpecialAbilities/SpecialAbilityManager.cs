@@ -27,6 +27,7 @@ public class SpecialAbilityManager : MonoBehaviour
     public TMP_Text toAmountText;
     public RectTransform parentOfResourceContainer;
     public RectTransform resourceContainerPrefab;
+    public TMP_Text timeRemainiingText;
 
 
     [Header("References")]
@@ -41,8 +42,7 @@ public class SpecialAbilityManager : MonoBehaviour
     [Header("Input Var")]
     public int useSpecialAbility;
 
-
-    private void Start()
+    private void Awake()
     {
         AllResources.Clear();
         AllResources.Add(new Resource(ResourceTypes.Time, 120));
@@ -53,8 +53,10 @@ public class SpecialAbilityManager : MonoBehaviour
         AllResources.Add(new Resource(ResourceTypes.AttackingRadius, 0.5f));
         AllResources.Add(new Resource(ResourceTypes.Health, 0));
         AllResources.Add(new Resource(ResourceTypes.GiveDamage, 0));
+    }
 
-
+    private void Start()
+    {
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         playerHealth = playerMovement.GetComponent<HealthSystem>();
 
@@ -184,9 +186,14 @@ public class SpecialAbilityManager : MonoBehaviour
         }
     }
 
+    public void SyncHealth()
+    {
+        playerHealth.currentHealth = GetResource(ResourceTypes.Health).amount;
+    }
 
     private void Update()
     {
+        timeRemainiingText.text = $"Time Remaining: {GetResource(ResourceTypes.Time).amount}";
         // Optional — for manual inspector trigger
         if (convert)
         {
@@ -236,15 +243,43 @@ public class SpecialAbilityManager : MonoBehaviour
 
         if (GetResource(ResourceTypes.GiveDamage).amount > 0)
         {
+            Debug.Log("Starting damage distribution...");
+
             GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-            float damage = GetResource(ResourceTypes.GiveDamage).amount / allEnemies.Length;
+            Debug.Log("Enemies found: " + allEnemies.Length);
+
+            float totalDamage = GetResource(ResourceTypes.GiveDamage).amount;
+            float damagePerEnemy = totalDamage / (allEnemies.Length == 0 ? 1 : allEnemies.Length);
+            Debug.Log("Total damage to give: " + totalDamage);
+            Debug.Log("Damage per enemy: " + damagePerEnemy);
+
+            // Reset total damage
+            GetResource(ResourceTypes.GiveDamage).amount = 0;
+
             foreach (var enemy in allEnemies)
             {
-                enemy.GetComponent<HealthSystem>().TakeDamage(damage);
-            }
-            GetResource(ResourceTypes.GiveDamage).amount = 0;
-        }
+                if (enemy == null)
+                {
+                    Debug.LogWarning("Encountered null enemy object.");
+                    continue;
+                }
 
+                Debug.Log("Processing enemy: " + enemy.name);
+
+                HealthSystem health = enemy.GetComponent<HealthSystem>();
+                if (health == null)
+                {
+                    Debug.LogWarning("Enemy " + enemy.name + " missing HealthSystem component.");
+                    continue;
+                }
+
+                Debug.Log("Dealing " + damagePerEnemy + " damage to: " + enemy.name);
+                health.TakeDamage(damagePerEnemy);
+            }
+
+
+            Debug.Log("All damage distributed.");
+        }
     }
 
     private void UsingSpecialAbility(int n)
@@ -266,7 +301,7 @@ public class SpecialAbilityManager : MonoBehaviour
             case 3:
                 from = ResourceTypes.MovementSpeed;
                 to = ResourceTypes.NoOfTeleports;
-                fromAmount = 5;
+                fromAmount = 1;
                 convert = true;
                 break;
             case 4:
