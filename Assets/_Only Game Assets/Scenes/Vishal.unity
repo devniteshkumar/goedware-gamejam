@@ -408,6 +408,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ranged Melee Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6337952323835363133, guid: 5851fe4b1b490534ab500f22c77ca646, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7639174132735116137, guid: 5851fe4b1b490534ab500f22c77ca646, type: 3}
       propertyPath: m_Controller
       value: 
@@ -2233,7 +2237,7 @@ PrefabInstance:
     - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: EnemyWaveSO
       value: 
-      objectReference: {fileID: 11400000, guid: daca7a13a9a4e0742abe9f0658f0cd7f, type: 2}
+      objectReference: {fileID: 11400000, guid: ff005afd151232047b3fc2b14f26edb2, type: 2}
     - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: spawnCenter
       value: 

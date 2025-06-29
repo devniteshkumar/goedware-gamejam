@@ -15674,7 +15674,7 @@ PrefabInstance:
     - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: EnemyWaveSO
       value: 
-      objectReference: {fileID: 11400000, guid: 0130a1d3ac5f46c46a964573b8309c9b, type: 2}
+      objectReference: {fileID: 11400000, guid: 51c7451a37b41354ca2c3536a97a4863, type: 2}
     - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: spawnCenter
       value: 
@@ -17146,6 +17146,66 @@ Transform:
   - {fileID: 899579553}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1242427868
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1230108951869516015, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_Name
+      value: Audio Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301560004280678375, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.4834647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301560004280678375, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.2307658
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301560004280678375, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.09800294
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301560004280678375, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301560004280678375, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301560004280678375, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301560004280678375, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301560004280678375, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301560004280678375, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301560004280678375, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1230108951869516015, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1465770374}
+  m_SourcePrefab: {fileID: 100100000, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
 --- !u!1 &1251917704
 GameObject:
   m_ObjectHideFlags: 0
@@ -17960,6 +18020,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1465770371 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1230108951869516015, guid: 1aee26f7fb3e15643b97a21103039c8d, type: 3}
+  m_PrefabInstance: {fileID: 1242427868}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1465770374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465770371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bcd0b1ab423f364986fc0a9410dab32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  background_music: {fileID: 0}
+  sound_effects: {fileID: 0}
+  level_start_countdown: {fileID: 0}
+  background: {fileID: 0}
+  death: {fileID: 0}
+  enemy_hit: {fileID: 0}
+  enemy_death_incase_found_smtg: {fileID: 0}
+  sword_sound: {fileID: 0}
+  smtg: {fileID: 0}
+  player_hit: {fileID: 0}
+  convert: {fileID: 0}
 --- !u!1 &1466162333
 GameObject:
   m_ObjectHideFlags: 0
@@ -34479,3 +34567,4 @@ SceneRoots:
   - {fileID: 1618156837}
   - {fileID: 893324642}
   - {fileID: 2132833384}
+  - {fileID: 1242427868}
