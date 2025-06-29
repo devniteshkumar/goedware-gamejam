@@ -48,6 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMessageTextToShow: 
   DebugMessageText: {fileID: 0}
+  levels:
+  - N1
+  - N1
+  currentScene: 0
 --- !u!114 &1474517390497154252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +76,7 @@ MonoBehaviour:
   toAmountText: {fileID: 0}
   parentOfResourceContainer: {fileID: 0}
   resourceContainerPrefab: {fileID: 0}
+  timeRemainiingText: {fileID: 0}
   playerMovement: {fileID: 0}
   playerHealth: {fileID: 0}
   AbilityConversionSO: {fileID: 11400000, guid: cd2ff4c21e49f6d42be88cfb07fe1cb4, type: 2}
@@ -90,11 +95,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3549ad44aebf54b9ebb99f83cca53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyWaveSO: {fileID: 11400000, guid: 86fc81fb212a01a489b260ef33ff878d, type: 2}
+  EnemyWaveSO: {fileID: 11400000, guid: daca7a13a9a4e0742abe9f0658f0cd7f, type: 2}
   totalWTText: {fileID: 0}
   WTText: {fileID: 0}
   waveNoText: {fileID: 0}
   waitingTimeText: {fileID: 0}
+  specialAbilityManager: {fileID: 0}
+  amountToChooseText: {fileID: 0}
+  prefabContainer: {fileID: 0}
+  giveResourceButtonPrefab: {fileID: 0}
+  animator: {fileID: 0}
+  buttonResources: []
+  resourceButtonObjs: []
+  given: 0
+  toGive: 0
   spawnCenter: {fileID: 0}
   currentWave: -1
   LevelDone: 0

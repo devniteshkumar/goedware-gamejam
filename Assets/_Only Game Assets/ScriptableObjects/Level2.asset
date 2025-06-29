@@ -25,6 +25,8 @@ MonoBehaviour:
     resourcesGivenAtEnd:
     - resourceType: 4
       amount: 50
+    - resourceType: 0
+      amount: 50
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 5
   - WaveDuration: 10
