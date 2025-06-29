@@ -258,8 +258,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27bc318ff6179dd40b8cf6da0df979c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelButtons: []
   FadeAnimator: {fileID: 8667231415709369383}
-  TransitionTime: 1
+  TransitionTime: 0.75
+  WinScreen: {fileID: 0}
+  LoseScreen: {fileID: 0}
 --- !u!1 &8847319887507665882
 GameObject:
   m_ObjectHideFlags: 0

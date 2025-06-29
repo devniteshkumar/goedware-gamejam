@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        SceneController.UnlockedLevel = 1;
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
