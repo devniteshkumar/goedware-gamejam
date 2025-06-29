@@ -9,6 +9,7 @@ TagManager:
   - Healer
   - arrow
   - archer
+  - audio
   layers:
   - Default
   - TransparentFX
