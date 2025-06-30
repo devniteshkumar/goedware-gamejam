@@ -32,7 +32,7 @@ public class SceneController : MonoBehaviour
     {
         CurrentLevel = Level;
         Time.timeScale = 1f;
-        LoadScene("Palaksh",FadeAnimator);
+        LoadScene("N" + CurrentLevel.ToString() ,FadeAnimator);
     }
     public void Retry()
     {
