@@ -122,10 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ac62447312a5548902de8bb2bbd56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flash: {fileID: 0}
+  flash: {fileID: 3452395300347683334}
   attack_point: {fileID: 3470629736355954293}
-  attack_raidus: 1.2
-  attack_distance_from_center: 0.6
+  attack_raidus: 1
+  attack_distance_from_center: 0.8
   player_side_mask:
     serializedVersion: 2
     m_Bits: 128
