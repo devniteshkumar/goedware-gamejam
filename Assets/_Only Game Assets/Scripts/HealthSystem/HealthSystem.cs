@@ -63,7 +63,7 @@ public class HealthSystem : MonoBehaviour
         }
         else
         {
-            //audio_manager.Instance.PlaySound(audio_manager.Instance.enemy_hit);
+            audio_manager.Instance.PlaySound(audio_manager.Instance.enemy_hit);
         }
         if (flash != null)
         {
