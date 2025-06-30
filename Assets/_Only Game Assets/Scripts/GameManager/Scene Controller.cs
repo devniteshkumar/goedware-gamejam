@@ -50,16 +50,19 @@ public class SceneController : MonoBehaviour
     {
         LoadScene("Instructions",FadeAnimator);
     }
-    public IEnumerator Complete()
+    public void Complete()
+    {
+        UnlockedLevel = Mathf.Max(UnlockedLevel, CurrentLevel + 1);
+        StartCoroutine(ShowScreen(WinScreen));
+    }
+    public void Lose()
+    {
+        StartCoroutine(ShowScreen(LoseScreen));
+    }
+    public IEnumerator ShowScreen(GameObject Screen)
     {
         yield return new WaitForSeconds(2f);
-        UnlockedLevel = Mathf.Max(UnlockedLevel, CurrentLevel + 1);
-        WinScreen.SetActive(true);
-    }
-    public IEnumerator Lose(){
-        yield return new WaitForSeconds(2f);
-        UnlockedLevel = Mathf.Max(UnlockedLevel, CurrentLevel+1);
-        LoseScreen.SetActive(true);
+        Screen.SetActive(true);
     }
     IEnumerator SceneTransition(string name,Animator Transition){
         Transition.enabled=true;

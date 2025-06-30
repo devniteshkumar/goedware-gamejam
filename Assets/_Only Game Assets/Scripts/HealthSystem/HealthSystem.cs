@@ -115,7 +115,7 @@ public class HealthSystem : MonoBehaviour
         if (gameObject.CompareTag("Player"))
         {
             GameManager.Instance.debugMessageTextToShow = "You Died!";
-            StartCoroutine(SceneController.instance.Lose());
+            SceneController.instance.Lose();
             StartCoroutine(PlayDeathAnimation(transform));
             audio_manager.Instance.PlaySound(audio_manager.Instance.death);
         }
