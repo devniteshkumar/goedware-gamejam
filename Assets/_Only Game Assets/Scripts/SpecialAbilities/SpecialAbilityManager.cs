@@ -307,7 +307,7 @@ public class SpecialAbilityManager : MonoBehaviour
             case 4:
                 from = ResourceTypes.Health;
                 to = ResourceTypes.GiveDamage;
-                fromAmount = 4;
+                fromAmount = 10;
                 convert = true;
                 break;
         }

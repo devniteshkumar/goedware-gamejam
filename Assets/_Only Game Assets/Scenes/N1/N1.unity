@@ -15674,7 +15674,7 @@ PrefabInstance:
     - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: EnemyWaveSO
       value: 
-      objectReference: {fileID: 11400000, guid: 0130a1d3ac5f46c46a964573b8309c9b, type: 2}
+      objectReference: {fileID: 11400000, guid: f0ff80642cffb5744aa1a21a5882da9f, type: 2}
     - target: {fileID: 816240079974114150, guid: 148904e8bdd39094a9c4a40163f19bf5, type: 3}
       propertyPath: spawnCenter
       value: 
@@ -17224,11 +17224,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6035757944418004972, guid: b362882da4fa0514bbbaba48c7311ab7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.5153913
+      value: -1.875391
       objectReference: {fileID: 0}
     - target: {fileID: 6035757944418004972, guid: b362882da4fa0514bbbaba48c7311ab7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.0718496
+      value: -3.3218496
       objectReference: {fileID: 0}
     - target: {fileID: 7759059642063268873, guid: b362882da4fa0514bbbaba48c7311ab7, type: 3}
       propertyPath: m_LocalPosition.x
