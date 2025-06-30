@@ -60,7 +60,8 @@ public class EnemyWavesManager : MonoBehaviour
         if (LevelDone || pauseAll) return;
         if (time > totalWaveTime_Conatant && !LevelDone && allEnemiesInWave.Count <= 0)
         {
-            SceneManager.LoadScene(GameManager.Instance.levels[++GameManager.Instance.currentScene]);
+            SceneController.instance.Complete();
+            //SceneManager.LoadScene(GameManager.Instance.levels[++GameManager.Instance.currentScene]);
             GameManager.Instance.debugMessageTextToShow = "Level Complete!";
             LevelDone = true;
             return;
