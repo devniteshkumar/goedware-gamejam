@@ -6,12 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Only Game Assets/Scenes/Nitesh.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
-    path: Assets/_Only Game Assets/Scenes/Vishal.unity
-    guid: db8277c2392aef143bb3d5a3d37e5fc1
-  - enabled: 1
     path: Assets/_Only Game Assets/Scenes/Main Menu.unity
     guid: 1bff37802f6efcd41b366b18d53ebfe0
   - enabled: 1
@@ -25,7 +19,19 @@ EditorBuildSettings:
     guid: 6ce8301cbf8b4c04b89a7e3d64c27ea6
   - enabled: 1
     path: Assets/_Only Game Assets/Scenes/N1/N1.unity
-    guid: 2d293b2977145274ea5e9264cdac8e77
+    guid: 4128ad1644a3d664f9555829684cec79
+  - enabled: 1
+    path: Assets/_Only Game Assets/Scenes/N1/N2.unity
+    guid: 1a1cfadd5f718774b9ec7615d9cb77f4
+  - enabled: 1
+    path: Assets/_Only Game Assets/Scenes/N1/N3.unity
+    guid: e6ec6d1b820d2714c9f5b4a6c724897a
+  - enabled: 1
+    path: Assets/_Only Game Assets/Scenes/N1/N4.unity
+    guid: 6ea050ea64fe3ce4d83bc17585c7500f
+  - enabled: 1
+    path: Assets/_Only Game Assets/Scenes/N1/N5.unity
+    guid: e1d6d3c60d5f7b94ab13b35fde1ddefd
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
