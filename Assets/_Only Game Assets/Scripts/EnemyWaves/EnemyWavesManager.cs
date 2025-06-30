@@ -60,7 +60,8 @@ public class EnemyWavesManager : MonoBehaviour
         if (LevelDone || pauseAll) return;
         if (time > totalWaveTime_Conatant && !LevelDone && allEnemiesInWave.Count <= 0)
         {
-            SceneManager.LoadScene(GameManager.Instance.levels[++GameManager.Instance.currentScene]);
+            SceneController.instance.Complete();
+            //SceneManager.LoadScene(GameManager.Instance.levels[++GameManager.Instance.currentScene]);
             GameManager.Instance.debugMessageTextToShow = "Level Complete!";
             LevelDone = true;
             return;
@@ -106,6 +107,13 @@ public class EnemyWavesManager : MonoBehaviour
         List<Resource> totalResources = EnemyWaveSO.waves[currentWave].resourcesGivenAtEnd;
         int totalNoofResources = totalResources.Count;
         toGive = EnemyWaveSO.waves[currentWave].noOfResourcesToGiveFromList;
+    private void SetResourcePanel()
+    {
+        given = 0;
+        GameManager.Instance.pause = true;
+        List<Resource> totalResources = EnemyWaveSO.waves[currentWave].resourcesGivenAtEnd;
+        int totalNoofResources = totalResources.Count;
+        toGive = EnemyWaveSO.waves[currentWave].noOfResourcesToGiveFromList;
 
         animator.SetBool("load", true);
         amountToChooseText.text = $"Choose {toGive} Resources For Next Wave";
@@ -121,11 +129,27 @@ public class EnemyWavesManager : MonoBehaviour
             resourceButtonObjs[i].GetComponentInChildren<Button>().onClick.AddListener(() => { GiveResource(resource); });
         }
     }
+        for (int i = 0; i < totalNoofResources; i++)
+        {
+            resourceButtonObjs.Add(Instantiate(giveResourceButtonPrefab, prefabContainer.transform));
+            resourceButtonObjs[i].gameObject.SetActive(true);
+            buttonResources.Add(totalResources[i]);
+            TMP_Text resourceAmountText = resourceButtonObjs[i].GetComponentInChildren<TMP_Text>();
+            resourceAmountText.text = $"{buttonResources[i].resourceType} : {buttonResources[i].amount}";
+            Resource resource = buttonResources[i];
+            resourceButtonObjs[i].GetComponentInChildren<Button>().onClick.AddListener(() => { GiveResource(resource); });
+        }
+    }
 
     public void GiveResource(Resource resource)
     {
         if (given >= toGive) return;
+    public void GiveResource(Resource resource)
+    {
+        if (given >= toGive) return;
 
+        SpecialAbilityManager.GetResource(resource.resourceType).amount += resource.amount;
+        specialAbilityManager.SyncHealth();
         SpecialAbilityManager.GetResource(resource.resourceType).amount += resource.amount;
         specialAbilityManager.SyncHealth();
 
@@ -136,7 +160,24 @@ public class EnemyWavesManager : MonoBehaviour
             ResetGiveResourcePanel();
         }
     }
+        given++;
+        if (given == toGive)
+        {
+            ResetGiveResourcePanel();
+        }
+    }
 
+    private void ResetGiveResourcePanel()
+    {
+        buttonResources.Clear();
+        foreach (var item in resourceButtonObjs)
+        {
+            Destroy(item);
+        }
+        resourceButtonObjs.Clear();
+        animator.SetBool("load", false);
+        GameManager.Instance.pause = false;
+    }
     private void ResetGiveResourcePanel()
     {
         buttonResources.Clear();
