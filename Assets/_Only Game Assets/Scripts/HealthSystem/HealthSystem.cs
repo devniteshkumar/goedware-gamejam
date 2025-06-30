@@ -63,7 +63,7 @@ public class HealthSystem : MonoBehaviour
         }
         else
         {
-            //audio_manager.Instance.PlaySound(audio_manager.Instance.enemy_hit);
+            audio_manager.Instance.PlaySound(audio_manager.Instance.enemy_hit);
         }
         if (flash != null)
         {
@@ -117,7 +117,7 @@ public class HealthSystem : MonoBehaviour
             GameManager.Instance.debugMessageTextToShow = "You Died!";
             SceneController.instance.Lose();
             StartCoroutine(PlayDeathAnimation(transform));
-            //audio_manager.Instance.PlaySound(audio_manager.Instance.death);
+            audio_manager.Instance.PlaySound(audio_manager.Instance.death);
         }
     }
 }
