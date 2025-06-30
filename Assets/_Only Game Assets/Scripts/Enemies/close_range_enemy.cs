@@ -20,6 +20,8 @@ public class close_range_enemy : MonoBehaviour
     bool isAttacking = true;
     private Coroutine attackCoroutine;
 
+    float attackCooldown = 0f; // tracks time left before next attack
+    float attackRate = 1.2f; // seconds between attacks
     public HealthUI healthUI;
     public HealthSystem HealthSystem;
     private enemy_healer enemy_healer;
@@ -36,6 +38,10 @@ public class close_range_enemy : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            animator.SetTrigger("Attack");
+        }
         if (Input.GetKeyDown(KeyCode.T))
         {
             Debug.Log("=== TESTING TARGETS ===");
@@ -76,16 +82,23 @@ public class close_range_enemy : MonoBehaviour
         FindNearestTarget();
         if (target == null) return;
 
-        float distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
+    float distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
 
-        if (distanceToTarget > range_of_player)
+    if (distanceToTarget > range_of_player)
+    {
+        MoveEnemy();
+    }
+    else
+    {
+
+        attackCooldown -= Time.deltaTime;
+
+        if (attackCooldown <= 0f)
         {
-            MoveEnemy();
+            AttackTarget();
+            attackCooldown = attackRate;
         }
-        else if (isAttacking && attackCoroutine == null)
-        {
-            attackCoroutine = StartCoroutine(attack());
-        }
+    }
     }
 
     void FindNearestTarget()
@@ -119,10 +132,16 @@ public class close_range_enemy : MonoBehaviour
 
         if (closest != target)
         {
-            Debug.Log("Target changed to: " + closest.name);
+            Debug.Log("Target changed to: " + closest?.name);
+            target = closest;
+            // Optionally: reset coroutine
+            if (attackCoroutine != null)
+            {
+                StopCoroutine(attackCoroutine);
+                attackCoroutine = null;
+                isAttacking = true;
+            }
         }
-
-        target = closest;
     }
 
     void MoveEnemy()
@@ -150,42 +169,34 @@ public class close_range_enemy : MonoBehaviour
         else
             attack_point.localPosition = new Vector3(0, attack_distance_from_center, 0);
     }
-    IEnumerator attack()
+
+
+    void AttackTarget()
     {
-        isAttacking = false;
-        yield return new WaitForSeconds(0.3f);
-        float initialDistance = Vector2.Distance(transform.position, target.transform.position);
-        if (initialDistance > range_of_player)
+        if (target == null) return;
+
+        float distance = Vector2.Distance(transform.position, target.transform.position);
+        if (distance > range_of_player) return;
+
+        animator.SetTrigger("Attack");
+
+        StartCoroutine(DealDamageAfterDelay(0.3f));
+    }
+
+    IEnumerator DealDamageAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attack_point.position, attack_raidus, player_side_mask);
+        foreach (Collider2D col in hitTargets)
         {
-            attackCoroutine = null;
-            isAttacking = true;
-            yield break;
-        }
-
-        animator.SetBool("attack", true);
-
-        yield return new WaitForSeconds(0.3f);
-
-        if (Vector2.Distance(transform.position, target.transform.position) <= range_of_player)
-        {
-            Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attack_point.position, attack_raidus, player_side_mask);
-            foreach (Collider2D col in hitTargets)
+            HealthSystem h = col.GetComponent<HealthSystem>();
+            if (h != null)
             {
-                HealthSystem h = col.GetComponent<HealthSystem>();
-                if (h != null)
-                {
-                    h.TakeDamage(10);
-                    Debug.Log("Attacked: " + col.name);
-                }
+                h.TakeDamage(10);
+                Debug.Log("Attacked: " + col.name);
             }
         }
-
-        yield return new WaitForSeconds(0.5f);
-        animator.SetBool("attack", false);
-        yield return new WaitForSeconds(0.5f);
-
-        isAttacking = true;
-        attackCoroutine = null;
     }
 
     IEnumerator death()

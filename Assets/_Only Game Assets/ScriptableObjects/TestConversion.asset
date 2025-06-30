@@ -27,7 +27,7 @@ MonoBehaviour:
       amount: 1
   - startingResource:
       resourceType: 1
-      amount: 1
+      amount: 0.9
     convertedResource:
       resourceType: 6
       amount: 1

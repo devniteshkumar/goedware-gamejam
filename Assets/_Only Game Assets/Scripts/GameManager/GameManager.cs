@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     float textShowingTimer = 0;
     float timeToShowText = 3;
     bool startTimer;
+    public bool pause;
 
 
     [Header("References")]
