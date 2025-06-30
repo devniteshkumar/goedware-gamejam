@@ -62,6 +62,7 @@ public class SceneController : MonoBehaviour
     public IEnumerator ShowScreen(GameObject Screen)
     {
         yield return new WaitForSeconds(2f);
+        Screen.SetActive(true);
     }
     IEnumerator SceneTransition(string name,Animator Transition){
         Transition.enabled=true;
