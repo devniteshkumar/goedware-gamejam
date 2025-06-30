@@ -59,7 +59,7 @@ MonoBehaviour:
       amount: 15
     - resourceType: 0
       amount: 5
-    noOfResourcesToGiveFromList: 0
+    noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
   - WaveDuration: 40
     EnemyTypes:
@@ -82,5 +82,5 @@ MonoBehaviour:
       amount: 15
     - resourceType: 0
       amount: 5
-    noOfResourcesToGiveFromList: 0
+    noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3

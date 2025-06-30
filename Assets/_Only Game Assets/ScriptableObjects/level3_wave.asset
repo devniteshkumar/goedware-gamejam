@@ -22,8 +22,12 @@ MonoBehaviour:
       spawnEndTime_0to1: 0.1
       spawnStartAngle: 0
       spawnEndAngle: 0
-    resourcesGivenAtEnd: []
-    noOfResourcesToGiveFromList: 0
+    resourcesGivenAtEnd:
+    - resourceType: 2
+      amount: 15
+    - resourceType: 0
+      amount: 5
+    noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
   - WaveDuration: 20
     EnemyTypes:
@@ -41,8 +45,12 @@ MonoBehaviour:
       spawnEndTime_0to1: 0.1
       spawnStartAngle: 270
       spawnEndAngle: 360
-    resourcesGivenAtEnd: []
-    noOfResourcesToGiveFromList: 0
+    resourcesGivenAtEnd:
+    - resourceType: 2
+      amount: 15
+    - resourceType: 0
+      amount: 5
+    noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
   - WaveDuration: 40
     EnemyTypes:
@@ -60,8 +68,12 @@ MonoBehaviour:
       spawnEndTime_0to1: 0.1
       spawnStartAngle: 0
       spawnEndAngle: 360
-    resourcesGivenAtEnd: []
-    noOfResourcesToGiveFromList: 0
+    resourcesGivenAtEnd:
+    - resourceType: 2
+      amount: 15
+    - resourceType: 0
+      amount: 5
+    noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
   - WaveDuration: 50
     EnemyTypes:
@@ -79,6 +91,10 @@ MonoBehaviour:
       spawnEndTime_0to1: 0.1
       spawnStartAngle: 0
       spawnEndAngle: 360
-    resourcesGivenAtEnd: []
-    noOfResourcesToGiveFromList: 0
+    resourcesGivenAtEnd:
+    - resourceType: 2
+      amount: 15
+    - resourceType: 0
+      amount: 5
+    noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
