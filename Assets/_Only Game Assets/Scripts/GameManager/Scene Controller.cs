@@ -6,9 +6,9 @@ using UnityEngine.Rendering;
 using Unity.VisualScripting;
 public class SceneController : MonoBehaviour
 {
-    [SerializeField]public static SceneController instance;
-    public static int CurrentLevel=1;
-    public static int UnlockedLevel=1;
+    [SerializeField] public static SceneController instance;
+    public static int CurrentLevel = 1;
+    public static int UnlockedLevel = 1;
     public Button[] LevelButtons;
     public Animator FadeAnimator;
     public float TransitionTime;
@@ -22,17 +22,19 @@ public class SceneController : MonoBehaviour
     {
         StartCoroutine(SceneTransition(name, animator));
     }
-    public void Quit(){
+    public void Quit()
+    {
         Application.Quit();
     }
-    public void Play(){
-        LoadScene("Level Map",FadeAnimator);
+    public void Play()
+    {
+        LoadScene("Level Map", FadeAnimator);
     }
     public void StartLevel(int Level)
     {
         CurrentLevel = Level;
         Time.timeScale = 1f;
-        LoadScene("N" + CurrentLevel.ToString() ,FadeAnimator);
+        LoadScene("N" + CurrentLevel.ToString(), FadeAnimator);
     }
     public void Retry()
     {
@@ -40,7 +42,7 @@ public class SceneController : MonoBehaviour
     }
     public void NextLevel()
     {
-        StartLevel(CurrentLevel);
+        StartLevel(CurrentLevel + 1);
     }
     public void MainMenu()
     {
@@ -48,7 +50,7 @@ public class SceneController : MonoBehaviour
     }
     public void Instructions()
     {
-        LoadScene("Instructions",FadeAnimator);
+        LoadScene("Instructions", FadeAnimator);
     }
     public void Complete()
     {
@@ -64,10 +66,11 @@ public class SceneController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Screen.SetActive(true);
     }
-    IEnumerator SceneTransition(string name,Animator Transition){
-        Transition.enabled=true;
+    IEnumerator SceneTransition(string name, Animator Transition)
+    {
+        Transition.enabled = true;
         Transition.SetTrigger("Start");
         yield return new WaitForSeconds(TransitionTime);
-        SceneManager.LoadSceneAsync(name);   
+        SceneManager.LoadSceneAsync(name);
     }
 }
