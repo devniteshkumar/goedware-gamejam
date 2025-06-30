@@ -185,8 +185,19 @@ public class EnemyWavesManager : MonoBehaviour
             float radius = enemyType.minDistanceFromPlayerToSpawn + Random.Range(-2, 4);
 
             spawnCenter = GameObject.FindGameObjectWithTag("Player").transform;
+            Vector2 center = spawnCenter.transform.position;
             Vector2 spawnOffset = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
-            Vector2 center = spawnCenter.transform.position; 
+
+            if (((center + spawnOffset).x < -22f) || ((center + spawnOffset).x > 15.5f))
+            {
+                angle = -angle;
+                spawnOffset = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
+            }
+            if (((center + spawnOffset).y < -8f) || ((center + spawnOffset).y > 24f))
+            {
+                angle = 180-angle;
+                spawnOffset = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
+            }
 
             return center + spawnOffset;
         }
