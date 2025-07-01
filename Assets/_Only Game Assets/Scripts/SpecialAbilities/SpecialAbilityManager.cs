@@ -58,7 +58,7 @@ public class SpecialAbilityManager : MonoBehaviour
     private void Start()
     {
         playerMovement = FindAnyObjectByType<PlayerMovement>();
-        playerHealth = playerMovement.GetComponent<HealthSystem>();
+        playerHealth = playerMovement?.GetComponent<HealthSystem>();
 
 
         if (from_Dropdown != null && to_Dropdown != null && amountInput != null)
@@ -193,7 +193,8 @@ public class SpecialAbilityManager : MonoBehaviour
 
     private void Update()
     {
-        timeRemainiingText.text = $"Time Remaining: {GetResource(ResourceTypes.Time).amount}";
+        if (timeRemainiingText != null)
+            timeRemainiingText.text = $"Time Remaining: {GetResource(ResourceTypes.Time).amount}";
         // Optional — for manual inspector trigger
         if (convert)
         {

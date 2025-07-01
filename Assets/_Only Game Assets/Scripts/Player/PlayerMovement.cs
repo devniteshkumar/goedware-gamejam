@@ -154,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
         if (hit.collider != null)
         {
             transform.position = hit.point;
+            Debug.Log(hit.collider.name);
             Debug.Log("Teleported to: " + hit.point);
         }
         else

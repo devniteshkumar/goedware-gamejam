@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (DebugMessageText.text != debugMessageTextToShow)
+        if (DebugMessageText?.text != debugMessageTextToShow)
         {
             DebugMessageText.text = debugMessageTextToShow;
             startTimer = true;
