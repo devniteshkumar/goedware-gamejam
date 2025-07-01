@@ -80,9 +80,12 @@ public class EnemyWavesManager : MonoBehaviour
         waveTime += Time.deltaTime;
 
         EnemySpawn();
-        totalWTText.text = time.ToString();
-        WTText.text = waveTime.ToString();
-        waveNoText.text = $"Wave: {currentWave}";
+        if (totalWTText != null)
+        {
+            totalWTText.text = time.ToString();
+            WTText.text = waveTime.ToString();
+            waveNoText.text = $"Wave: {currentWave}";
+        }
         if (startWaveWaitingTime)
             waitingTimeText.text = $"Waiting for Next Wave: {waveWaitingTime}";
         else
@@ -185,8 +188,10 @@ public class EnemyWavesManager : MonoBehaviour
             float angle = Random.Range(enemyType.spawnStartAngle, enemyType.spawnEndAngle);
             float radius = enemyType.minDistanceFromPlayerToSpawn + Random.Range(-2, 4);
 
-            spawnCenter = GameObject.FindGameObjectWithTag("Player").transform;
-            Vector2 center = spawnCenter.transform.position;
+            spawnCenter = GameObject.FindGameObjectWithTag("Player")?.transform;
+            Vector2 center = Vector2.zero;
+            if (spawnCenter != null)
+                center = spawnCenter.transform.position;
             Vector2 spawnOffset = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
 
             if (((center + spawnOffset).x < -22f) || ((center + spawnOffset).x > 15.5f))
