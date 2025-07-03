@@ -26,7 +26,7 @@ public class RangedWithMeleeEnemy : MonoBehaviour
     public GameObject missilePrefab;
     public GameObject damageArea;
     public float missileCooldown = 10f;
-    public float missileSpeed = 5;
+    public float missileSpeed = 7;
     public float maxSize = 5;
     public float minSize = 1;
     public float sizeIncrementationRate = 0.5f;
@@ -139,6 +139,12 @@ public class RangedWithMeleeEnemy : MonoBehaviour
         Vector2 midPoint = (player.position + transform.position) / 2;
         missiles.Add(new Missile(missile, midPoint));
 
+        Vector2 direction_toward_player = (player.transform.position - transform.position).normalized;
+
+        // Optional: rotate the arrow to face direction
+        float angle = Mathf.Atan2(direction_toward_player.y, direction_toward_player.x) * Mathf.Rad2Deg;
+        missile.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
         Rigidbody2D rb = missile.GetComponent<Rigidbody2D>();
         if (rb == null)
         {
@@ -146,7 +152,7 @@ public class RangedWithMeleeEnemy : MonoBehaviour
             return;
         }
 
-        rb.linearVelocity = direction.normalized * (-missileSpeed);
+        rb.linearVelocity = direction_toward_player.normalized * missileSpeed;
     }
 
 

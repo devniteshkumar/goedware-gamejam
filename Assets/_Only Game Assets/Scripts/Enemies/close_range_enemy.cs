@@ -38,30 +38,6 @@ public class close_range_enemy : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            animator.SetTrigger("Attack");
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log("=== TESTING TARGETS ===");
-
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            GameObject[] minions = GameObject.FindGameObjectsWithTag("goodminion");
-
-            Debug.Log("Player found: " + (player != null));
-            Debug.Log("Minions found: " + minions.Length);
-
-            foreach (GameObject m in minions)
-            {
-                Debug.Log("Minion: " + m.name);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            HealthSystem.TakeDamage(20);
-            flash.Flash();
-        }
 
         if (HealthSystem.currentHealth < 2 && !HealthSystem.dead)
         {

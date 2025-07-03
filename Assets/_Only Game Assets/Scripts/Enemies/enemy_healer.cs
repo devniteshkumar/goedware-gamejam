@@ -26,13 +26,6 @@ public class enemy_healer : MonoBehaviour
             StartCoroutine(PlayDeathAnimation(transform)); 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            var healthSystem = gameObject.GetComponent<HealthSystem>();
-            healthSystem.TakeDamage(20);
-            flash.Flash();
-
-        }
 
 
         if (current_enemy == null)

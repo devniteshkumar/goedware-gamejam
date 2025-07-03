@@ -55,11 +55,6 @@ public class archer_enemy : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            HealthSystem.TakeDamage(20);
-            flash.Flash();
-        }
 
 
         if (player)

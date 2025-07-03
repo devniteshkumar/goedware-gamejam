@@ -110,6 +110,7 @@ MonoBehaviour:
   healthSystem: {fileID: 0}
   moveSpeed: 3
   minDistanceWithPlayer: 10
+  maxDistanceFromPlayer: 20
   minionPrefab: {fileID: 5740665623937155572, guid: de4421c1c2c0bec429583fb0eababe2a, type: 3}
   spawnCooldown: 0.5
   spawnRadius: 2
@@ -117,7 +118,7 @@ MonoBehaviour:
   missilePrefab: {fileID: 3520857731717132956, guid: c018a40de5131ae4e8b8720a41582e1d, type: 3}
   damageArea: {fileID: 5046220459201113712, guid: b4481d28624d0454090c61e4a0bc7e9a, type: 3}
   missileCooldown: 3
-  missileSpeed: 5
+  missileSpeed: 7
   maxSize: 5
   minSize: 0.1
   sizeIncrementationRate: 1
