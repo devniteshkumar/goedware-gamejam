@@ -46,13 +46,13 @@ MonoBehaviour:
       spawnStartAngle: 270
       spawnEndAngle: 360
     resourcesGivenAtEnd:
-    - resourceType: 2
+    - resourceType: 4
       amount: 15
-    - resourceType: 0
+    - resourceType: 1
       amount: 5
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
-  - WaveDuration: 40
+  - WaveDuration: 30
     EnemyTypes:
     - EnemyPrefab: {fileID: 1777479488141616853, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
       amountToSpawn: 0
@@ -69,13 +69,13 @@ MonoBehaviour:
       spawnStartAngle: 0
       spawnEndAngle: 360
     resourcesGivenAtEnd:
-    - resourceType: 2
-      amount: 15
     - resourceType: 0
-      amount: 5
+      amount: 15
+    - resourceType: 3
+      amount: 0.2
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
-  - WaveDuration: 50
+  - WaveDuration: 30
     EnemyTypes:
     - EnemyPrefab: {fileID: 1777479488141616853, guid: f1f66dfe7e6ebea4f8b6d9c03da5e6e9, type: 3}
       amountToSpawn: 10
@@ -92,9 +92,9 @@ MonoBehaviour:
       spawnStartAngle: 0
       spawnEndAngle: 360
     resourcesGivenAtEnd:
-    - resourceType: 2
+    - resourceType: 4
       amount: 15
-    - resourceType: 0
+    - resourceType: 1
       amount: 5
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3

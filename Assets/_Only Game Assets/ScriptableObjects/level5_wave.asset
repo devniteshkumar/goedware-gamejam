@@ -44,9 +44,9 @@ MonoBehaviour:
       spawnStartAngle: 0
       spawnEndAngle: 0
     resourcesGivenAtEnd:
-    - resourceType: 2
-      amount: 15
-    - resourceType: 0
+    - resourceType: 1
+      amount: 5
+    - resourceType: 4
       amount: 5
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
@@ -83,8 +83,8 @@ MonoBehaviour:
     resourcesGivenAtEnd:
     - resourceType: 2
       amount: 15
-    - resourceType: 0
-      amount: 5
+    - resourceType: 3
+      amount: 0.2
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
   - WaveDuration: 45
@@ -118,9 +118,9 @@ MonoBehaviour:
       spawnStartAngle: 0
       spawnEndAngle: 0
     resourcesGivenAtEnd:
+    - resourceType: 6
+      amount: 1
     - resourceType: 2
-      amount: 15
-    - resourceType: 0
       amount: 5
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
@@ -155,10 +155,10 @@ MonoBehaviour:
       spawnStartAngle: 0
       spawnEndAngle: 0
     resourcesGivenAtEnd:
-    - resourceType: 2
-      amount: 15
-    - resourceType: 0
+    - resourceType: 4
       amount: 5
+    - resourceType: 3
+      amount: 0.2
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
   - WaveDuration: 60
