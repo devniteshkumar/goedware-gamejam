@@ -13,6 +13,7 @@ public class RangedWithMeleeEnemy : MonoBehaviour
     [Header("Enemy Properties")]
     public float moveSpeed = 3f;
     public float minDistanceWithPlayer = 10f;
+    public float maxDistanceFromPlayer = 20f;
 
     [Header("Minion Properties")]
     public GameObject minionPrefab;
@@ -77,15 +78,24 @@ public class RangedWithMeleeEnemy : MonoBehaviour
             healer = GameObject.FindWithTag("Healer")?.transform;
         }
 
-        if (distance < minDistanceWithPlayer)
+        if (distance < minDistanceWithPlayer && distance < maxDistanceFromPlayer)
         {
             isRunning = true;
-            transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)dir, moveSpeed * Time.deltaTime);  //Champt GPT
+            transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)dir, moveSpeed * Time.deltaTime);
+        }
+        else if (distance >= maxDistanceFromPlayer)
+        {
+            isRunning = true;
+            // Move toward the player to stay within range
+            Vector2 moveToPlayerDir = (player.position - transform.position).normalized;
+            transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)moveToPlayerDir, moveSpeed * Time.deltaTime);
         }
         else
         {
             isRunning = false;
         }
+
+
         if (healthSystem.currentHealth != healthSystem.maxHealth)
         {
             if (!enemy_healer.enemiesToHeal.Contains(gameObject))

@@ -30,6 +30,7 @@ public class audio_manager : MonoBehaviour
     void Start()
     {
         background_music.clip = background;
+        background_music.loop = true;
         background_music.Play();
     }
 

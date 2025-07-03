@@ -61,7 +61,7 @@ public class EnemyWavesManager : MonoBehaviour
         if (time > totalWaveTime_Conatant && !LevelDone && allEnemiesInWave.Count <= 0)
         {
             SceneController.instance.Complete();
-            //SceneManager.LoadScene(GameManager.Instance.levels[++GameManager.Instance.currentScene]);
+            // SceneManager.LoadScene(GameManager.Instance.levels[++GameManager.Instance.currentScene]);
             GameManager.Instance.debugMessageTextToShow = "Level Complete!";
             LevelDone = true;
             return;
@@ -80,9 +80,12 @@ public class EnemyWavesManager : MonoBehaviour
         waveTime += Time.deltaTime;
 
         EnemySpawn();
-        totalWTText.text = time.ToString();
-        WTText.text = waveTime.ToString();
-        waveNoText.text = $"Wave: {currentWave}";
+        if (totalWTText != null)
+        {
+            totalWTText.text = time.ToString();
+            WTText.text = waveTime.ToString();
+            waveNoText.text = $"Wave: {currentWave}";
+        }
         if (startWaveWaitingTime)
             waitingTimeText.text = $"Waiting for Next Wave: {waveWaitingTime}";
         else
@@ -107,13 +110,6 @@ public class EnemyWavesManager : MonoBehaviour
         List<Resource> totalResources = EnemyWaveSO.waves[currentWave].resourcesGivenAtEnd;
         int totalNoofResources = totalResources.Count;
         toGive = EnemyWaveSO.waves[currentWave].noOfResourcesToGiveFromList;
-    private void SetResourcePanel()
-    {
-        given = 0;
-        GameManager.Instance.pause = true;
-        List<Resource> totalResources = EnemyWaveSO.waves[currentWave].resourcesGivenAtEnd;
-        int totalNoofResources = totalResources.Count;
-        toGive = EnemyWaveSO.waves[currentWave].noOfResourcesToGiveFromList;
 
         animator.SetBool("load", true);
         amountToChooseText.text = $"Choose {toGive} Resources For Next Wave";
@@ -129,27 +125,11 @@ public class EnemyWavesManager : MonoBehaviour
             resourceButtonObjs[i].GetComponentInChildren<Button>().onClick.AddListener(() => { GiveResource(resource); });
         }
     }
-        for (int i = 0; i < totalNoofResources; i++)
-        {
-            resourceButtonObjs.Add(Instantiate(giveResourceButtonPrefab, prefabContainer.transform));
-            resourceButtonObjs[i].gameObject.SetActive(true);
-            buttonResources.Add(totalResources[i]);
-            TMP_Text resourceAmountText = resourceButtonObjs[i].GetComponentInChildren<TMP_Text>();
-            resourceAmountText.text = $"{buttonResources[i].resourceType} : {buttonResources[i].amount}";
-            Resource resource = buttonResources[i];
-            resourceButtonObjs[i].GetComponentInChildren<Button>().onClick.AddListener(() => { GiveResource(resource); });
-        }
-    }
 
     public void GiveResource(Resource resource)
     {
         if (given >= toGive) return;
-    public void GiveResource(Resource resource)
-    {
-        if (given >= toGive) return;
 
-        SpecialAbilityManager.GetResource(resource.resourceType).amount += resource.amount;
-        specialAbilityManager.SyncHealth();
         SpecialAbilityManager.GetResource(resource.resourceType).amount += resource.amount;
         specialAbilityManager.SyncHealth();
 
@@ -160,24 +140,7 @@ public class EnemyWavesManager : MonoBehaviour
             ResetGiveResourcePanel();
         }
     }
-        given++;
-        if (given == toGive)
-        {
-            ResetGiveResourcePanel();
-        }
-    }
 
-    private void ResetGiveResourcePanel()
-    {
-        buttonResources.Clear();
-        foreach (var item in resourceButtonObjs)
-        {
-            Destroy(item);
-        }
-        resourceButtonObjs.Clear();
-        animator.SetBool("load", false);
-        GameManager.Instance.pause = false;
-    }
     private void ResetGiveResourcePanel()
     {
         buttonResources.Clear();
@@ -225,18 +188,20 @@ public class EnemyWavesManager : MonoBehaviour
             float angle = Random.Range(enemyType.spawnStartAngle, enemyType.spawnEndAngle);
             float radius = enemyType.minDistanceFromPlayerToSpawn + Random.Range(-2, 4);
 
-            spawnCenter = GameObject.FindGameObjectWithTag("Player").transform;
-            Vector2 center = spawnCenter.transform.position;
+            spawnCenter = GameObject.FindGameObjectWithTag("Player")?.transform;
+            Vector2 center = Vector2.zero;
+            if (spawnCenter != null)
+                center = spawnCenter.transform.position;
             Vector2 spawnOffset = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
 
             if (((center + spawnOffset).x < -22f) || ((center + spawnOffset).x > 15.5f))
             {
-                angle = -angle;
+                angle = 180-angle;
                 spawnOffset = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
             }
             if (((center + spawnOffset).y < -8f) || ((center + spawnOffset).y > 24f))
             {
-                angle = 180-angle;
+                angle = -angle;
                 spawnOffset = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
             }
 
