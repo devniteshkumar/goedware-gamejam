@@ -2756,6 +2756,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 2399541479252405318, guid: b362882da4fa0514bbbaba48c7311ab7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2588895812059047296, guid: b362882da4fa0514bbbaba48c7311ab7, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
@@ -3526,6 +3530,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5442677952390177457, guid: b681086f293be56489c0f6919136b138, type: 3}
+      propertyPath: teleportLayer.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5882655322589804256, guid: b681086f293be56489c0f6919136b138, type: 3}
       propertyPath: m_Name
       value: Player

@@ -73,7 +73,7 @@ MonoBehaviour:
       amount: 5
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
-  - WaveDuration: 40
+  - WaveDuration: 30
     EnemyTypes:
     - EnemyPrefab: {fileID: 2792255431923626921, guid: 51dbb525d38db5f4ea6764f141dc18ff, type: 3}
       amountToSpawn: 10
@@ -103,7 +103,7 @@ MonoBehaviour:
       amount: 0.2
     noOfResourcesToGiveFromList: 1
     timeAfterNextWaveStart: 3
-  - WaveDuration: 45
+  - WaveDuration: 30
     EnemyTypes:
     - EnemyPrefab: {fileID: 2792255431923626921, guid: 51dbb525d38db5f4ea6764f141dc18ff, type: 3}
       amountToSpawn: 20
