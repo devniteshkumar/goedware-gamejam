@@ -10,6 +10,7 @@ public class close_range_enemy : MonoBehaviour
     public float attack_raidus;
     public float attack_distance_from_center;
     public LayerMask player_side_mask;
+    public LayerMask enemy_mask;
     public Animator animator;
 
     private Rigidbody2D rb;
@@ -162,8 +163,8 @@ public class close_range_enemy : MonoBehaviour
     IEnumerator DealDamageAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-
         Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attack_point.position, attack_raidus, player_side_mask);
+        Collider2D[] hitenemyTargets = Physics2D.OverlapCircleAll(attack_point.position, attack_raidus, enemy_mask);
         foreach (Collider2D col in hitTargets)
         {
             HealthSystem h = col.GetComponent<HealthSystem>();
@@ -172,6 +173,19 @@ public class close_range_enemy : MonoBehaviour
                 h.TakeDamage(10);
                 Debug.Log("Attacked: " + col.name);
             }
+        }
+        foreach (Collider2D col in hitenemyTargets)
+        {
+            if (col.CompareTag("GoodMinion"))
+            {
+                HealthSystem h = col.GetComponent<HealthSystem>();
+                if (h != null)
+                {
+                    h.TakeDamage(10);
+                    Debug.Log("Attacked: " + col.name);
+                }
+            }
+
         }
     }
 

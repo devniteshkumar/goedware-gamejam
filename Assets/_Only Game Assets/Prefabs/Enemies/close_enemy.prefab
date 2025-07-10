@@ -129,6 +129,9 @@ MonoBehaviour:
   player_side_mask:
     serializedVersion: 2
     m_Bits: 128
+  enemy_mask:
+    serializedVersion: 2
+    m_Bits: 256
   animator: {fileID: 1413777042894615497}
   target: {fileID: 0}
   healthUI: {fileID: 65428390977463376}
